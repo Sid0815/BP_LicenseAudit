@@ -10,3 +10,9 @@ C:\Users\henkelmann\Documents\Visual Studio 2015\Projects\TestPing\TestPing\obj\
 C:\Users\henkelmann\Documents\Visual Studio 2015\Projects\TestPing\TestPing\bin\Debug\TestPing.exe
 C:\Users\henkelmann\Documents\Visual Studio 2015\Projects\TestPing\TestPing\bin\Debug\TestPing.pdb
 C:\Users\henkelmann\Documents\Visual Studio 2015\Projects\TestPing\TestPing\obj\Debug\TestPing.csprojResolveAssemblyReference.cache
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\bin\Debug\TestPing.exe.config
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\bin\Debug\TestPing.exe
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\bin\Debug\TestPing.pdb
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.csprojResolveAssemblyReference.cache
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.exe
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.pdb
