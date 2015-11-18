@@ -34,11 +34,13 @@ namespace TestPing
                 y = IncrementIP(y);
                 Console.WriteLine(y.ToString());
             }
-
+            int count = 0;
             foreach(IPAddress i in pingbar)
             {
                 Console.WriteLine("Reachable: " + i.ToString());
+                count++;
             }
+            Console.WriteLine("Count: " + count);
 
             
             //testIP = IPAddress.Parse("123123123");
