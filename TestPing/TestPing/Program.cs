@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Net;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,24 +12,32 @@ namespace TestPing
 {
     class Program
     {
+        private static ArrayList pingbar = new ArrayList();
+
         static void Main(string[] args)
         {
             Byte[] ip = new Byte[4];
-            ip[0] = 0;
-            ip[1] = 0;
-            ip[2] = 0;
+            ip[0] = 192;
+            ip[1] = 168;
+            ip[2] = 100;
             ip[3] = 0;
             IPAddress testIP = new IPAddress(ip);
-            Console.WriteLine(testIP.ToString());
+            Console.WriteLine("Networkaddress: " + testIP.ToString());
 
             //test incrementing
-            Console.WriteLine("Test incrementing:");
+            Console.WriteLine("Test pinging:");
             IPAddress y = testIP;
             
-            for (int i =0; i<100000; i++)
+            for (int i =0; i<255; i++)
             {
+                ping(y);
                 y = IncrementIP(y);
                 Console.WriteLine(y.ToString());
+            }
+
+            foreach(IPAddress i in pingbar)
+            {
+                Console.WriteLine("Reachable: " + i.ToString());
             }
 
             
@@ -68,15 +76,17 @@ namespace TestPing
 
             if (reply.Status == IPStatus.Success)
             {
-                Console.WriteLine("Address: {0}", reply.Address.ToString());
-                Console.WriteLine("RoundTrip time: {0}", reply.RoundtripTime);
-                Console.WriteLine("Time to live: {0}", reply.Options.Ttl);
-                Console.WriteLine("Don't fragment: {0}", reply.Options.DontFragment);
-                Console.WriteLine("Buffer size: {0}", reply.Buffer.Length);
+                pingbar.Add(ip);
+                //Console.WriteLine("Address: {0}", reply.Address.ToString());
+                //Console.WriteLine("RoundTrip time: {0}", reply.RoundtripTime);
+                //Console.WriteLine("Time to live: {0}", reply.Options.Ttl);
+                //Console.WriteLine("Don't fragment: {0}", reply.Options.DontFragment);
+                //Console.WriteLine("Buffer size: {0}", reply.Buffer.Length);
             }
             else
             {
-                Console.WriteLine(reply.Status);
+                return;
+                //Console.WriteLine(reply.Status);
             }
         }
     }
