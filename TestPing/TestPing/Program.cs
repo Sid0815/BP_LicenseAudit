@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Sockets;
-using System.Text.RegularExpressions;
 using System.Net.NetworkInformation;
 
 namespace TestPing
@@ -28,12 +23,14 @@ namespace TestPing
             Console.WriteLine("Test pinging:");
             IPAddress y = testIP;
             
+            //ping scan network
             for (int i =0; i<255; i++)
             {
                 ping(y);
                 y = IncrementIP(y);
                 Console.WriteLine(y.ToString());
             }
+            //print results
             int count = 0;
             foreach(IPAddress i in pingbar)
             {
@@ -41,9 +38,6 @@ namespace TestPing
                 count++;
             }
             Console.WriteLine("Count: " + count);
-
-            
-            //testIP = IPAddress.Parse("123123123");
             Console.WriteLine();
             //Pause
             String x = Console.ReadLine();  
@@ -65,16 +59,16 @@ namespace TestPing
             //increment IP
             convertedIP++;
             //convert Integer back to IP Address
-            IPAddress i = IPAddress.Parse(Convert.ToString(convertedIP));
+            return IPAddress.Parse(Convert.ToString(convertedIP));
             //Console.WriteLine("Incremented IP: "+i.ToString());
-            return i;
+            
         }
 
         public static void ping (IPAddress ip)
         {
             // Ping's the ip address
             Ping pingSender = new Ping();
-            PingReply reply = pingSender.Send(ip);
+            PingReply reply = pingSender.Send(ip, 100);
 
             if (reply.Status == IPStatus.Success)
             {
