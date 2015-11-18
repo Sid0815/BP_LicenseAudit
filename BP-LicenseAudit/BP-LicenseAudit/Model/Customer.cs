@@ -1,0 +1,103 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BP_LicenseAudit.Model
+{
+    class Customer
+    {
+        //properties
+        private int cnumber;
+        public int Cnumber
+        {
+            get
+            {
+                return cnumber;
+            }
+
+            private set
+            {
+                cnumber = value;
+            }
+        }
+        private string name;
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+            }
+        }
+
+        private string street;
+        public string Street
+        {
+            get
+            {
+                return street;
+            }
+
+            set
+            {
+                street = value;
+            }
+        }
+
+        private string city;
+        public string City
+        {
+            get
+            {
+                return City;
+            }
+            set
+            {
+                city = value;
+            }
+        }
+
+        private string zip;
+        public string Zip
+        {
+            get
+            {
+                return Zip;
+            }
+            set
+            {
+                zip = value;
+            }
+        }
+
+        private string streetnumber;
+        public string Streetnumber
+        {
+            get
+            {
+                return streetnumber;
+            }
+            set
+            {
+                streetnumber = value;
+            }
+        }
+
+        //Constructor
+        public Customer (int cnumber)
+        {
+            this.cnumber = cnumber;
+            name = null;
+            street = null;
+            city = null;
+            zip = null;
+            streetnumber = null;
+        }
+    }
+
+}
