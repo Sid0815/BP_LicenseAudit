@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerChanges : Controller
+    class ControllerChanges : ControllerParent
     {
         //properties
         private NetworkInventory currentNetworkInventory;
@@ -16,7 +17,7 @@ namespace BP_LicenseAudit.Controller
         private License selectedlicense;
 
         //constrctor
-        public ControllerChanges()
+        public ControllerChanges(Form view) : base(view)
         {
 
         }

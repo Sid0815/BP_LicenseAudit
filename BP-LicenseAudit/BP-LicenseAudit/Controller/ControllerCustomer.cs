@@ -3,16 +3,17 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using BP_LicenseAudit.Model;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerCustomer : Controller
+    class ControllerCustomer : ControllerParent
     {
         ArrayList list_customers;
 
         //Constructor
-        public ControllerCustomer()
+        public ControllerCustomer(Form view):base(view)
         {
 
         }

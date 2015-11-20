@@ -13,3 +13,19 @@ c:\users\user\documents\visual studio 2015\Projects\BP-LicenseAudit\BP-LicenseAu
 C:\Users\User\Documents\Visual Studio 2015\Projects\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormChange.resources
 C:\Users\User\Documents\Visual Studio 2015\Projects\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormAudit.resources
 C:\Users\User\Documents\Visual Studio 2015\Projects\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormSystemInventory.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.exe.config
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.exe
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.pdb
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormAudit.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormChange.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormCustomer.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormSystemInventory.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormLicense.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormMain.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormNetwork.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.Properties.Resources.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csproj.GenerateResource.Cache
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.View.FormParent.resources
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.exe
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.pdb

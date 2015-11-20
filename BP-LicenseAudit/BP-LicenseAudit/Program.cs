@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BP_LicenseAudit.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,9 +15,18 @@ namespace BP_LicenseAudit
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            //Initialize Main Form Forms
+            Form FMain = new FormMain();
+            FMain.Visible = false;
+
+            //Initialize Controller
+            ControllerMain CMain = new ControllerMain(FMain);
+
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new FormMain());
+            FMain.ShowDialog();
         }
+
     }
 }

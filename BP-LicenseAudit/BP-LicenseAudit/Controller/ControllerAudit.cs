@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerAudit : Controller
+    class ControllerAudit : ControllerParent
     {
         //properties
         private SystemInventory currentSystemInventroy;
@@ -15,7 +16,7 @@ namespace BP_LicenseAudit.Controller
         private Audit currentAudit;
 
         //constructor
-        public ControllerAudit()
+        public ControllerAudit(Form view):base(view)
         {
 
         }

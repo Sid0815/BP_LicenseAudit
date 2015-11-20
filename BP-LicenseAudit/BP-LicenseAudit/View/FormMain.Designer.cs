@@ -1,4 +1,4 @@
-﻿namespace BP_LicenseAudit
+﻿namespace BP_LicenseAudit.View
 {
     partial class FormMain
     {

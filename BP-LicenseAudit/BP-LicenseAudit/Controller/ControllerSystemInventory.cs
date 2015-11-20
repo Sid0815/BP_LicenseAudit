@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerSystemInventory : Controller
+    class ControllerSystemInventory : ControllerParent
     {
         //properties
         private NetworkInventory currentNetworkInventory;
@@ -15,10 +16,9 @@ namespace BP_LicenseAudit.Controller
         private ClientSystem currentSystem;
 
         //constructor
-        public ControllerSystemInventory()
-        {
-
-        }
+        public ControllerSystemInventory(Form view) : base(view)
+        { }
+        
 
         //funtions
         private void scanNetwork()

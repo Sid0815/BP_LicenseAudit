@@ -4,16 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerNetwork : Controller
+    class ControllerNetwork : ControllerParent
     {
         private NetworkInventory currentNetworkInventory;
         private Network currentNetwork;
 
         //constructor
-        public ControllerNetwork()
+        public ControllerNetwork(Form view) : base(view)
         {
 
         }

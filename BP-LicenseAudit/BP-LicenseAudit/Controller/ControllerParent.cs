@@ -4,12 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class Controller
+    public class ControllerParent
     {
         private Customer currentCustomer;
+        private Form view;
+
+        public ControllerParent (Form view)
+        {
+            //connect controller to its view
+            this.view = view;
+        }
 
 
         public void SelectedCustomerChanged(String name)
