@@ -1,4 +1,4 @@
-﻿namespace BP_LicenseAudit
+﻿namespace BP_LicenseAudit.View
 {
     partial class FormSystemInventory
     {
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmbCustomer = new System.Windows.Forms.ComboBox();
-            this.lblCustomer = new System.Windows.Forms.Label();
             this.lblNetwork = new System.Windows.Forms.Label();
             this.lstNetworks = new System.Windows.Forms.ListBox();
             this.lstClients = new System.Windows.Forms.ListBox();
@@ -38,25 +36,7 @@
             this.lblDetail = new System.Windows.Forms.Label();
             this.chkAll = new System.Windows.Forms.CheckBox();
             this.btnInventory = new System.Windows.Forms.Button();
-            this.btnEnd = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // cmbCustomer
-            // 
-            this.cmbCustomer.FormattingEnabled = true;
-            this.cmbCustomer.Location = new System.Drawing.Point(54, 9);
-            this.cmbCustomer.Name = "cmbCustomer";
-            this.cmbCustomer.Size = new System.Drawing.Size(362, 21);
-            this.cmbCustomer.TabIndex = 5;
-            // 
-            // lblCustomer
-            // 
-            this.lblCustomer.AutoSize = true;
-            this.lblCustomer.Location = new System.Drawing.Point(7, 12);
-            this.lblCustomer.Name = "lblCustomer";
-            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
-            this.lblCustomer.TabIndex = 4;
-            this.lblCustomer.Text = "Kunde:";
             // 
             // lblNetwork
             // 
@@ -133,23 +113,33 @@
             this.btnInventory.TabIndex = 13;
             this.btnInventory.Text = "Inventarisierung starten";
             this.btnInventory.UseVisualStyleBackColor = true;
+            //
+            //inherited Elements
+            //
+            // 
+            // cmbCustomer
+            // 
+            this.cmbCustomer.Location = new System.Drawing.Point(54, 9);
+            this.cmbCustomer.Size = new System.Drawing.Size(362, 21);
+            this.cmbCustomer.TabIndex = 5;
+            // 
+            // lblCustomer
+            // 
+            this.lblCustomer.Location = new System.Drawing.Point(7, 12);
+            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
+            this.lblCustomer.TabIndex = 4;
             // 
             // btnEnd
             // 
             this.btnEnd.Location = new System.Drawing.Point(166, 297);
-            this.btnEnd.Name = "btnEnd";
             this.btnEnd.Size = new System.Drawing.Size(140, 33);
             this.btnEnd.TabIndex = 14;
-            this.btnEnd.Text = "Ende";
-            this.btnEnd.UseVisualStyleBackColor = true;
-            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
             // 
-            // FormInventory
+            // FormSystemInventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(428, 338);
-            this.Controls.Add(this.btnEnd);
             this.Controls.Add(this.btnInventory);
             this.Controls.Add(this.chkAll);
             this.Controls.Add(this.lstDetails);
@@ -158,9 +148,7 @@
             this.Controls.Add(this.lblClients);
             this.Controls.Add(this.lstNetworks);
             this.Controls.Add(this.lblNetwork);
-            this.Controls.Add(this.cmbCustomer);
-            this.Controls.Add(this.lblCustomer);
-            this.Name = "FormInventory";
+            this.Name = "FormSystemInventory";
             this.Text = "Inventarisierung durchführen";
             this.Load += new System.EventHandler(this.FormInventary_Load);
             this.ResumeLayout(false);
@@ -169,9 +157,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cmbCustomer;
-        private System.Windows.Forms.Label lblCustomer;
         private System.Windows.Forms.Label lblNetwork;
         private System.Windows.Forms.ListBox lstNetworks;
         private System.Windows.Forms.ListBox lstClients;
@@ -180,6 +165,5 @@
         private System.Windows.Forms.Label lblDetail;
         private System.Windows.Forms.CheckBox chkAll;
         private System.Windows.Forms.Button btnInventory;
-        private System.Windows.Forms.Button btnEnd;
     }
 }

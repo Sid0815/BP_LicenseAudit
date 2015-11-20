@@ -149,9 +149,9 @@
             // 
             // btnEnd
             // 
-            this.btnEnde.Location = new System.Drawing.Point(285, 387);
-            this.btnEnde.Size = new System.Drawing.Size(120, 30);
-            this.btnEnde.TabIndex = 18;
+            this.btnEnd.Location = new System.Drawing.Point(285, 387);
+            this.btnEnd.Size = new System.Drawing.Size(120, 30);
+            this.btnEnd.TabIndex = 18;
             // 
             // FormAudit
             // 

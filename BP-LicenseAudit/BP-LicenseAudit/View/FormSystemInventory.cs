@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BP_LicenseAudit
+namespace BP_LicenseAudit.View
 {
-    public partial class FormSystemInventory : Form
+    public partial class FormSystemInventory : FormParent
     {
         public FormSystemInventory()
         {

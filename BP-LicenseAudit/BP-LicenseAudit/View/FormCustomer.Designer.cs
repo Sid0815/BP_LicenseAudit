@@ -1,4 +1,4 @@
-﻿namespace BP_LicenseAudit
+﻿namespace BP_LicenseAudit.View
 {
     partial class FormCustomer
     {
@@ -42,7 +42,6 @@
             this.txtCzip = new System.Windows.Forms.TextBox();
             this.btnSaveNext = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnEnd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblCNr
@@ -160,23 +159,31 @@
             this.btnSave.TabIndex = 13;
             this.btnSave.Text = "Speichern und Ende";
             this.btnSave.UseVisualStyleBackColor = true;
+            //
+            //Inherited Elements
+            //
             // 
             // btnEnd
             // 
             this.btnEnd.Location = new System.Drawing.Point(251, 128);
-            this.btnEnd.Name = "btnEnd";
             this.btnEnd.Size = new System.Drawing.Size(105, 36);
             this.btnEnd.TabIndex = 14;
-            this.btnEnd.Text = "Ende";
-            this.btnEnd.UseVisualStyleBackColor = true;
-            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
+            //
+            //lblCustomer
+            //
+            this.lblCustomer.Visible = false;
+            this.lblCustomer.Enabled = false;
+            //
+            //cmbCustomer
+            //
+            this.cmbCustomer.Visible = false;
+            this.cmbCustomer.Enabled = false;
             // 
             // FormCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(368, 178);
-            this.Controls.Add(this.btnEnd);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSaveNext);
             this.Controls.Add(this.txtCzip);
@@ -214,6 +221,5 @@
         private System.Windows.Forms.TextBox txtCzip;
         private System.Windows.Forms.Button btnSaveNext;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnEnd;
     }
 }

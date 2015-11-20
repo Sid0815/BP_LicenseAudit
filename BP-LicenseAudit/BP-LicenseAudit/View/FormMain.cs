@@ -19,8 +19,8 @@ namespace BP_LicenseAudit.View
 
         private void btnCustomer_Click(object sender, EventArgs e)
         {
-            //FormCustomer fc = new FormCustomer();
-            //fc.ShowDialog();
+            FormCustomer fc = new FormCustomer();
+            fc.ShowDialog();
 
         }
 

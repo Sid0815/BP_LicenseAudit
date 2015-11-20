@@ -1,4 +1,4 @@
-﻿namespace BP_LicenseAudit
+﻿namespace BP_LicenseAudit.View
 {
     partial class FormLicense
     {
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmbCustomer = new System.Windows.Forms.ComboBox();
-            this.lblCustomer = new System.Windows.Forms.Label();
             this.lstLicenses = new System.Windows.Forms.ListBox();
             this.lblLicenses = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,26 +35,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnEnd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // cmbCustomer
-            // 
-            this.cmbCustomer.FormattingEnabled = true;
-            this.cmbCustomer.Location = new System.Drawing.Point(53, 9);
-            this.cmbCustomer.Name = "cmbCustomer";
-            this.cmbCustomer.Size = new System.Drawing.Size(252, 21);
-            this.cmbCustomer.TabIndex = 3;
-            // 
-            // lblCustomer
-            // 
-            this.lblCustomer.AutoSize = true;
-            this.lblCustomer.Location = new System.Drawing.Point(6, 12);
-            this.lblCustomer.Name = "lblCustomer";
-            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
-            this.lblCustomer.TabIndex = 2;
-            this.lblCustomer.Text = "Kunde:";
             // 
             // lstLicenses
             // 
@@ -118,23 +98,33 @@
             this.button1.TabIndex = 10;
             this.button1.Text = "Lizenzen hinzufügen";
             this.button1.UseVisualStyleBackColor = true;
+            //
+            //inherited Elements
+            //
+            // 
+            // cmbCustomer
+            // 
+            this.cmbCustomer.Location = new System.Drawing.Point(53, 9);
+            this.cmbCustomer.Size = new System.Drawing.Size(252, 21);
+            this.cmbCustomer.TabIndex = 3;
+            // 
+            // lblCustomer
+            // 
+            this.lblCustomer.Location = new System.Drawing.Point(6, 12);
+            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
+            this.lblCustomer.TabIndex = 2;
             // 
             // btnEnd
             // 
             this.btnEnd.Location = new System.Drawing.Point(229, 152);
-            this.btnEnd.Name = "btnEnd";
             this.btnEnd.Size = new System.Drawing.Size(76, 39);
             this.btnEnd.TabIndex = 11;
-            this.btnEnd.Text = "Ende";
-            this.btnEnd.UseVisualStyleBackColor = true;
-            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
             // 
             // FormLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(315, 239);
-            this.Controls.Add(this.btnEnd);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.label2);
@@ -142,8 +132,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lstLicenses);
             this.Controls.Add(this.lblLicenses);
-            this.Controls.Add(this.cmbCustomer);
-            this.Controls.Add(this.lblCustomer);
             this.Name = "FormLicense";
             this.Text = "FormLicense";
             this.Load += new System.EventHandler(this.FormLicense_Load);
@@ -154,9 +142,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cmbCustomer;
-        private System.Windows.Forms.Label lblCustomer;
         private System.Windows.Forms.ListBox lstLicenses;
         private System.Windows.Forms.Label lblLicenses;
         private System.Windows.Forms.Label label1;
@@ -164,6 +149,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnEnd;
     }
 }

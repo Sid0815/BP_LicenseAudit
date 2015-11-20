@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BP_LicenseAudit
+namespace BP_LicenseAudit.View
 {
-    public partial class FormNetwork : Form
+    public partial class FormNetwork : FormParent
     {
         public FormNetwork()
         {

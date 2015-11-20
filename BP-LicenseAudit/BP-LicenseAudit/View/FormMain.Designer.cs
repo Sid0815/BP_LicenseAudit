@@ -174,8 +174,8 @@
             //
             //btnEnde
             //
-            this.btnEnde.Location = new System.Drawing.Point(586, 61);
-            this.btnEnde.Size = new System.Drawing.Size(117, 35);
+            this.btnEnd.Location = new System.Drawing.Point(586, 61);
+            this.btnEnd.Size = new System.Drawing.Size(117, 35);
             //
             //lblCustomer
             //

@@ -30,7 +30,7 @@ namespace BP_LicenseAudit.View
             InitializeComponent();
         }
 
-        private void btnEnde_Click(object sender, EventArgs e)
+        private void btnEnd_Click(object sender, EventArgs e)
         {
             Close();
         }

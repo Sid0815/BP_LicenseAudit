@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnEnde = new System.Windows.Forms.Button();
+            this.btnEnd = new System.Windows.Forms.Button();
             this.cmbCustomer = new System.Windows.Forms.ComboBox();
             this.lblCustomer = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // btnEnde
+            // btnEnd
             // 
-            this.btnEnde.Location = new System.Drawing.Point(13, 49);
-            this.btnEnde.Name = "btnEnde";
-            this.btnEnde.Size = new System.Drawing.Size(75, 23);
-            this.btnEnde.TabIndex = 0;
-            this.btnEnde.Text = "Ende";
-            this.btnEnde.UseVisualStyleBackColor = true;
-            this.btnEnde.Click += new System.EventHandler(this.btnEnde_Click);
+            this.btnEnd.Location = new System.Drawing.Point(13, 49);
+            this.btnEnd.Name = "btnEnd";
+            this.btnEnd.Size = new System.Drawing.Size(75, 23);
+            this.btnEnd.TabIndex = 0;
+            this.btnEnd.Text = "Ende";
+            this.btnEnd.UseVisualStyleBackColor = true;
+            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
             // 
             // cmbCustomer
             // 
@@ -67,7 +67,7 @@
             this.ClientSize = new System.Drawing.Size(276, 126);
             this.Controls.Add(this.lblCustomer);
             this.Controls.Add(this.cmbCustomer);
-            this.Controls.Add(this.btnEnde);
+            this.Controls.Add(this.btnEnd);
             this.Name = "FormParent";
             this.Text = "FormParent";
             this.Load += new System.EventHandler(this.FormParent_Load);
@@ -78,7 +78,7 @@
 
         #endregion
 
-        internal System.Windows.Forms.Button btnEnde;
+        internal System.Windows.Forms.Button btnEnd;
         internal System.Windows.Forms.ComboBox cmbCustomer;
         internal System.Windows.Forms.Label lblCustomer;
     }

@@ -505,9 +505,9 @@
             // 
             // btnEnd
             // 
-            this.btnEnde.Location = new System.Drawing.Point(442, 455);
-            this.btnEnde.Size = new System.Drawing.Size(119, 38);
-            this.btnEnde.TabIndex = 34;
+            this.btnEnd.Location = new System.Drawing.Point(442, 455);
+            this.btnEnd.Size = new System.Drawing.Size(119, 38);
+            this.btnEnd.TabIndex = 34;
 
             // 
             // FormChange
