@@ -1,4 +1,4 @@
-﻿namespace BP_LicenseAudit
+﻿namespace BP_LicenseAudit.View
 {
     partial class FormAudit
     {
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmbCustomer = new System.Windows.Forms.ComboBox();
-            this.lblCustomer = new System.Windows.Forms.Label();
             this.cmbInventary = new System.Windows.Forms.ComboBox();
             this.lblInventary = new System.Windows.Forms.Label();
             this.lblLicense = new System.Windows.Forms.Label();
@@ -40,25 +38,7 @@
             this.lstResult = new System.Windows.Forms.ListBox();
             this.btnAudit = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
-            this.btnEnd = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // cmbCustomer
-            // 
-            this.cmbCustomer.FormattingEnabled = true;
-            this.cmbCustomer.Location = new System.Drawing.Point(51, 6);
-            this.cmbCustomer.Name = "cmbCustomer";
-            this.cmbCustomer.Size = new System.Drawing.Size(354, 21);
-            this.cmbCustomer.TabIndex = 7;
-            // 
-            // lblCustomer
-            // 
-            this.lblCustomer.AutoSize = true;
-            this.lblCustomer.Location = new System.Drawing.Point(4, 9);
-            this.lblCustomer.Name = "lblCustomer";
-            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
-            this.lblCustomer.TabIndex = 6;
-            this.lblCustomer.Text = "Kunde:";
             // 
             // cmbInventary
             // 
@@ -151,23 +131,33 @@
             this.btnPrint.TabIndex = 17;
             this.btnPrint.Text = "Ergebnis drucken";
             this.btnPrint.UseVisualStyleBackColor = true;
+            //
+            //inherited Elements
+            //
+            // 
+            // cmbCustomer
+            // 
+            this.cmbCustomer.Location = new System.Drawing.Point(51, 6);
+            this.cmbCustomer.Size = new System.Drawing.Size(354, 21);
+            this.cmbCustomer.TabIndex = 7;
+            // 
+            // lblCustomer
+            // 
+            this.lblCustomer.Location = new System.Drawing.Point(4, 9);
+            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
+            this.lblCustomer.TabIndex = 6;
             // 
             // btnEnd
             // 
-            this.btnEnd.Location = new System.Drawing.Point(285, 387);
-            this.btnEnd.Name = "btnEnd";
-            this.btnEnd.Size = new System.Drawing.Size(120, 30);
-            this.btnEnd.TabIndex = 18;
-            this.btnEnd.Text = "Ende";
-            this.btnEnd.UseVisualStyleBackColor = true;
-            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
+            this.btnEnde.Location = new System.Drawing.Point(285, 387);
+            this.btnEnde.Size = new System.Drawing.Size(120, 30);
+            this.btnEnde.TabIndex = 18;
             // 
             // FormAudit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(412, 429);
-            this.Controls.Add(this.btnEnd);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnAudit);
             this.Controls.Add(this.lblResult);
@@ -178,8 +168,6 @@
             this.Controls.Add(this.lstLicense);
             this.Controls.Add(this.cmbInventary);
             this.Controls.Add(this.lblInventary);
-            this.Controls.Add(this.cmbCustomer);
-            this.Controls.Add(this.lblCustomer);
             this.Name = "FormAudit";
             this.Text = "Audit durchführen";
             this.ResumeLayout(false);
@@ -188,9 +176,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cmbCustomer;
-        private System.Windows.Forms.Label lblCustomer;
         private System.Windows.Forms.ComboBox cmbInventary;
         private System.Windows.Forms.Label lblInventary;
         private System.Windows.Forms.Label lblLicense;
@@ -201,6 +186,5 @@
         private System.Windows.Forms.ListBox lstResult;
         private System.Windows.Forms.Button btnAudit;
         private System.Windows.Forms.Button btnPrint;
-        private System.Windows.Forms.Button btnEnd;
     }
 }

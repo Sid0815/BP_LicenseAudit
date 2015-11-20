@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BP_LicenseAudit.Model;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using BP_LicenseAudit.View;
 
 namespace BP_LicenseAudit.Controller
 {
