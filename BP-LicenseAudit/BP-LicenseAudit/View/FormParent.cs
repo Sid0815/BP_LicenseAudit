@@ -49,5 +49,10 @@ namespace BP_LicenseAudit.View
         {
 
         }
+
+        private void FormParent_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

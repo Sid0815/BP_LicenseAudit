@@ -22,10 +22,10 @@ C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\o
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormCustomer.resources
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormSystemInventory.resources
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormLicense.resources
-C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormMain.resources
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.FormNetwork.resources
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.Properties.Resources.resources
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csproj.GenerateResource.Cache
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.View.FormParent.resources
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.exe
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.pdb
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.View.FormMain.resources

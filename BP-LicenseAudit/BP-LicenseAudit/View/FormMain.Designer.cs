@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lstCustomer = new System.Windows.Forms.ListBox();
-            this.lblCustomer = new System.Windows.Forms.Label();
             this.lblNetworks = new System.Windows.Forms.Label();
             this.lstNetworks = new System.Windows.Forms.ListBox();
             this.lblLicense = new System.Windows.Forms.Label();
@@ -42,7 +41,6 @@
             this.btnInventory = new System.Windows.Forms.Button();
             this.btnAudit = new System.Windows.Forms.Button();
             this.btnChange = new System.Windows.Forms.Button();
-            this.btnEnd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstCustomer
@@ -54,15 +52,6 @@
             this.lstCustomer.Name = "lstCustomer";
             this.lstCustomer.Size = new System.Drawing.Size(120, 290);
             this.lstCustomer.TabIndex = 0;
-            // 
-            // lblCustomer
-            // 
-            this.lblCustomer.AutoSize = true;
-            this.lblCustomer.Location = new System.Drawing.Point(12, 7);
-            this.lblCustomer.Name = "lblCustomer";
-            this.lblCustomer.Size = new System.Drawing.Size(47, 13);
-            this.lblCustomer.TabIndex = 1;
-            this.lblCustomer.Text = "Kunden:";
             // 
             // lblNetworks
             // 
@@ -180,23 +169,27 @@
             this.btnChange.Text = "Daten ändern";
             this.btnChange.UseVisualStyleBackColor = true;
             this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
-            // 
-            // btnEnd
-            // 
-            this.btnEnd.Location = new System.Drawing.Point(586, 73);
-            this.btnEnd.Name = "btnEnd";
-            this.btnEnd.Size = new System.Drawing.Size(117, 35);
-            this.btnEnd.TabIndex = 14;
-            this.btnEnd.Text = "Ende";
-            this.btnEnd.UseVisualStyleBackColor = true;
-            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
+            //
+            //inherited elements            
+            //
+            //btnEnde
+            //
+            this.btnEnde.Location = new System.Drawing.Point(586, 61);
+            this.btnEnde.Size = new System.Drawing.Size(117, 35);
+            //
+            //lblCustomer
+            //
+            this.lblCustomer.Location = new System.Drawing.Point(12, 7);
+            this.lblCustomer.Size = new System.Drawing.Size(47, 13);
+            //cmbCustomer
+            this.cmbCustomer.Visible = false;
+            this.cmbCustomer.Enabled = false;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(717, 421);
-            this.Controls.Add(this.btnEnd);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.btnAudit);
             this.Controls.Add(this.btnInventory);
@@ -209,7 +202,6 @@
             this.Controls.Add(this.lstLicense);
             this.Controls.Add(this.lblNetworks);
             this.Controls.Add(this.lstNetworks);
-            this.Controls.Add(this.lblCustomer);
             this.Controls.Add(this.lstCustomer);
             this.Name = "FormMain";
             this.Text = "Hauptfenster";
@@ -221,7 +213,6 @@
         #endregion
 
         private System.Windows.Forms.ListBox lstCustomer;
-        private System.Windows.Forms.Label lblCustomer;
         private System.Windows.Forms.Label lblNetworks;
         private System.Windows.Forms.ListBox lstNetworks;
         private System.Windows.Forms.Label lblLicense;
@@ -234,7 +225,6 @@
         private System.Windows.Forms.Button btnInventory;
         private System.Windows.Forms.Button btnAudit;
         private System.Windows.Forms.Button btnChange;
-        private System.Windows.Forms.Button btnEnd;
     }
 }
 
