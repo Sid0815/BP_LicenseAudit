@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BP_LicenseAudit
+namespace BP_LicenseAudit.View
 {
-    public partial class FormChange : Form
+    public partial class FormChange : FormParent
     {
         public FormChange()
         {
             InitializeComponent();
-        }
-
-        private void btnEnd_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void FormChange_Load(object sender, EventArgs e)

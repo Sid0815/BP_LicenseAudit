@@ -1,4 +1,4 @@
-﻿namespace BP_LicenseAudit
+﻿namespace BP_LicenseAudit.View
 {
     partial class FormChange
     {
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cmbCustomer = new System.Windows.Forms.ComboBox();
-            this.lblCustomer = new System.Windows.Forms.Label();
             this.txtCzip = new System.Windows.Forms.TextBox();
             this.txtCStreetNr = new System.Windows.Forms.TextBox();
             this.txtCCity = new System.Windows.Forms.TextBox();
@@ -40,10 +38,10 @@
             this.lblCStreetNr = new System.Windows.Forms.Label();
             this.lblCStreet = new System.Windows.Forms.Label();
             this.lblCName = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCustomer = new System.Windows.Forms.Button();
             this.lblLicense = new System.Windows.Forms.Label();
             this.lstLicense = new System.Windows.Forms.ListBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.lstNetwork = new System.Windows.Forms.ListBox();
             this.lblNetwork = new System.Windows.Forms.Label();
             this.tabNetwork = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -77,30 +75,12 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btnLicense = new System.Windows.Forms.Button();
             this.btnNetwork = new System.Windows.Forms.Button();
-            this.btnEnd = new System.Windows.Forms.Button();
             this.tabNetwork.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // cmbCustomer
-            // 
-            this.cmbCustomer.FormattingEnabled = true;
-            this.cmbCustomer.Location = new System.Drawing.Point(59, 6);
-            this.cmbCustomer.Name = "cmbCustomer";
-            this.cmbCustomer.Size = new System.Drawing.Size(363, 21);
-            this.cmbCustomer.TabIndex = 7;
-            // 
-            // lblCustomer
-            // 
-            this.lblCustomer.AutoSize = true;
-            this.lblCustomer.Location = new System.Drawing.Point(12, 9);
-            this.lblCustomer.Name = "lblCustomer";
-            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
-            this.lblCustomer.TabIndex = 6;
-            this.lblCustomer.Text = "Kunde:";
             // 
             // txtCzip
             // 
@@ -182,14 +162,14 @@
             this.lblCName.TabIndex = 12;
             this.lblCName.Text = "Name:";
             // 
-            // button1
+            // btnCustomer
             // 
-            this.button1.Location = new System.Drawing.Point(445, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(119, 38);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Stammdaten ändern";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCustomer.Location = new System.Drawing.Point(445, 51);
+            this.btnCustomer.Name = "btnCustomer";
+            this.btnCustomer.Size = new System.Drawing.Size(119, 38);
+            this.btnCustomer.TabIndex = 22;
+            this.btnCustomer.Text = "Stammdaten ändern";
+            this.btnCustomer.UseVisualStyleBackColor = true;
             // 
             // lblLicense
             // 
@@ -210,15 +190,15 @@
             this.lstLicense.Size = new System.Drawing.Size(120, 160);
             this.lstLicense.TabIndex = 24;
             // 
-            // listBox1
+            // lstNetwork
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
+            this.lstNetwork.FormattingEnabled = true;
+            this.lstNetwork.Items.AddRange(new object[] {
             "(leer)"});
-            this.listBox1.Location = new System.Drawing.Point(15, 333);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 160);
-            this.listBox1.TabIndex = 26;
+            this.lstNetwork.Location = new System.Drawing.Point(15, 333);
+            this.lstNetwork.Name = "lstNetwork";
+            this.lstNetwork.Size = new System.Drawing.Size(120, 160);
+            this.lstNetwork.TabIndex = 26;
             // 
             // lblNetwork
             // 
@@ -507,23 +487,34 @@
             this.btnNetwork.TabIndex = 33;
             this.btnNetwork.Text = "Netzwerk ändern";
             this.btnNetwork.UseVisualStyleBackColor = true;
+            //
+            //inherited Elements
+            //
+            // 
+            // cmbCustomer
+            // 
+            this.cmbCustomer.Location = new System.Drawing.Point(59, 6);
+            this.cmbCustomer.Size = new System.Drawing.Size(363, 21);
+            this.cmbCustomer.TabIndex = 7;
+            // 
+            // lblCustomer
+            // 
+            this.lblCustomer.Location = new System.Drawing.Point(12, 9);
+            this.lblCustomer.Size = new System.Drawing.Size(41, 13);
+            this.lblCustomer.TabIndex = 6;
             // 
             // btnEnd
             // 
-            this.btnEnd.Location = new System.Drawing.Point(442, 455);
-            this.btnEnd.Name = "btnEnd";
-            this.btnEnd.Size = new System.Drawing.Size(119, 38);
-            this.btnEnd.TabIndex = 34;
-            this.btnEnd.Text = "Ende";
-            this.btnEnd.UseVisualStyleBackColor = true;
-            this.btnEnd.Click += new System.EventHandler(this.btnEnd_Click);
+            this.btnEnde.Location = new System.Drawing.Point(442, 455);
+            this.btnEnde.Size = new System.Drawing.Size(119, 38);
+            this.btnEnde.TabIndex = 34;
+
             // 
             // FormChange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(573, 505);
-            this.Controls.Add(this.btnEnd);
             this.Controls.Add(this.btnNetwork);
             this.Controls.Add(this.btnLicense);
             this.Controls.Add(this.numericUpDown1);
@@ -531,11 +522,11 @@
             this.Controls.Add(this.cmbLicense);
             this.Controls.Add(this.lblLicense2);
             this.Controls.Add(this.tabNetwork);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.lstNetwork);
             this.Controls.Add(this.lblNetwork);
             this.Controls.Add(this.lstLicense);
             this.Controls.Add(this.lblLicense);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.txtCzip);
             this.Controls.Add(this.txtCStreetNr);
             this.Controls.Add(this.txtCCity);
@@ -546,8 +537,6 @@
             this.Controls.Add(this.lblCStreetNr);
             this.Controls.Add(this.lblCStreet);
             this.Controls.Add(this.lblCName);
-            this.Controls.Add(this.cmbCustomer);
-            this.Controls.Add(this.lblCustomer);
             this.Name = "FormChange";
             this.Text = "Daten ändern";
             this.Load += new System.EventHandler(this.FormChange_Load);
@@ -565,9 +554,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cmbCustomer;
-        private System.Windows.Forms.Label lblCustomer;
         private System.Windows.Forms.TextBox txtCzip;
         private System.Windows.Forms.TextBox txtCStreetNr;
         private System.Windows.Forms.TextBox txtCCity;
@@ -578,10 +564,10 @@
         private System.Windows.Forms.Label lblCStreetNr;
         private System.Windows.Forms.Label lblCStreet;
         private System.Windows.Forms.Label lblCName;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCustomer;
         private System.Windows.Forms.Label lblLicense;
         private System.Windows.Forms.ListBox lstLicense;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox lstNetwork;
         private System.Windows.Forms.Label lblNetwork;
         private System.Windows.Forms.TabControl tabNetwork;
         private System.Windows.Forms.TabPage tabPage1;
@@ -615,6 +601,5 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Button btnLicense;
         private System.Windows.Forms.Button btnNetwork;
-        private System.Windows.Forms.Button btnEnd;
     }
 }
