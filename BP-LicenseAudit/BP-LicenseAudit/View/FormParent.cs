@@ -13,18 +13,7 @@ namespace BP_LicenseAudit.View
 {
     public partial class FormParent : Form
     {
-        private ControllerParent controller;
-        public ControllerParent Controller
-        {
-            private get
-            {
-                return controller;
-            }
-            set
-            {
-                controller = value;
-            }
-        }
+
         public FormParent()
         {
             InitializeComponent();

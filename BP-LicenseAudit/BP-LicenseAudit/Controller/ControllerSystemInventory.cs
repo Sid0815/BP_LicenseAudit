@@ -4,20 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using BP_LicenseAudit.View;
 using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerSystemInventory : ControllerParent
+    public class ControllerSystemInventory : ControllerParent
     {
         //properties
+        private FormSystemInventory view;
         private NetworkInventory currentNetworkInventory;
         private SystemInventory currentsystemInventory;
         private ClientSystem currentSystem;
 
         //constructor
-        public ControllerSystemInventory(Form view) : base(view)
-        { }
+        public ControllerSystemInventory(FormSystemInventory view)
+        {
+            //connect controller to its view
+            this.view = view;
+        }
         
 
         //funtions

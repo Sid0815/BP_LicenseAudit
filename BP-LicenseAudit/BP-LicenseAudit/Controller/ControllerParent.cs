@@ -11,12 +11,9 @@ namespace BP_LicenseAudit.Controller
     public class ControllerParent
     {
         private Customer currentCustomer;
-        private Form view;
 
-        public ControllerParent (Form view)
+        public ControllerParent ()
         {
-            //connect controller to its view
-            this.view = view;
         }
 
 

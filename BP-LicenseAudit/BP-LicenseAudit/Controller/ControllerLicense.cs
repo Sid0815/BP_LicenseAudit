@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using BP_LicenseAudit.View;
 using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerLicense : ControllerParent
+    public class ControllerLicense : ControllerParent
     {
         //properties
         private ArrayList list_allAvailableLicenses;
@@ -24,11 +25,13 @@ namespace BP_LicenseAudit.Controller
             }
         }
         private LicenseInventory currentLicenseInventory;
+        private FormLicense view;
 
         //constructor
-        public ControllerLicense(Form view) : base(view)
+        public ControllerLicense(FormLicense view)
         {
-
+            //connect controller to its view
+            this.view = view;
         }
 
         //functions

@@ -4,19 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
+using BP_LicenseAudit.View;
 using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerNetwork : ControllerParent
+    public class ControllerNetwork : ControllerParent
     {
+        private FormNetwork view;
         private NetworkInventory currentNetworkInventory;
         private Network currentNetwork;
 
         //constructor
-        public ControllerNetwork(Form view) : base(view)
+        public ControllerNetwork(FormNetwork view)
         {
-
+            //connect controller to its view
+            this.view = view;
         }
 
         //functions

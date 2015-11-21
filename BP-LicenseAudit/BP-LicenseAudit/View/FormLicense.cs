@@ -1,10 +1,23 @@
 ﻿using System;
-using System.Windows.Forms;
+using BP_LicenseAudit.Controller;
 
 namespace BP_LicenseAudit.View
 {
+
     public partial class FormLicense : FormParent
     {
+        private ControllerLicense currentcontroller;
+        public ControllerLicense Currentcontroller
+        {
+            private get
+            {
+                return currentcontroller;
+            }
+            set
+            {
+                currentcontroller = value;
+            }
+        }
         public FormLicense()
         {
             InitializeComponent();

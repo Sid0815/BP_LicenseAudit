@@ -1,17 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using BP_LicenseAudit.Controller;
 
 namespace BP_LicenseAudit.View
 {
     public partial class FormMain : FormParent
     {
+        private ControllerMain currentcontroller;
+        public ControllerMain Currentcontroller
+        {
+            private get
+            {
+                return currentcontroller;
+            }
+            set
+            {
+                currentcontroller = value;
+            }
+        }
         public FormMain()
         {
             InitializeComponent();
@@ -19,39 +24,32 @@ namespace BP_LicenseAudit.View
 
         private void btnCustomer_Click(object sender, EventArgs e)
         {
-            FormCustomer fc = new FormCustomer();
-            fc.ShowDialog();
-
+            currentcontroller.OpenForm("Customer");
         }
 
         private void btnNetwork_Click(object sender, EventArgs e)
         {
-            FormNetwork fn = new FormNetwork();
-            fn.ShowDialog();
+            currentcontroller.OpenForm("Network");
         }
 
         private void btnLicense_Click(object sender, EventArgs e)
         {
-            FormLicense fl = new FormLicense();
-            fl.ShowDialog();
+            currentcontroller.OpenForm("License");
         }
 
         private void btnInventory_Click(object sender, EventArgs e)
         {
-            FormSystemInventory fi = new FormSystemInventory();
-            fi.ShowDialog();
+            currentcontroller.OpenForm("SystemInventory");
         }
 
         private void btnChange_Click(object sender, EventArgs e)
         {
-            FormChange fc = new FormChange();
-            fc.ShowDialog();
+            currentcontroller.OpenForm("Changes");
         }
 
         private void btnAudit_Click(object sender, EventArgs e)
         {
-            FormAudit fa = new FormAudit();
-            fa.ShowDialog();
+            currentcontroller.OpenForm("Audit");
         }
     }
 }

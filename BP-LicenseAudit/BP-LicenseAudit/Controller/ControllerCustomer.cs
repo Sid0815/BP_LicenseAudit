@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using BP_LicenseAudit.Model;
+using BP_LicenseAudit.View;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerCustomer : ControllerParent
+    public class ControllerCustomer : ControllerParent
     {
-        ArrayList list_customers;
+        private FormCustomer view;
+        private ArrayList list_customers;
 
         //Constructor
-        public ControllerCustomer(Form view):base(view)
+        public ControllerCustomer(FormCustomer view)
         {
-
+            //connect controller to its view
+            this.view = view;
         }
 
         //Functions

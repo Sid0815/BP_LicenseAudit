@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using BP_LicenseAudit.Controller;
 
 namespace BP_LicenseAudit.View
 {
     public partial class FormCustomer : FormParent
     {
+        private ControllerCustomer currentcontroller;
+        public ControllerCustomer Currentcontroller
+        {
+            private get
+            {
+                return currentcontroller;
+            }
+            set
+            {
+                currentcontroller = value;
+            }
+        }
         public FormCustomer()
         {
             InitializeComponent();

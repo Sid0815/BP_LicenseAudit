@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using BP_LicenseAudit.View;
 using BP_LicenseAudit.Model;
 using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerChanges : ControllerParent
+    public class ControllerChanges : ControllerParent
     {
         //properties
+        private FormChange view;
         private NetworkInventory currentNetworkInventory;
         private Network selectedNetwork;
         private LicenseInventory currentLicenseInventory;
         private License selectedlicense;
 
         //constrctor
-        public ControllerChanges(Form view) : base(view)
+        public ControllerChanges(FormChange view)
         {
-
+            //connect controller to its view
+            this.view = view;
         }
 
         //functions

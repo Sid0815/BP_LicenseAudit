@@ -1,16 +1,18 @@
 ﻿using System.Windows.Forms;
 using BP_LicenseAudit.View;
+using System;
 
 namespace BP_LicenseAudit.Controller
 {
-    class ControllerMain : ControllerParent
+    public class ControllerMain : ControllerParent
     {
-        private Form fAudit;
-        private Form fChanges;
-        private Form fCustomer;
-        private Form fLicense;
-        private Form fNetwork;
-        private Form fSystemInventory;
+        private FormMain view;
+        private FormAudit fAudit;
+        private FormChange fChanges;
+        private FormCustomer fCustomer;
+        private FormLicense fLicense;
+        private FormNetwork fNetwork;
+        private FormSystemInventory fSystemInventory;
         private ControllerAudit cAudit;
         private ControllerChanges cChanges;
         private ControllerCustomer cCustomer;
@@ -19,8 +21,11 @@ namespace BP_LicenseAudit.Controller
         private ControllerSystemInventory cSystemInventory;
 
         //constructor
-        public ControllerMain(Form view):base(view)
+        public ControllerMain(FormMain view)
         {
+            //connect controller to its view
+            this.view = view;
+
             //Creating Forms
             fAudit = new FormAudit();
             fChanges = new FormChange();
@@ -54,6 +59,34 @@ namespace BP_LicenseAudit.Controller
         public void ConnectToDatabase()
         {
 
+        }
+
+        public void OpenForm(string view)
+        {
+            switch (view)
+            {
+                case "Audit":
+                    fAudit.ShowDialog();
+                    break;
+                case "Changes":
+                    fChanges.ShowDialog();
+                    break;
+                case "Customer":
+                    fCustomer.ShowDialog();
+                    break;
+                case "License":
+                    fLicense.ShowDialog();
+                    break;
+                case "Network":
+                    fNetwork.ShowDialog();
+                    break;
+                case "SystemInventory":
+                    fSystemInventory.ShowDialog();
+                    break;
+                default:
+                    Console.WriteLine("No proper Formsubmitted");
+                    break;
+            }
         }
     }
 }
