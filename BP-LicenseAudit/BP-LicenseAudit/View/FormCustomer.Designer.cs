@@ -150,6 +150,7 @@
             this.btnSaveNext.TabIndex = 12;
             this.btnSaveNext.Text = "Speichern und nächster Kunde";
             this.btnSaveNext.UseVisualStyleBackColor = true;
+            this.btnSaveNext.Click += new System.EventHandler(this.btnSaveNext_Click);
             // 
             // btnSave
             // 
@@ -200,6 +201,20 @@
             this.Controls.Add(this.lblCNr);
             this.Name = "FormCustomer";
             this.Text = "Kundenverwaltung";
+            this.Controls.SetChildIndex(this.lblCNr, 0);
+            this.Controls.SetChildIndex(this.lblCNrShow, 0);
+            this.Controls.SetChildIndex(this.lblCName, 0);
+            this.Controls.SetChildIndex(this.lblCStreet, 0);
+            this.Controls.SetChildIndex(this.lblCStreetNr, 0);
+            this.Controls.SetChildIndex(this.lblCCity, 0);
+            this.Controls.SetChildIndex(this.lblCzip, 0);
+            this.Controls.SetChildIndex(this.txtCName, 0);
+            this.Controls.SetChildIndex(this.txtCStreet, 0);
+            this.Controls.SetChildIndex(this.txtCCity, 0);
+            this.Controls.SetChildIndex(this.txtCStreetNr, 0);
+            this.Controls.SetChildIndex(this.txtCzip, 0);
+            this.Controls.SetChildIndex(this.btnSaveNext, 0);
+            this.Controls.SetChildIndex(this.btnSave, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

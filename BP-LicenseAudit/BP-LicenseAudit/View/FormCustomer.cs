@@ -20,5 +20,40 @@ namespace BP_LicenseAudit.View
         {
             InitializeComponent();
         }
+
+        public void UpdateCustomerNumber(string nr)
+        {
+            lblCNrShow.Text = nr;
+        }
+
+        public string GetCustomerName()
+        {
+            return txtCName.Text;
+        }
+
+        public string GetCustomerStreet()
+        {
+            return txtCStreet.Text;
+        }
+
+        public string GetCustomerStreetNr()
+        {
+            return txtCStreetNr.Text;
+        }
+
+        public string GetCustomerCity()
+        {
+            return txtCCity.Text;
+        }
+
+        public string GetCustomerZIP()
+        {
+            return txtCzip.Text;
+        }
+
+        private void btnSaveNext_Click(object sender, System.EventArgs e)
+        {
+            currentcontroller.SaveNext();
+        }
     }
 }

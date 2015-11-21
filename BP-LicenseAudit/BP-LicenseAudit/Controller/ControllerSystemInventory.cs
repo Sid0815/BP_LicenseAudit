@@ -60,5 +60,10 @@ namespace BP_LicenseAudit.Controller
         {
 
         }
+
+        public override void UpdateView()
+        {
+
+        }
     }
 }

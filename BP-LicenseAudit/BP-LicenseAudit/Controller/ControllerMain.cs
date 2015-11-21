@@ -19,6 +19,7 @@ namespace BP_LicenseAudit.Controller
         private ControllerLicense cLicense;
         private ControllerNetwork cNetwork;
         private ControllerSystemInventory cSystemInventory;
+        private int numberOfCustomers;
 
         //constructor
         public ControllerMain(FormMain view)
@@ -40,7 +41,7 @@ namespace BP_LicenseAudit.Controller
             fNetwork.Visible = false;
             fSystemInventory.Visible = false;
 
-            //Creating Controllers and connect to corresponding view
+            //Creating Controllers and connect view to controller
             cAudit = new ControllerAudit(fAudit);
             cChanges = new ControllerChanges(fChanges);
             cCustomer = new ControllerCustomer(fCustomer);
@@ -48,7 +49,19 @@ namespace BP_LicenseAudit.Controller
             cNetwork = new ControllerNetwork(fNetwork);
             cSystemInventory = new ControllerSystemInventory(fSystemInventory);
 
-        }
+            //Connect Controller to View
+            fAudit.Currentcontroller = cAudit;
+            fChanges.Currentcontroller = cChanges;
+            fCustomer.Currentcontroller = cCustomer;
+            fLicense.Currentcontroller = cLicense;
+            fNetwork.Currentcontroller = cNetwork;
+            fSystemInventory.Currentcontroller = cSystemInventory;
+
+            //TODO: initialising by database
+            numberOfCustomers = 123;
+
+
+    }
 
         //functions
         public void CollectInformation()
@@ -72,6 +85,8 @@ namespace BP_LicenseAudit.Controller
                     fChanges.ShowDialog();
                     break;
                 case "Customer":
+                    cCustomer.NumberofCustomers = this.numberOfCustomers;
+                    cCustomer.UpdateView();
                     fCustomer.ShowDialog();
                     break;
                 case "License":
@@ -87,6 +102,11 @@ namespace BP_LicenseAudit.Controller
                     Console.WriteLine("No proper Formsubmitted");
                     break;
             }
+        }
+
+        public override void UpdateView()
+        {
+
         }
     }
 }

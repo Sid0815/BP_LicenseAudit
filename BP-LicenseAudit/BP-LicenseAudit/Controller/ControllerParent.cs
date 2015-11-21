@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace BP_LicenseAudit.Controller
 {
-    public class ControllerParent
+    public abstract class ControllerParent
     {
         private Customer currentCustomer;
 
@@ -32,6 +32,8 @@ namespace BP_LicenseAudit.Controller
         {
             //Query all customers from database
         }
+
+        public abstract void UpdateView();
 
     }
 }

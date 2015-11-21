@@ -47,5 +47,10 @@ namespace BP_LicenseAudit.Controller
         {
             //save currentNI to DB
         }
+
+        public override void UpdateView()
+        {
+
+        }
     }
 }

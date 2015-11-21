@@ -89,14 +89,14 @@ namespace BP_LicenseAudit.Model
         }
 
         //Constructor
-        public Customer (int cnumber)
+        public Customer (int cnumber, string name, string street, string streetnr, string city, string zip)
         {
             this.cnumber = cnumber;
-            name = null;
-            street = null;
-            city = null;
-            zip = null;
-            streetnumber = null;
+            this.name = name;
+            this.street = street;
+            this.city = city;
+            this.zip = zip;
+            this.streetnumber = streetnr;
         }
     }
 
