@@ -18,7 +18,7 @@ namespace BP_LicenseAudit.Controller
         private License selectedlicense;
 
         //constrctor
-        public ControllerChanges(FormChange view)
+        public ControllerChanges(ControllerParent calling, FormChange view):base(calling)
         {
             //connect controller to its view
             this.view = view;
@@ -61,6 +61,11 @@ namespace BP_LicenseAudit.Controller
         }
 
         public override void UpdateView()
+        {
+
+        }
+
+        public override void UpdateInformation()
         {
 
         }

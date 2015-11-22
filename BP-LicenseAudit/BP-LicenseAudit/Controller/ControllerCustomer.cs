@@ -11,19 +11,13 @@ namespace BP_LicenseAudit.Controller
         private FormCustomer view;
         private ArrayList list_customers;
 
-        private int numberOfCustomers;
-        public int NumberofCustomers
-        {
-            get { return numberOfCustomers; }
-            set { numberOfCustomers = value; }
-        }
 
         //Constructor
-        public ControllerCustomer(FormCustomer view)
+        public ControllerCustomer(ControllerParent calling, FormCustomer view, ArrayList list_customers):base(calling)
         {
             //connect controller to its view
             this.view = view;
-            list_customers = new ArrayList();
+            this.list_customers = list_customers;
         }
 
         //Functions
@@ -50,8 +44,14 @@ namespace BP_LicenseAudit.Controller
 
         public override void UpdateView()
         {
-            view.UpdateCustomerNumber(Convert.ToString(numberOfCustomers));
+            //Update number of customers
+            view.UpdateCustomerNumber(Convert.ToString(list_customers.Count));
         }
+
+        public override void UpdateInformation()
+        {//Updates all neccesary properties of the controller (could be caled by a controller who self was caled by this)
+        }
+
 
         public void SaveNext()
         {
@@ -61,10 +61,13 @@ namespace BP_LicenseAudit.Controller
             string city = view.GetCustomerCity().Trim();
             string zip = view.GetCustomerZIP().Trim();
             if(checkInput(name, street, streetnr, city, zip))
-            {
-                AddCustomer(++numberOfCustomers, name, street, streetnr, city, zip);
+            {                
+                AddCustomer(list_customers.Count, name, street, streetnr, city, zip);
                 UpdateView();
-                //TODO: Communicate to calling controller
+                MessageBox.Show("Kunde erfolgreich hinzugefügt", "OK", MessageBoxButtons.OK);
+                view.ClearInput();
+                //Communicate to calling controller
+                callingController.UpdateView();
             }
             else
             {
@@ -76,6 +79,25 @@ namespace BP_LicenseAudit.Controller
 
         public void SaveEnd()
         {
+            string name = view.GetCustomerName().Trim();
+            string street = view.GetCustomerStreet().Trim();
+            string streetnr = view.GetCustomerStreetNr().Trim();
+            string city = view.GetCustomerCity().Trim();
+            string zip = view.GetCustomerZIP().Trim();
+            if (checkInput(name, street, streetnr, city, zip))
+            {
+                AddCustomer(list_customers.Count, name, street, streetnr, city, zip);
+                UpdateView();
+                MessageBox.Show("Kunde erfolgreich hinzugefügt", "OK", MessageBoxButtons.OK);
+                view.ClearInput();
+                view.Close();
+                //Communicate to calling controller
+                callingController.UpdateView();
+            }
+            else
+            {
+                Console.WriteLine("Error while adding User");
+            }
 
         }
 
@@ -108,5 +130,7 @@ namespace BP_LicenseAudit.Controller
             }
             else return true;
         }
+
+
     }
 }

@@ -11,9 +11,11 @@ namespace BP_LicenseAudit.Controller
     public abstract class ControllerParent
     {
         private Customer currentCustomer;
+        protected ControllerParent callingController;
 
-        public ControllerParent ()
+        public ControllerParent (ControllerParent callingController)
         {
+            this.callingController = callingController;
         }
 
 
@@ -33,7 +35,11 @@ namespace BP_LicenseAudit.Controller
             //Query all customers from database
         }
 
+        //Update the view of the calling Controller
         public abstract void UpdateView();
+
+        //Pass Information to the calling Controller
+        public abstract void UpdateInformation();
 
     }
 }

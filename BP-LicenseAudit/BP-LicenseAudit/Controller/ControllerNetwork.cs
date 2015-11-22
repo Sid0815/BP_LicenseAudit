@@ -16,7 +16,7 @@ namespace BP_LicenseAudit.Controller
         private Network currentNetwork;
 
         //constructor
-        public ControllerNetwork(FormNetwork view)
+        public ControllerNetwork(ControllerParent calling, FormNetwork view):base(calling)
         {
             //connect controller to its view
             this.view = view;
@@ -52,5 +52,10 @@ namespace BP_LicenseAudit.Controller
         {
 
         }
+
+        public override void UpdateInformation()
+        {//Updates all neccesary properties of the controller (could be caled by a controller who self was caled by this)
+        }
+
     }
 }

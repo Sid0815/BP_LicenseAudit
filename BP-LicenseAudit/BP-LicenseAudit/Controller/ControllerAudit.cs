@@ -18,7 +18,7 @@ namespace BP_LicenseAudit.Controller
         private Audit currentAudit;
 
         //constructor
-        public ControllerAudit(FormAudit view)
+        public ControllerAudit(ControllerParent calling, FormAudit view):base(calling)
         {
             //connect controller to its view
             this.view = view;
@@ -66,6 +66,11 @@ namespace BP_LicenseAudit.Controller
         }
 
         public override void UpdateView()
+        {
+
+        }
+
+        public override void UpdateInformation()
         {
 
         }

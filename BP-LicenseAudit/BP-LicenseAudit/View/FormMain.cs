@@ -51,5 +51,15 @@ namespace BP_LicenseAudit.View
         {
             currentcontroller.OpenForm("Audit");
         }
+
+        public void AddCustomer(string customer)
+        {
+            lstCustomer.Items.Add(customer);
+        }
+
+        public void ClearCustomerList()
+        {
+            lstCustomer.Items.Clear();
+        }
     }
 }

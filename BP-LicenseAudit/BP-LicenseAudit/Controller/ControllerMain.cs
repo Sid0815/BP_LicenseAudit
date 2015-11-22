@@ -1,6 +1,8 @@
 ﻿using System.Windows.Forms;
 using BP_LicenseAudit.View;
+using BP_LicenseAudit.Model;
 using System;
+using System.Collections;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -19,10 +21,10 @@ namespace BP_LicenseAudit.Controller
         private ControllerLicense cLicense;
         private ControllerNetwork cNetwork;
         private ControllerSystemInventory cSystemInventory;
-        private int numberOfCustomers;
+        private ArrayList list_customers =new ArrayList();
 
         //constructor
-        public ControllerMain(FormMain view)
+        public ControllerMain(FormMain view):base(null)
         {
             //connect controller to its view
             this.view = view;
@@ -42,12 +44,12 @@ namespace BP_LicenseAudit.Controller
             fSystemInventory.Visible = false;
 
             //Creating Controllers and connect view to controller
-            cAudit = new ControllerAudit(fAudit);
-            cChanges = new ControllerChanges(fChanges);
-            cCustomer = new ControllerCustomer(fCustomer);
-            cLicense = new ControllerLicense(fLicense);
-            cNetwork = new ControllerNetwork(fNetwork);
-            cSystemInventory = new ControllerSystemInventory(fSystemInventory);
+            cAudit = new ControllerAudit(this, fAudit);
+            cChanges = new ControllerChanges(this, fChanges);
+            cCustomer = new ControllerCustomer(this, fCustomer, list_customers);
+            cLicense = new ControllerLicense(this, fLicense);
+            cNetwork = new ControllerNetwork(this, fNetwork);
+            cSystemInventory = new ControllerSystemInventory(this, fSystemInventory);
 
             //Connect Controller to View
             fAudit.Currentcontroller = cAudit;
@@ -58,7 +60,6 @@ namespace BP_LicenseAudit.Controller
             fSystemInventory.Currentcontroller = cSystemInventory;
 
             //TODO: initialising by database
-            numberOfCustomers = 123;
 
 
     }
@@ -85,7 +86,6 @@ namespace BP_LicenseAudit.Controller
                     fChanges.ShowDialog();
                     break;
                 case "Customer":
-                    cCustomer.NumberofCustomers = this.numberOfCustomers;
                     cCustomer.UpdateView();
                     fCustomer.ShowDialog();
                     break;
@@ -106,7 +106,17 @@ namespace BP_LicenseAudit.Controller
 
         public override void UpdateView()
         {
+            //Customer
+            view.ClearCustomerList();
+            foreach(Customer c in list_customers)
+            {
+                view.AddCustomer(c.Name);
+            }
+        }
 
+        public override void UpdateInformation()
+        {
+            
         }
     }
 }

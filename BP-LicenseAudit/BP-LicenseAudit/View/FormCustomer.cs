@@ -55,5 +55,20 @@ namespace BP_LicenseAudit.View
         {
             currentcontroller.SaveNext();
         }
+        private void btnSave_Click(object sender, System.EventArgs e)
+        {
+            currentcontroller.SaveEnd();
+        }
+
+        public void ClearInput()
+        {
+            txtCName.ResetText();
+            txtCCity.ResetText();
+            txtCStreet.ResetText();
+            txtCStreetNr.ResetText();
+            txtCzip.ResetText();
+        }
+
+
     }
 }
