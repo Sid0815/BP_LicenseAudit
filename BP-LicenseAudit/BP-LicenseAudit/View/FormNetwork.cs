@@ -61,5 +61,11 @@ namespace BP_LicenseAudit.View
             endaddress[3] = txtNetwokEAByte4.Text;
             return endaddress;
         }
+
+        //Adds a network to the list
+        public void AddNetwork(string network)
+        {
+            lstNetworks.Items.Add(network);
+        }
     }
 }

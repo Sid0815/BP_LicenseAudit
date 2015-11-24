@@ -61,9 +61,12 @@ namespace BP_LicenseAudit.Model
         }
 
         //Constructor
-        public Network()
+        public Network(int nr, string name, int inputType, ArrayList ipAddresses)
         {
-
+            this.networkNumber = nr;
+            this.name = name;
+            this.inputType = inputType;
+            this.ipAddresses = ipAddresses;
         }
 
 
