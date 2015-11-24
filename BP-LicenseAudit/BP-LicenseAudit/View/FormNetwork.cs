@@ -65,12 +65,24 @@ namespace BP_LicenseAudit.View
         //returns the input of the hostaddress in a string[]
         public string[] GetHostAddress()
         {
-            string[] endaddress = new string[4];
-            endaddress[0] = txtNetwokCByte1.Text;
-            endaddress[1] = txtNetwokCByte2.Text;
-            endaddress[2] = txtNetwokCByte3.Text;
-            endaddress[3] = txtNetwokCByte4.Text;
-            return endaddress;
+            string[] hostaddress = new string[4];
+            hostaddress[0] = txtNetwokCByte1.Text;
+            hostaddress[1] = txtNetwokCByte2.Text;
+            hostaddress[2] = txtNetwokCByte3.Text;
+            hostaddress[3] = txtNetwokCByte4.Text;
+            return hostaddress;
+        }
+
+        //returns the input of the cidr address in a string[], last part is the networksize
+        public string[] GetCidrAddress()
+        {
+            string[] cidraddress = new string[5];
+            cidraddress[0] = txtNetwokCidrByte1.Text;
+            cidraddress[1] = txtNetwokCidrByte2.Text;
+            cidraddress[2] = txtNetwokCidrByte3.Text;
+            cidraddress[3] = txtNetwokCidrByte4.Text;
+            cidraddress[4] = txtNetwokCidrCidr.Text;
+            return cidraddress;
         }
 
         //Adds a network to the list

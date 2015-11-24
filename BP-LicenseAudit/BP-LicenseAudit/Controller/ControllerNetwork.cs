@@ -48,6 +48,13 @@ namespace BP_LicenseAudit.Controller
             return addresses;
         }
 
+        private ArrayList calcAddressesCidr(IPAddress network, byte cidr)
+        {
+            ArrayList addresses = new ArrayList();
+
+            return addresses;
+        }
+
         public void CreateNetworkInventory()
         {
 
@@ -85,6 +92,7 @@ namespace BP_LicenseAudit.Controller
                         {
                             Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
                             MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
                         }
                         IPAddress start = new IPAddress(b_startaddress);
                         IPAddress end = new IPAddress(b_endaddress);
@@ -124,6 +132,7 @@ namespace BP_LicenseAudit.Controller
                         {
                             Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
                             MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
                         }
                         IPAddress host = new IPAddress(b_hostaddress);
                         ArrayList addresses = new ArrayList();
@@ -138,7 +147,41 @@ namespace BP_LicenseAudit.Controller
                     
                 //Cidr
                 case 3:
-                    break;
+                    {
+                        //Get Address-Bytes as string
+                        string[] str_cidraddress = new string[5];
+                        str_cidraddress = view.GetCidrAddress();
+                        //Convert into byte
+                        Byte[] b_cidraddress = new Byte[3];
+                        byte cidr=0;
+                        try
+                        {
+                            //Checks automaticaly for right value by its type and by converting
+                            b_cidraddress[0] = Convert.ToByte(str_cidraddress[0]);
+                            b_cidraddress[1] = Convert.ToByte(str_cidraddress[1]);
+                            b_cidraddress[2] = Convert.ToByte(str_cidraddress[2]);
+                            b_cidraddress[3] = Convert.ToByte(str_cidraddress[3]);
+                            cidr = Convert.ToByte(str_cidraddress[4]);
+                            if (cidr > 32) throw new Exception();
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
+                            MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+                        //Creating and adding network
+                        IPAddress network = new IPAddress(b_cidraddress);
+                        list_networks.Add(new Network(list_networks.Count,
+                                                        String.Format("{0} // {1}", network.ToString(), cidr.ToString()),
+                                                        inputtype,
+                                                        calcAddressesCidr(network, cidr)));
+                        view.AddNetwork(String.Format("{0} // {1}", network.ToString(), cidr.ToString()));
+
+                        break;
+                    }
+                    
+                    
 
                 default:
                     Console.WriteLine("Unknown Inputtype");
