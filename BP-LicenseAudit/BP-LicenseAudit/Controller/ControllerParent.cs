@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
-using System.Windows.Forms;
+using System.Collections;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -12,10 +8,12 @@ namespace BP_LicenseAudit.Controller
     {
         private Customer currentCustomer;
         protected ControllerParent callingController;
+        protected ArrayList list_customers;
 
         public ControllerParent (ControllerParent callingController)
         {
             this.callingController = callingController;
+            this.list_customers = new ArrayList();
         }
 
 

@@ -21,7 +21,6 @@ namespace BP_LicenseAudit.Controller
         private ControllerLicense cLicense;
         private ControllerNetwork cNetwork;
         private ControllerSystemInventory cSystemInventory;
-        private ArrayList list_customers =new ArrayList();
 
         //constructor
         public ControllerMain(FormMain view):base(null)
@@ -43,13 +42,13 @@ namespace BP_LicenseAudit.Controller
             fNetwork.Visible = false;
             fSystemInventory.Visible = false;
 
-            //Creating Controllers and connect view to controller
-            cAudit = new ControllerAudit(this, fAudit);
-            cChanges = new ControllerChanges(this, fChanges);
+            //Creating Controllers and connect data
+            cAudit = new ControllerAudit(this, fAudit, list_customers);
+            cChanges = new ControllerChanges(this, fChanges, list_customers);
             cCustomer = new ControllerCustomer(this, fCustomer, list_customers);
-            cLicense = new ControllerLicense(this, fLicense);
-            cNetwork = new ControllerNetwork(this, fNetwork);
-            cSystemInventory = new ControllerSystemInventory(this, fSystemInventory);
+            cLicense = new ControllerLicense(this, fLicense, list_customers);
+            cNetwork = new ControllerNetwork(this, fNetwork, list_customers);
+            cSystemInventory = new ControllerSystemInventory(this, fSystemInventory, list_customers);
 
             //Connect Controller to View
             fAudit.Currentcontroller = cAudit;
@@ -62,7 +61,7 @@ namespace BP_LicenseAudit.Controller
             //TODO: initialising by database
 
 
-    }
+        }
 
         //functions
         public void CollectInformation()
@@ -93,6 +92,7 @@ namespace BP_LicenseAudit.Controller
                     fLicense.ShowDialog();
                     break;
                 case "Network":
+                    cNetwork.UpdateView();
                     fNetwork.ShowDialog();
                     break;
                 case "SystemInventory":

@@ -9,7 +9,6 @@ namespace BP_LicenseAudit.Controller
     public class ControllerCustomer : ControllerParent
     {
         private FormCustomer view;
-        private ArrayList list_customers;
 
 
         //Constructor

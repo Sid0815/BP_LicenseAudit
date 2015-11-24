@@ -28,7 +28,7 @@ namespace BP_LicenseAudit.Controller
         private FormLicense view;
 
         //constructor
-        public ControllerLicense(ControllerParent calling, FormLicense view):base(calling)
+        public ControllerLicense(ControllerParent calling, FormLicense view, ArrayList list_customers) :base(calling)
         {
             //connect controller to its view
             this.view = view;

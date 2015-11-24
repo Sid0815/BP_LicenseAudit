@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
 using BP_LicenseAudit.View;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -18,7 +19,7 @@ namespace BP_LicenseAudit.Controller
         private ClientSystem currentSystem;
 
         //constructor
-        public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view):base(calling)
+        public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view, ArrayList list_customers) :base(calling)
         {
             //connect controller to its view
             this.view = view;

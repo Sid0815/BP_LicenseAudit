@@ -5,6 +5,7 @@ using System.Text;
 using BP_LicenseAudit.View;
 using BP_LicenseAudit.Model;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -18,7 +19,7 @@ namespace BP_LicenseAudit.Controller
         private License selectedlicense;
 
         //constrctor
-        public ControllerChanges(ControllerParent calling, FormChange view):base(calling)
+        public ControllerChanges(ControllerParent calling, FormChange view, ArrayList list_customers) :base(calling)
         {
             //connect controller to its view
             this.view = view;

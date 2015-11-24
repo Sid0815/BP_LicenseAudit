@@ -32,31 +32,31 @@
             this.lstNetworks = new System.Windows.Forms.ListBox();
             this.tabNetwork = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtNetwokEAByte4 = new System.Windows.Forms.TextBox();
+            this.txtNetwokEAByte3 = new System.Windows.Forms.TextBox();
+            this.txtNetwokEAByte2 = new System.Windows.Forms.TextBox();
+            this.txtNetwokEAByte1 = new System.Windows.Forms.TextBox();
+            this.txtNetwokSAByte4 = new System.Windows.Forms.TextBox();
+            this.txtNetwokSAByte3 = new System.Windows.Forms.TextBox();
+            this.txtNetwokSAByte2 = new System.Windows.Forms.TextBox();
+            this.txtNetwokSAByte1 = new System.Windows.Forms.TextBox();
             this.lblNetworkEndadress = new System.Windows.Forms.Label();
             this.lblNetworkStart = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtNetwokCByte4 = new System.Windows.Forms.TextBox();
+            this.txtNetwokCByte3 = new System.Windows.Forms.TextBox();
+            this.txtNetwokCByte2 = new System.Windows.Forms.TextBox();
+            this.txtNetwokCByte1 = new System.Windows.Forms.TextBox();
+            this.lblNetworkTabHost = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.txtNetwokCidrCidr = new System.Windows.Forms.TextBox();
+            this.lblNetworkCidr2 = new System.Windows.Forms.Label();
+            this.txtNetwokCidrByte4 = new System.Windows.Forms.TextBox();
+            this.txtNetwokCidrByte3 = new System.Windows.Forms.TextBox();
+            this.txtNetwokCidrByte2 = new System.Windows.Forms.TextBox();
+            this.txtNetwokCidrByte1 = new System.Windows.Forms.TextBox();
+            this.lblNetworkTabCidr = new System.Windows.Forms.Label();
+            this.btnNetworkAdd = new System.Windows.Forms.Button();
             this.tabNetwork.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -95,14 +95,14 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.textBox5);
-            this.tabPage1.Controls.Add(this.textBox6);
-            this.tabPage1.Controls.Add(this.textBox7);
-            this.tabPage1.Controls.Add(this.textBox8);
-            this.tabPage1.Controls.Add(this.textBox3);
-            this.tabPage1.Controls.Add(this.textBox4);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.txtNetwokEAByte4);
+            this.tabPage1.Controls.Add(this.txtNetwokEAByte3);
+            this.tabPage1.Controls.Add(this.txtNetwokEAByte2);
+            this.tabPage1.Controls.Add(this.txtNetwokEAByte1);
+            this.tabPage1.Controls.Add(this.txtNetwokSAByte4);
+            this.tabPage1.Controls.Add(this.txtNetwokSAByte3);
+            this.tabPage1.Controls.Add(this.txtNetwokSAByte2);
+            this.tabPage1.Controls.Add(this.txtNetwokSAByte1);
             this.tabPage1.Controls.Add(this.lblNetworkEndadress);
             this.tabPage1.Controls.Add(this.lblNetworkStart);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -113,61 +113,61 @@
             this.tabPage1.Text = "Start / End";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // textBox5
+            // txtNetwokEAByte4
             // 
-            this.textBox5.Location = new System.Drawing.Point(205, 45);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(38, 20);
-            this.textBox5.TabIndex = 9;
+            this.txtNetwokEAByte4.Location = new System.Drawing.Point(205, 45);
+            this.txtNetwokEAByte4.Name = "txtNetwokEAByte4";
+            this.txtNetwokEAByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokEAByte4.TabIndex = 9;
             // 
-            // textBox6
+            // txtNetwokEAByte3
             // 
-            this.textBox6.Location = new System.Drawing.Point(161, 45);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(38, 20);
-            this.textBox6.TabIndex = 8;
+            this.txtNetwokEAByte3.Location = new System.Drawing.Point(161, 45);
+            this.txtNetwokEAByte3.Name = "txtNetwokEAByte3";
+            this.txtNetwokEAByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokEAByte3.TabIndex = 8;
             // 
-            // textBox7
+            // txtNetwokEAByte2
             // 
-            this.textBox7.Location = new System.Drawing.Point(117, 45);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(38, 20);
-            this.textBox7.TabIndex = 7;
+            this.txtNetwokEAByte2.Location = new System.Drawing.Point(117, 45);
+            this.txtNetwokEAByte2.Name = "txtNetwokEAByte2";
+            this.txtNetwokEAByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokEAByte2.TabIndex = 7;
             // 
-            // textBox8
+            // txtNetwokEAByte1
             // 
-            this.textBox8.Location = new System.Drawing.Point(73, 45);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(38, 20);
-            this.textBox8.TabIndex = 6;
+            this.txtNetwokEAByte1.Location = new System.Drawing.Point(73, 45);
+            this.txtNetwokEAByte1.Name = "txtNetwokEAByte1";
+            this.txtNetwokEAByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokEAByte1.TabIndex = 6;
             // 
-            // textBox3
+            // txtNetwokSAByte4
             // 
-            this.textBox3.Location = new System.Drawing.Point(205, 13);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(38, 20);
-            this.textBox3.TabIndex = 5;
+            this.txtNetwokSAByte4.Location = new System.Drawing.Point(205, 13);
+            this.txtNetwokSAByte4.Name = "txtNetwokSAByte4";
+            this.txtNetwokSAByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokSAByte4.TabIndex = 5;
             // 
-            // textBox4
+            // txtNetwokSAByte3
             // 
-            this.textBox4.Location = new System.Drawing.Point(161, 13);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(38, 20);
-            this.textBox4.TabIndex = 4;
+            this.txtNetwokSAByte3.Location = new System.Drawing.Point(161, 13);
+            this.txtNetwokSAByte3.Name = "txtNetwokSAByte3";
+            this.txtNetwokSAByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokSAByte3.TabIndex = 4;
             // 
-            // textBox2
+            // txtNetwokSAByte2
             // 
-            this.textBox2.Location = new System.Drawing.Point(117, 13);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(38, 20);
-            this.textBox2.TabIndex = 3;
+            this.txtNetwokSAByte2.Location = new System.Drawing.Point(117, 13);
+            this.txtNetwokSAByte2.Name = "txtNetwokSAByte2";
+            this.txtNetwokSAByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokSAByte2.TabIndex = 3;
             // 
-            // textBox1
+            // txtNetwokSAByte1
             // 
-            this.textBox1.Location = new System.Drawing.Point(73, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(38, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtNetwokSAByte1.Location = new System.Drawing.Point(73, 13);
+            this.txtNetwokSAByte1.Name = "txtNetwokSAByte1";
+            this.txtNetwokSAByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokSAByte1.TabIndex = 2;
             // 
             // lblNetworkEndadress
             // 
@@ -189,11 +189,11 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.textBox9);
-            this.tabPage2.Controls.Add(this.textBox10);
-            this.tabPage2.Controls.Add(this.textBox11);
-            this.tabPage2.Controls.Add(this.textBox12);
-            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.txtNetwokCByte4);
+            this.tabPage2.Controls.Add(this.txtNetwokCByte3);
+            this.tabPage2.Controls.Add(this.txtNetwokCByte2);
+            this.tabPage2.Controls.Add(this.txtNetwokCByte1);
+            this.tabPage2.Controls.Add(this.lblNetworkTabHost);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -202,52 +202,52 @@
             this.tabPage2.Text = "Host";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // textBox9
+            // txtNetwokCByte4
             // 
-            this.textBox9.Location = new System.Drawing.Point(208, 19);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(38, 20);
-            this.textBox9.TabIndex = 9;
+            this.txtNetwokCByte4.Location = new System.Drawing.Point(208, 19);
+            this.txtNetwokCByte4.Name = "txtNetwokCByte4";
+            this.txtNetwokCByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCByte4.TabIndex = 9;
             // 
-            // textBox10
+            // txtNetwokCByte3
             // 
-            this.textBox10.Location = new System.Drawing.Point(164, 19);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(38, 20);
-            this.textBox10.TabIndex = 8;
+            this.txtNetwokCByte3.Location = new System.Drawing.Point(164, 19);
+            this.txtNetwokCByte3.Name = "txtNetwokCByte3";
+            this.txtNetwokCByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCByte3.TabIndex = 8;
             // 
-            // textBox11
+            // txtNetwokCByte2
             // 
-            this.textBox11.Location = new System.Drawing.Point(120, 19);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(38, 20);
-            this.textBox11.TabIndex = 7;
+            this.txtNetwokCByte2.Location = new System.Drawing.Point(120, 19);
+            this.txtNetwokCByte2.Name = "txtNetwokCByte2";
+            this.txtNetwokCByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCByte2.TabIndex = 7;
             // 
-            // textBox12
+            // txtNetwokCByte1
             // 
-            this.textBox12.Location = new System.Drawing.Point(76, 19);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(38, 20);
-            this.textBox12.TabIndex = 6;
+            this.txtNetwokCByte1.Location = new System.Drawing.Point(76, 19);
+            this.txtNetwokCByte1.Name = "txtNetwokCByte1";
+            this.txtNetwokCByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCByte1.TabIndex = 6;
             // 
-            // label1
+            // lblNetworkTabHost
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Hostadresse:";
+            this.lblNetworkTabHost.AutoSize = true;
+            this.lblNetworkTabHost.Location = new System.Drawing.Point(7, 22);
+            this.lblNetworkTabHost.Name = "lblNetworkTabHost";
+            this.lblNetworkTabHost.Size = new System.Drawing.Size(69, 13);
+            this.lblNetworkTabHost.TabIndex = 0;
+            this.lblNetworkTabHost.Text = "Hostadresse:";
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.textBox17);
-            this.tabPage3.Controls.Add(this.label3);
-            this.tabPage3.Controls.Add(this.textBox13);
-            this.tabPage3.Controls.Add(this.textBox14);
-            this.tabPage3.Controls.Add(this.textBox15);
-            this.tabPage3.Controls.Add(this.textBox16);
-            this.tabPage3.Controls.Add(this.label2);
+            this.tabPage3.Controls.Add(this.txtNetwokCidrCidr);
+            this.tabPage3.Controls.Add(this.lblNetworkCidr2);
+            this.tabPage3.Controls.Add(this.txtNetwokCidrByte4);
+            this.tabPage3.Controls.Add(this.txtNetwokCidrByte3);
+            this.tabPage3.Controls.Add(this.txtNetwokCidrByte2);
+            this.tabPage3.Controls.Add(this.txtNetwokCidrByte1);
+            this.tabPage3.Controls.Add(this.lblNetworkTabCidr);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -256,68 +256,68 @@
             this.tabPage3.Text = "CIDR";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBox17
+            // txtNetwokCidrCidr
             // 
-            this.textBox17.Location = new System.Drawing.Point(196, 38);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(38, 20);
-            this.textBox17.TabIndex = 11;
+            this.txtNetwokCidrCidr.Location = new System.Drawing.Point(196, 38);
+            this.txtNetwokCidrCidr.Name = "txtNetwokCidrCidr";
+            this.txtNetwokCidrCidr.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCidrCidr.TabIndex = 11;
             // 
-            // label3
+            // lblNetworkCidr2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(180, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(15, 24);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "/";
+            this.lblNetworkCidr2.AutoSize = true;
+            this.lblNetworkCidr2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNetworkCidr2.Location = new System.Drawing.Point(180, 35);
+            this.lblNetworkCidr2.Name = "lblNetworkCidr2";
+            this.lblNetworkCidr2.Size = new System.Drawing.Size(15, 24);
+            this.lblNetworkCidr2.TabIndex = 10;
+            this.lblNetworkCidr2.Text = "/";
             // 
-            // textBox13
+            // txtNetwokCidrByte4
             // 
-            this.textBox13.Location = new System.Drawing.Point(141, 38);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(38, 20);
-            this.textBox13.TabIndex = 9;
+            this.txtNetwokCidrByte4.Location = new System.Drawing.Point(141, 38);
+            this.txtNetwokCidrByte4.Name = "txtNetwokCidrByte4";
+            this.txtNetwokCidrByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCidrByte4.TabIndex = 9;
             // 
-            // textBox14
+            // txtNetwokCidrByte3
             // 
-            this.textBox14.Location = new System.Drawing.Point(97, 38);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(38, 20);
-            this.textBox14.TabIndex = 8;
+            this.txtNetwokCidrByte3.Location = new System.Drawing.Point(97, 38);
+            this.txtNetwokCidrByte3.Name = "txtNetwokCidrByte3";
+            this.txtNetwokCidrByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCidrByte3.TabIndex = 8;
             // 
-            // textBox15
+            // txtNetwokCidrByte2
             // 
-            this.textBox15.Location = new System.Drawing.Point(53, 38);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(38, 20);
-            this.textBox15.TabIndex = 7;
+            this.txtNetwokCidrByte2.Location = new System.Drawing.Point(53, 38);
+            this.txtNetwokCidrByte2.Name = "txtNetwokCidrByte2";
+            this.txtNetwokCidrByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCidrByte2.TabIndex = 7;
             // 
-            // textBox16
+            // txtNetwokCidrByte1
             // 
-            this.textBox16.Location = new System.Drawing.Point(9, 38);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(38, 20);
-            this.textBox16.TabIndex = 6;
+            this.txtNetwokCidrByte1.Location = new System.Drawing.Point(9, 38);
+            this.txtNetwokCidrByte1.Name = "txtNetwokCidrByte1";
+            this.txtNetwokCidrByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtNetwokCidrByte1.TabIndex = 6;
             // 
-            // label2
+            // lblNetworkTabCidr
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Netzwerk:";
+            this.lblNetworkTabCidr.AutoSize = true;
+            this.lblNetworkTabCidr.Location = new System.Drawing.Point(6, 22);
+            this.lblNetworkTabCidr.Name = "lblNetworkTabCidr";
+            this.lblNetworkTabCidr.Size = new System.Drawing.Size(55, 13);
+            this.lblNetworkTabCidr.TabIndex = 0;
+            this.lblNetworkTabCidr.Text = "Netzwerk:";
             // 
-            // button1
+            // btnNetworkAdd
             // 
-            this.button1.Location = new System.Drawing.Point(166, 197);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 40);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Netzwerk hinzufügen";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnNetworkAdd.Location = new System.Drawing.Point(166, 197);
+            this.btnNetworkAdd.Name = "btnNetworkAdd";
+            this.btnNetworkAdd.Size = new System.Drawing.Size(121, 40);
+            this.btnNetworkAdd.TabIndex = 5;
+            this.btnNetworkAdd.Text = "Netzwerk hinzufügen";
+            this.btnNetworkAdd.UseVisualStyleBackColor = true;
             //
             //inherited Elements
             //
@@ -345,12 +345,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(441, 253);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnNetworkAdd);
             this.Controls.Add(this.tabNetwork);
             this.Controls.Add(this.lstNetworks);
             this.Controls.Add(this.lblNetworks);
             this.Name = "FormNetwork";
             this.Text = "Netzwerke hinzufügen";
+            this.Controls.SetChildIndex(this.lblNetworks, 0);
+            this.Controls.SetChildIndex(this.lstNetworks, 0);
+            this.Controls.SetChildIndex(this.tabNetwork, 0);
+            this.Controls.SetChildIndex(this.btnNetworkAdd, 0);
             this.tabNetwork.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -368,30 +372,30 @@
         private System.Windows.Forms.ListBox lstNetworks;
         private System.Windows.Forms.TabControl tabNetwork;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtNetwokEAByte4;
+        private System.Windows.Forms.TextBox txtNetwokEAByte3;
+        private System.Windows.Forms.TextBox txtNetwokEAByte2;
+        private System.Windows.Forms.TextBox txtNetwokEAByte1;
+        private System.Windows.Forms.TextBox txtNetwokSAByte4;
+        private System.Windows.Forms.TextBox txtNetwokSAByte3;
+        private System.Windows.Forms.TextBox txtNetwokSAByte2;
+        private System.Windows.Forms.TextBox txtNetwokSAByte1;
         private System.Windows.Forms.Label lblNetworkEndadress;
         private System.Windows.Forms.Label lblNetworkStart;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtNetwokCByte4;
+        private System.Windows.Forms.TextBox txtNetwokCByte3;
+        private System.Windows.Forms.TextBox txtNetwokCByte2;
+        private System.Windows.Forms.TextBox txtNetwokCByte1;
+        private System.Windows.Forms.Label lblNetworkTabHost;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox15;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtNetwokCidrCidr;
+        private System.Windows.Forms.Label lblNetworkCidr2;
+        private System.Windows.Forms.TextBox txtNetwokCidrByte4;
+        private System.Windows.Forms.TextBox txtNetwokCidrByte3;
+        private System.Windows.Forms.TextBox txtNetwokCidrByte2;
+        private System.Windows.Forms.TextBox txtNetwokCidrByte1;
+        private System.Windows.Forms.Label lblNetworkTabCidr;
+        private System.Windows.Forms.Button btnNetworkAdd;
     }
 }
