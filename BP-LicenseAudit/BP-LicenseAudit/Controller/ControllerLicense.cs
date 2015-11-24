@@ -32,6 +32,7 @@ namespace BP_LicenseAudit.Controller
         {
             //connect controller to its view
             this.view = view;
+            this.list_customers = list_customers;
         }
 
         //functions
@@ -62,6 +63,11 @@ namespace BP_LicenseAudit.Controller
 
         public override void UpdateView()
         {
+            //Customer
+            foreach (Customer c in list_customers)
+            {
+                view.AddCustomer(c.Name);
+            }
 
         }
 

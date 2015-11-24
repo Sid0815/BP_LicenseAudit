@@ -318,6 +318,7 @@
             this.btnNetworkAdd.TabIndex = 5;
             this.btnNetworkAdd.Text = "Netzwerk hinzufügen";
             this.btnNetworkAdd.UseVisualStyleBackColor = true;
+            this.btnNetworkAdd.Click += new System.EventHandler(this.btnNetworkAdd_Click);
             //
             //inherited Elements
             //

@@ -79,9 +79,11 @@ namespace BP_LicenseAudit.Controller
             switch (view)
             {
                 case "Audit":
+                    cAudit.UpdateView();
                     fAudit.ShowDialog();
                     break;
                 case "Changes":
+                    cChanges.UpdateView();
                     fChanges.ShowDialog();
                     break;
                 case "Customer":
@@ -89,6 +91,7 @@ namespace BP_LicenseAudit.Controller
                     fCustomer.ShowDialog();
                     break;
                 case "License":
+                    cLicense.UpdateView();
                     fLicense.ShowDialog();
                     break;
                 case "Network":
@@ -96,6 +99,7 @@ namespace BP_LicenseAudit.Controller
                     fNetwork.ShowDialog();
                     break;
                 case "SystemInventory":
+                    cSystemInventory.UpdateView();
                     fSystemInventory.ShowDialog();
                     break;
                 default:

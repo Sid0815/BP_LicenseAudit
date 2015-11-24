@@ -43,5 +43,10 @@ namespace BP_LicenseAudit.View
         {
 
         }
+
+        public void AddCustomer(string customer)
+        {
+            cmbCustomer.Items.Add(customer);
+        }
     }
 }
