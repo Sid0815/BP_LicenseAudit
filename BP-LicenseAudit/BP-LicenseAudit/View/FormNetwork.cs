@@ -62,6 +62,17 @@ namespace BP_LicenseAudit.View
             return endaddress;
         }
 
+        //returns the input of the hostaddress in a string[]
+        public string[] GetHostAddress()
+        {
+            string[] endaddress = new string[4];
+            endaddress[0] = txtNetwokCByte1.Text;
+            endaddress[1] = txtNetwokCByte2.Text;
+            endaddress[2] = txtNetwokCByte3.Text;
+            endaddress[3] = txtNetwokCByte4.Text;
+            return endaddress;
+        }
+
         //Adds a network to the list
         public void AddNetwork(string network)
         {

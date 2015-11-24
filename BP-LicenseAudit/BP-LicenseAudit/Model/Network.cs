@@ -34,6 +34,9 @@ namespace BP_LicenseAudit.Model
                 ipAddresses = value;
             }
         }
+        //1=Start-/EndAddress
+        //2=Host only
+        //3=Cidr
         private int inputType;
         public int InputType
         {

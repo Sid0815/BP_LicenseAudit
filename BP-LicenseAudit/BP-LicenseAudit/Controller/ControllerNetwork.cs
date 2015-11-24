@@ -107,7 +107,32 @@ namespace BP_LicenseAudit.Controller
                 //Host
                 case 2:
                     {
-
+                        //Get Address-Bytes as string
+                        string[] str_hostaddress = new string[4];
+                        str_hostaddress = view.GetHostAddress();
+                        //Convert into byte
+                        Byte[] b_hostaddress = new Byte[4];
+                        try
+                        {
+                            //Checks automaticaly for right value by its type and by converting
+                            b_hostaddress[0] = Convert.ToByte(str_hostaddress[0]);
+                            b_hostaddress[1] = Convert.ToByte(str_hostaddress[1]);
+                            b_hostaddress[2] = Convert.ToByte(str_hostaddress[2]);
+                            b_hostaddress[3] = Convert.ToByte(str_hostaddress[3]);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
+                            MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        IPAddress host = new IPAddress(b_hostaddress);
+                        ArrayList addresses = new ArrayList();
+                        addresses.Add(host);
+                        list_networks.Add(new Network(list_networks.Count,
+                                                        host.ToString(),
+                                                        inputtype,
+                                                        addresses));
+                        view.AddNetwork(host.ToString());
                         break;
                     }
                     
