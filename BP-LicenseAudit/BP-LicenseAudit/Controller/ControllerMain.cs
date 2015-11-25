@@ -23,6 +23,7 @@ namespace BP_LicenseAudit.Controller
         private ControllerSystemInventory cSystemInventory;
         private ArrayList list_networks;
         private ArrayList list_networkinventories;
+        private NetworkInventory currentNetworkInventory;
 
         //constructor
         public ControllerMain(FormMain view):base(null)
@@ -124,11 +125,39 @@ namespace BP_LicenseAudit.Controller
                     view.AddCustomer(c);
                 }
             }
+            //Network
+            view.ClearNetworks();
+            if (currentNetworkInventory != null)
+            {
+                foreach (Network n in currentNetworkInventory.List_networks)
+                {
+                    view.AddNetwork(n);
+                }
+            }
         }
 
         public override void UpdateInformation()
         {
             
+        }
+
+        public override void SelectedCustomerChanged(Object customer)
+        {
+            base.SelectedCustomerChanged(customer);
+            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            currentNetworkInventory = null;
+            //Get Networkinventor of the customer
+            foreach (NetworkInventory n in list_networkinventories)
+            {
+                if (n.Customernumber == currentCustomer.Cnumber)
+                {
+                    currentNetworkInventory = n;
+                    Console.WriteLine("NetworkInventory for customer {0} found", currentCustomer.Name);
+                }
+            }
+            UpdateView(false);
+
+
         }
     }
 }

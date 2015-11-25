@@ -7,7 +7,7 @@ using BP_LicenseAudit.Controller;
 
 namespace BP_LicenseAudit.Model
 {
-    class NetworkInventory : Inventory
+    public class NetworkInventory : Inventory
     {
         //properties
         private int networkInventoryNumber;
@@ -36,10 +36,10 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public NetworkInventory(int number)
+        public NetworkInventory(int customerNumber, int niNumber, ArrayList networks):base(customerNumber)
         {
-            networkInventoryNumber = number;
-            list_networks =  new ArrayList();
+            this.networkInventoryNumber = niNumber;
+            this.list_networks =  networks;
         }
 
         //functions

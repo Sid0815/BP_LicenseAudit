@@ -58,6 +58,7 @@ namespace BP_LicenseAudit.View
             lstCustomer.Items.Add(customer);
         }
 
+
         public void ClearCustomerList()
         {
             lstCustomer.Items.Clear();
@@ -66,6 +67,16 @@ namespace BP_LicenseAudit.View
         public override void ClearCustomers()
         {
             lstCustomer.Items.Clear();
+        }
+
+        public void AddNetwork(Network network)
+        {
+            lstNetworks.Items.Add(network);
+        }
+
+        public void ClearNetworks()
+        {
+            lstNetworks.Items.Clear();
         }
     }
 }

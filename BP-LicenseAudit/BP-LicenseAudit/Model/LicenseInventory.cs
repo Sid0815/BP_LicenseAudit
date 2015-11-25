@@ -35,7 +35,7 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public LicenseInventory(int number)
+        public LicenseInventory(int customerNumber, int number):base(customerNumber)
         {
             licenseInventoryNumber = number;
             inventory = null;

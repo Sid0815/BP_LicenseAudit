@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BP_LicenseAudit.Model
 {
-    class Inventory
+    public class Inventory
     {
         //properties
         private int customerNumber;
@@ -20,6 +20,11 @@ namespace BP_LicenseAudit.Model
             {
                 customerNumber = value;
             }
+        }
+        //constructor
+        public Inventory (int customerNumber)
+        {
+            this.customerNumber = customerNumber;
         }
     }
 }

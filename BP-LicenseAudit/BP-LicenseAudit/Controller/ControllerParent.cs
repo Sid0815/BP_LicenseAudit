@@ -18,7 +18,7 @@ namespace BP_LicenseAudit.Controller
         }
 
 
-        public void SelectedCustomerChanged(Object customer)
+        public virtual void SelectedCustomerChanged(Object customer)
         {
             currentCustomer = (Customer) customer;
             UpdateView(false);

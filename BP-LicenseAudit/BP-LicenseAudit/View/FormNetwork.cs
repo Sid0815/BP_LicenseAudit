@@ -92,9 +92,43 @@ namespace BP_LicenseAudit.View
             lstNetworks.Items.Add(network);
         }
 
+        public void ClearNetworks()
+        {
+            lstNetworks.Items.Clear();
+        }
+
         protected override void cmbCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbCustomer.SelectedItem != null)currentcontroller.SelectedCustomerChanged(cmbCustomer.SelectedItem);
+        }
+
+        public void ClearStartEndInput()
+        {
+            txtNetwokSAByte1.Clear();
+            txtNetwokSAByte2.Clear();
+            txtNetwokSAByte3.Clear();
+            txtNetwokSAByte4.Clear();
+            txtNetwokEAByte1.Clear();
+            txtNetwokEAByte2.Clear();
+            txtNetwokEAByte3.Clear();
+            txtNetwokEAByte4.Clear();
+        }
+
+        public void ClearHostInput()
+        {
+            txtNetwokCByte1.Clear();
+            txtNetwokCByte2.Clear();
+            txtNetwokCByte3.Clear();
+            txtNetwokCByte4.Clear();
+        }
+
+        public void ClearCidrInput()
+        {
+            txtNetwokCidrByte1.Clear();
+            txtNetwokCidrByte2.Clear();
+            txtNetwokCidrByte3.Clear();
+            txtNetwokCidrByte4.Clear();
+            txtNetwokCidrCidr.Clear();
         }
     }
 }

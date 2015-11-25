@@ -74,14 +74,18 @@ namespace BP_LicenseAudit.Controller
             return addresses;
         }
 
-        public void CreateNetworkInventory()
+        public NetworkInventory CreateNetworkInventory(int customerNumber)
         {
-
+            currentNetworkInventory = new NetworkInventory(customerNumber, list_networkinventories.Count, new ArrayList());
+            list_networkinventories.Add(currentNetworkInventory);
+            return currentNetworkInventory;
         }
 
         public void AddNetworkToInventory()
         {
             inputtype = view.GetInputtype();
+            if (currentCustomer != null)
+            {
             switch (inputtype)
             {
                 //Start- Endaddress
@@ -128,8 +132,7 @@ namespace BP_LicenseAudit.Controller
                                                         String.Format("{0} - {1}", start.ToString(), end.ToString()),
                                                         inputtype,
                                                         calcAddressesSE(start, end));
-                        list_networks.Add(currentNetwork);
-                        view.AddNetwork(currentNetwork);
+                        view.ClearStartEndInput();
                         break;
                     }
                 //Host
@@ -161,8 +164,7 @@ namespace BP_LicenseAudit.Controller
                                                         host.ToString(),
                                                         inputtype,
                                                         addresses);
-                        list_networks.Add(currentNetwork);
-                       view.AddNetwork(currentNetwork);
+                        view.ClearHostInput();
                         break;
                     }
                     
@@ -197,20 +199,20 @@ namespace BP_LicenseAudit.Controller
                                                         String.Format("{0} / {1}", network.ToString(), cidr.ToString()),
                                                         inputtype,
                                                         calcAddressesCidr(network, cidr));
-                        list_networks.Add(currentNetwork);
-                        view.AddNetwork(currentNetwork);
-
+                        view.ClearCidrInput();
                         break;
                     }
-                    
-                    
-
-                default:
+                    default:
                     Console.WriteLine("Unknown Inputtype");
                     break;
             }
-                
+            
 
+            list_networks.Add(currentNetwork);
+            view.AddNetwork(currentNetwork);
+            currentNetworkInventory.AddNetwork(currentNetwork);
+            }
+            UpdateView(false);
         }
 
         public void GetNotworkInventoryFromDB()
@@ -234,9 +236,16 @@ namespace BP_LicenseAudit.Controller
                     view.AddCustomer(c);
                 }
             }
-                        
+
             //Networks
-            //Show all networks belonging to the customer with the cnr = index of selected element cmbCustomer
+            view.ClearNetworks();
+            if(currentNetworkInventory!=null && currentNetworkInventory.List_networks.Count > 0)
+            {
+                foreach (Network n in currentNetworkInventory.List_networks)
+                {
+                    view.AddNetwork(n);
+                }
+            }
         }
 
         public override void UpdateInformation()
@@ -259,7 +268,28 @@ namespace BP_LicenseAudit.Controller
             return convertedIP;
         }
 
-
-
+        public override void SelectedCustomerChanged(Object customer)
+        {
+            base.SelectedCustomerChanged(customer);
+            currentNetworkInventory = null;
+            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            //Get Networkinventor of the customer or create a new one
+            foreach (NetworkInventory n in list_networkinventories)
+            {
+                if (n.Customernumber == currentCustomer.Cnumber)
+                {
+                    currentNetworkInventory = n;
+                    Console.WriteLine("Inventory for customer {0} found", currentCustomer.Name);
+                }
+            }
+            if (currentNetworkInventory == null)
+            {
+                currentNetworkInventory = CreateNetworkInventory(currentCustomer.Cnumber);
+                Console.WriteLine("new inventory created");
+            }
+            UpdateView(false);
         }
+
+
+    }
 }

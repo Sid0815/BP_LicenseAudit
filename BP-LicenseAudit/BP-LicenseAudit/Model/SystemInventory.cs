@@ -38,7 +38,7 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public SystemInventory(int number)
+        public SystemInventory(int customernumber, int number):base(customernumber)
         {
             systemInventoryNumber = number;
             list_systems = new ArrayList();
