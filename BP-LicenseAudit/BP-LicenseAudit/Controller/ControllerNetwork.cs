@@ -63,11 +63,13 @@ namespace BP_LicenseAudit.Controller
             UInt32 byte4 = Convert.ToUInt32(bip[3]);
             convertedIP = (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4;
             //get subnetmask by shifting and building the complement
-            subnetmask = ~(0xffffffff >> cidr);
+            if (cidr == 32) subnetmask = 0xffffffff;
+            else subnetmask = ~(0xffffffff >> cidr);
             //IPAddress ipsubnetmask = IPAddress.Parse(Convert.ToString(subnetmask));
             //calculate networkip
             networkip = convertedIP & subnetmask;
-            IPAddress ipnw = IPAddress.Parse(Convert.ToString(network));
+            IPAddress ipnw = IPAddress.Parse(Convert.ToString(networkip));
+            view.AddNetwork(String.Format("Test: {0}", ipnw.ToString()));
             //calculate endaddress of the range
             broadcast = (networkip & subnetmask) | ~subnetmask;
             IPAddress ipend = IPAddress.Parse(Convert.ToString(broadcast));

@@ -14,9 +14,9 @@ namespace testCIDR
             Byte[] ip = new Byte[4];
             ip[0] = 192;
             ip[1] = 168;
-            ip[2] = 100;
-            ip[3] = 0;
-            int cidr = 25;
+            ip[2] = 1;
+            ip[3] = 2;
+            int cidr = 30;
             UInt32 subnetmask;
             IPAddress testIP = new IPAddress(ip);
             Console.WriteLine("Calculation the adresses for {0}/{1}", testIP.ToString(), cidr);
@@ -31,7 +31,8 @@ namespace testCIDR
             UInt32 byte4 = Convert.ToUInt32(bip[3]);
             convertedIP = (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4;
             //get subnetmask by shifting and building the complement
-            subnetmask = ~(0xffffffff >> cidr);
+            if (cidr == 32) subnetmask = 0xffffffff;
+            else subnetmask = ~(0xffffffff >> cidr);
             Console.WriteLine("Subnetmask: " + subnetmask);
             IPAddress ipsubnetmask = IPAddress.Parse(Convert.ToString(subnetmask));
             Console.WriteLine("Subnetmask: " + ipsubnetmask.ToString());
