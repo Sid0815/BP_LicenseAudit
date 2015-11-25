@@ -62,5 +62,10 @@ namespace BP_LicenseAudit.View
         {
             lstCustomer.Items.Clear();
         }
+
+        public override void ClearCustomers()
+        {
+            lstCustomer.Items.Clear();
+        }
     }
 }

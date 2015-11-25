@@ -44,7 +44,7 @@ namespace BP_LicenseAudit.View
             cmbCustomer.Items.Add(customer);
         }
 
-        public void ClearCustomers()
+        public virtual void ClearCustomers()
         {
             cmbCustomer.Items.Clear();
         }

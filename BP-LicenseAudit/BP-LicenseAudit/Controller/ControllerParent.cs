@@ -21,6 +21,7 @@ namespace BP_LicenseAudit.Controller
         public void SelectedCustomerChanged(Object customer)
         {
             currentCustomer = (Customer) customer;
+            UpdateView(false);
         }
 
         public void GetCustomerFromMainForm()
@@ -34,7 +35,7 @@ namespace BP_LicenseAudit.Controller
         }
 
         //Update the view of the calling Controller
-        public abstract void UpdateView();
+        public abstract void UpdateView(bool customerUpdated);
 
         //Pass Information to the calling Controller
         public abstract void UpdateInformation();

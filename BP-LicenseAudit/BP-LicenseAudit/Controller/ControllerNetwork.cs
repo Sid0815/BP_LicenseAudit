@@ -223,13 +223,18 @@ namespace BP_LicenseAudit.Controller
             //save currentNI to DB
         }
 
-        public override void UpdateView()
+        public override void UpdateView(bool customerUpdated)
         {
             //Customer
-            foreach (Customer c in list_customers)
+            if (customerUpdated)
             {
-                view.AddCustomer(c);
+                view.ClearCustomers();
+                foreach (Customer c in list_customers)
+                {
+                    view.AddCustomer(c);
+                }
             }
+                        
             //Networks
             //Show all networks belonging to the customer with the cnr = index of selected element cmbCustomer
         }

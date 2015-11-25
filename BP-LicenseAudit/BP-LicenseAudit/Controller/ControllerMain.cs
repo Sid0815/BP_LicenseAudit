@@ -84,27 +84,27 @@ namespace BP_LicenseAudit.Controller
             switch (view)
             {
                 case "Audit":
-                    cAudit.UpdateView();
+                    cAudit.UpdateView(true);
                     fAudit.ShowDialog();
                     break;
                 case "Changes":
-                    cChanges.UpdateView();
+                    cChanges.UpdateView(true);
                     fChanges.ShowDialog();
                     break;
                 case "Customer":
-                    cCustomer.UpdateView();
+                    cCustomer.UpdateView(true);
                     fCustomer.ShowDialog();
                     break;
                 case "License":
-                    cLicense.UpdateView();
+                    cLicense.UpdateView(true);
                     fLicense.ShowDialog();
                     break;
                 case "Network":
-                    cNetwork.UpdateView();
+                    cNetwork.UpdateView(true);
                     fNetwork.ShowDialog();
                     break;
                 case "SystemInventory":
-                    cSystemInventory.UpdateView();
+                    cSystemInventory.UpdateView(true);
                     fSystemInventory.ShowDialog();
                     break;
                 default:
@@ -113,13 +113,16 @@ namespace BP_LicenseAudit.Controller
             }
         }
 
-        public override void UpdateView()
+        public override void UpdateView(bool customerUpdated)
         {
             //Customer
-            view.ClearCustomerList();
-            foreach(Customer c in list_customers)
+            if (customerUpdated)
             {
-                view.AddCustomer(c);
+                view.ClearCustomers();
+                foreach (Customer c in list_customers)
+                {
+                    view.AddCustomer(c);
+                }
             }
         }
 

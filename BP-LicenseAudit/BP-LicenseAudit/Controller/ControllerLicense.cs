@@ -61,12 +61,16 @@ namespace BP_LicenseAudit.Controller
 
         }
 
-        public override void UpdateView()
+        public override void UpdateView(bool customerUpdated)
         {
             //Customer
-            foreach (Customer c in list_customers)
+            if (customerUpdated)
             {
-                view.AddCustomer(c);
+                view.ClearCustomers();
+                foreach (Customer c in list_customers)
+                {
+                    view.AddCustomer(c);
+                }
             }
 
         }

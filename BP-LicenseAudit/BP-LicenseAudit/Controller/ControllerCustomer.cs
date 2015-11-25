@@ -41,7 +41,7 @@ namespace BP_LicenseAudit.Controller
             return foundCustomer;
         }
 
-        public override void UpdateView()
+        public override void UpdateView(bool customerChanged)
         {
             //Update number of customers
             view.UpdateCustomerNumber(Convert.ToString(list_customers.Count));
@@ -62,11 +62,11 @@ namespace BP_LicenseAudit.Controller
             if(checkInput(name, street, streetnr, city, zip))
             {                
                 AddCustomer(list_customers.Count, name, street, streetnr, city, zip);
-                UpdateView();
+                UpdateView(true);
                 MessageBox.Show("Kunde erfolgreich hinzugefügt", "OK", MessageBoxButtons.OK);
                 view.ClearInput();
                 //Communicate to calling controller
-                callingController.UpdateView();
+                callingController.UpdateView(true);
             }
             else
             {
@@ -86,12 +86,12 @@ namespace BP_LicenseAudit.Controller
             if (checkInput(name, street, streetnr, city, zip))
             {
                 AddCustomer(list_customers.Count, name, street, streetnr, city, zip);
-                UpdateView();
+                UpdateView(true);
                 MessageBox.Show("Kunde erfolgreich hinzugefügt", "OK", MessageBoxButtons.OK);
                 view.ClearInput();
                 view.Close();
                 //Communicate to calling controller
-                callingController.UpdateView();
+                callingController.UpdateView(true);
             }
             else
             {
