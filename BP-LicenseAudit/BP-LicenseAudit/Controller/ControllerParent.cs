@@ -7,7 +7,7 @@ namespace BP_LicenseAudit.Controller
 {
     public abstract class ControllerParent
     {
-        private Customer currentCustomer;
+        protected Customer currentCustomer;
         protected ControllerParent callingController;
         protected ArrayList list_customers;
 
@@ -18,10 +18,9 @@ namespace BP_LicenseAudit.Controller
         }
 
 
-        public void SelectedCustomerChanged(String name)
+        public void SelectedCustomerChanged(Object customer)
         {
-            //chnage the selected customer and update
-
+            currentCustomer = (Customer) customer;
         }
 
         public void GetCustomerFromMainForm()

@@ -91,5 +91,10 @@ namespace BP_LicenseAudit.View
         {
             lstNetworks.Items.Add(network);
         }
+
+        protected override void cmbCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCustomer.SelectedItem != null)currentcontroller.SelectedCustomerChanged(cmbCustomer.SelectedItem);
+        }
     }
 }

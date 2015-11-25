@@ -24,9 +24,9 @@ namespace BP_LicenseAudit.View
 
         }
 
-        public void SetCustomer()
+        public void SetCustomer(Customer customer)
         {
-
+            cmbCustomer.SelectedItem = customer;
         }
 
         public void GetCustomer()
@@ -44,7 +44,12 @@ namespace BP_LicenseAudit.View
             cmbCustomer.Items.Add(customer);
         }
 
-        private void cmbCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        public void ClearCustomers()
+        {
+            cmbCustomer.Items.Clear();
+        }
+
+        protected virtual void cmbCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
