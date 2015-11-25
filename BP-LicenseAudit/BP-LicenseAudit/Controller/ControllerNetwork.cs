@@ -51,7 +51,32 @@ namespace BP_LicenseAudit.Controller
         private ArrayList calcAddressesCidr(IPAddress network, byte cidr)
         {
             ArrayList addresses = new ArrayList();
-
+            UInt32 subnetmask;
+            UInt32 convertedIP = 0;
+            UInt32 networkip = 0;
+            UInt32 broadcast = 0;
+            Byte[] bip = network.GetAddressBytes();
+            //Split IP into Bytes
+            UInt32 byte1 = Convert.ToUInt32(bip[0]);
+            UInt32 byte2 = Convert.ToUInt32(bip[1]);
+            UInt32 byte3 = Convert.ToUInt32(bip[2]);
+            UInt32 byte4 = Convert.ToUInt32(bip[3]);
+            convertedIP = (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4;
+            //get subnetmask by shifting and building the complement
+            subnetmask = ~(0xffffffff >> cidr);
+            //IPAddress ipsubnetmask = IPAddress.Parse(Convert.ToString(subnetmask));
+            //calculate networkip
+            networkip = convertedIP & subnetmask;
+            IPAddress ipnw = IPAddress.Parse(Convert.ToString(network));
+            //calculate endaddress of the range
+            broadcast = (networkip & subnetmask) | ~subnetmask;
+            IPAddress ipend = IPAddress.Parse(Convert.ToString(broadcast));
+            //calculate Addresses of the range
+            addresses = calcAddressesSE(ipnw, ipend);
+            foreach(IPAddress i in addresses)
+            {
+                view.AddNetwork(String.Format("{0}", i.ToString()));
+            }
             return addresses;
         }
 
@@ -152,7 +177,7 @@ namespace BP_LicenseAudit.Controller
                         string[] str_cidraddress = new string[5];
                         str_cidraddress = view.GetCidrAddress();
                         //Convert into byte
-                        Byte[] b_cidraddress = new Byte[3];
+                        Byte[] b_cidraddress = new Byte[4];
                         byte cidr=0;
                         try
                         {
@@ -173,10 +198,10 @@ namespace BP_LicenseAudit.Controller
                         //Creating and adding network
                         IPAddress network = new IPAddress(b_cidraddress);
                         list_networks.Add(new Network(list_networks.Count,
-                                                        String.Format("{0} // {1}", network.ToString(), cidr.ToString()),
+                                                        String.Format("{0} / {1}", network.ToString(), cidr.ToString()),
                                                         inputtype,
                                                         calcAddressesCidr(network, cidr)));
-                        view.AddNetwork(String.Format("{0} // {1}", network.ToString(), cidr.ToString()));
+                        view.AddNetwork(String.Format("{0} / {1}", network.ToString(), cidr.ToString()));
 
                         break;
                     }
