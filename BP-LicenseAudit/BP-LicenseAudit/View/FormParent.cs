@@ -39,7 +39,7 @@ namespace BP_LicenseAudit.View
 
         }
 
-        public void AddCustomer(Customer customer)
+        public virtual void AddCustomer(Customer customer)
         {
             cmbCustomer.Items.Add(customer);
         }

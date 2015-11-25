@@ -45,6 +45,7 @@
             // 
             // lstCustomer
             // 
+            this.lstCustomer.DisplayMember = "Name";
             this.lstCustomer.FormattingEnabled = true;
             this.lstCustomer.Items.AddRange(new object[] {
             "(leer)"});
@@ -52,7 +53,7 @@
             this.lstCustomer.Name = "lstCustomer";
             this.lstCustomer.Size = new System.Drawing.Size(120, 290);
             this.lstCustomer.TabIndex = 0;
-            this.lstCustomer.DisplayMember = "Name";
+            this.lstCustomer.SelectedIndexChanged += new System.EventHandler(this.lstCustomer_SelectedIndexChanged);
             // 
             // lblNetworks
             // 
@@ -65,6 +66,7 @@
             // 
             // lstNetworks
             // 
+            this.lstNetworks.DisplayMember = "Name";
             this.lstNetworks.FormattingEnabled = true;
             this.lstNetworks.Items.AddRange(new object[] {
             "(leer)"});
@@ -72,7 +74,6 @@
             this.lstNetworks.Name = "lstNetworks";
             this.lstNetworks.Size = new System.Drawing.Size(120, 290);
             this.lstNetworks.TabIndex = 2;
-            this.lstNetworks.DisplayMember = "Name";
             // 
             // lblLicense
             // 
@@ -207,6 +208,19 @@
             this.Controls.Add(this.lstCustomer);
             this.Name = "FormMain";
             this.Text = "Hauptfenster";
+            this.Controls.SetChildIndex(this.lstCustomer, 0);
+            this.Controls.SetChildIndex(this.lstNetworks, 0);
+            this.Controls.SetChildIndex(this.lblNetworks, 0);
+            this.Controls.SetChildIndex(this.lstLicense, 0);
+            this.Controls.SetChildIndex(this.lblLicense, 0);
+            this.Controls.SetChildIndex(this.lstActions, 0);
+            this.Controls.SetChildIndex(this.lblActions, 0);
+            this.Controls.SetChildIndex(this.btnCustomer, 0);
+            this.Controls.SetChildIndex(this.btnNetwork, 0);
+            this.Controls.SetChildIndex(this.btnLicense, 0);
+            this.Controls.SetChildIndex(this.btnInventory, 0);
+            this.Controls.SetChildIndex(this.btnAudit, 0);
+            this.Controls.SetChildIndex(this.btnChange, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 

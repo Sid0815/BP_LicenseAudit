@@ -53,7 +53,7 @@ namespace BP_LicenseAudit.View
             currentcontroller.OpenForm("Audit");
         }
 
-        public void AddCustomer(Customer customer)
+        public override void AddCustomer(Customer customer)
         {
             lstCustomer.Items.Add(customer);
         }
@@ -77,6 +77,11 @@ namespace BP_LicenseAudit.View
         public void ClearNetworks()
         {
             lstNetworks.Items.Clear();
+        }
+
+        private void lstCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currentcontroller.SelectedCustomerChanged(lstCustomer.SelectedIndex);
         }
     }
 }
