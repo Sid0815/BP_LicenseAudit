@@ -1,12 +1,7 @@
 ﻿using BP_LicenseAudit.Controller;
+using BP_LicenseAudit.Model;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
 namespace BP_LicenseAudit.View
@@ -44,9 +39,14 @@ namespace BP_LicenseAudit.View
 
         }
 
-        public void AddCustomer(string customer)
+        public void AddCustomer(Customer customer)
         {
             cmbCustomer.Items.Add(customer);
+        }
+
+        private void cmbCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

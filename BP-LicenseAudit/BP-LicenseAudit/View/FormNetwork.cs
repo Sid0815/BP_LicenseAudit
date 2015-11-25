@@ -1,5 +1,6 @@
 ﻿using System;
 using BP_LicenseAudit.Controller;
+using BP_LicenseAudit.Model;
 
 namespace BP_LicenseAudit.View
 {
@@ -86,7 +87,7 @@ namespace BP_LicenseAudit.View
         }
 
         //Adds a network to the list
-        public void AddNetwork(string network)
+        public void AddNetwork(Network network)
         {
             lstNetworks.Items.Add(network);
         }

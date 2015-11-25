@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BP_LicenseAudit.Model
 {
-    class Network
+    public class Network
     {
         //properties
         private int networkNumber;

@@ -52,6 +52,7 @@
             this.lstCustomer.Name = "lstCustomer";
             this.lstCustomer.Size = new System.Drawing.Size(120, 290);
             this.lstCustomer.TabIndex = 0;
+            this.lstCustomer.DisplayMember = "Name";
             // 
             // lblNetworks
             // 
@@ -71,6 +72,7 @@
             this.lstNetworks.Name = "lstNetworks";
             this.lstNetworks.Size = new System.Drawing.Size(120, 290);
             this.lstNetworks.TabIndex = 2;
+            this.lstNetworks.DisplayMember = "Name";
             // 
             // lblLicense
             // 

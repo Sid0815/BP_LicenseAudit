@@ -1,5 +1,6 @@
 ﻿using System;
 using BP_LicenseAudit.Controller;
+using BP_LicenseAudit.Model;
 
 namespace BP_LicenseAudit.View
 {
@@ -52,7 +53,7 @@ namespace BP_LicenseAudit.View
             currentcontroller.OpenForm("Audit");
         }
 
-        public void AddCustomer(string customer)
+        public void AddCustomer(Customer customer)
         {
             lstCustomer.Items.Add(customer);
         }

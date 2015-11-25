@@ -31,7 +31,6 @@ namespace BP_LicenseAudit.Controller
         {
             ArrayList addresses = new ArrayList();
             addresses.Add(start);
-            //view.AddNetwork(start.ToString());
             if (start.Equals(end))
             {
                 return addresses;
@@ -43,7 +42,6 @@ namespace BP_LicenseAudit.Controller
                 h++;
                 start = IPAddress.Parse(Convert.ToString(h));
                 addresses.Add(start);
-                //view.AddNetwork(start.ToString());
             }
             return addresses;
         }
@@ -65,20 +63,14 @@ namespace BP_LicenseAudit.Controller
             //get subnetmask by shifting and building the complement
             if (cidr == 32) subnetmask = 0xffffffff;
             else subnetmask = ~(0xffffffff >> cidr);
-            //IPAddress ipsubnetmask = IPAddress.Parse(Convert.ToString(subnetmask));
             //calculate networkip
             networkip = convertedIP & subnetmask;
-            IPAddress ipnw = IPAddress.Parse(Convert.ToString(networkip));
-            view.AddNetwork(String.Format("Test: {0}", ipnw.ToString()));
+            IPAddress ipStartAddress = IPAddress.Parse(Convert.ToString(networkip));
             //calculate endaddress of the range
             broadcast = (networkip & subnetmask) | ~subnetmask;
-            IPAddress ipend = IPAddress.Parse(Convert.ToString(broadcast));
+            IPAddress ipEndAddress = IPAddress.Parse(Convert.ToString(broadcast));
             //calculate Addresses of the range
-            addresses = calcAddressesSE(ipnw, ipend);
-            foreach(IPAddress i in addresses)
-            {
-                view.AddNetwork(String.Format("{0}", i.ToString()));
-            }
+            addresses = calcAddressesSE(ipStartAddress, ipEndAddress);
             return addresses;
         }
 
@@ -132,11 +124,12 @@ namespace BP_LicenseAudit.Controller
                             MessageBox.Show("Addressen gedreht.", "Inputfehler korregiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         //Creating and adding network
-                        list_networks.Add(new Network(list_networks.Count,
+                        currentNetwork = new Network(list_networks.Count,
                                                         String.Format("{0} - {1}", start.ToString(), end.ToString()),
                                                         inputtype,
-                                                        calcAddressesSE(start, end)));
-                        view.AddNetwork(String.Format("{0} - {1}", start.ToString(), end.ToString()));
+                                                        calcAddressesSE(start, end));
+                        list_networks.Add(currentNetwork);
+                        view.AddNetwork(currentNetwork);
                         break;
                     }
                 //Host
@@ -164,11 +157,12 @@ namespace BP_LicenseAudit.Controller
                         IPAddress host = new IPAddress(b_hostaddress);
                         ArrayList addresses = new ArrayList();
                         addresses.Add(host);
-                        list_networks.Add(new Network(list_networks.Count,
+                        currentNetwork = new Network(list_networks.Count,
                                                         host.ToString(),
                                                         inputtype,
-                                                        addresses));
-                        view.AddNetwork(host.ToString());
+                                                        addresses);
+                        list_networks.Add(currentNetwork);
+                       view.AddNetwork(currentNetwork);
                         break;
                     }
                     
@@ -199,11 +193,12 @@ namespace BP_LicenseAudit.Controller
                         }
                         //Creating and adding network
                         IPAddress network = new IPAddress(b_cidraddress);
-                        list_networks.Add(new Network(list_networks.Count,
+                        currentNetwork = new Network(list_networks.Count,
                                                         String.Format("{0} / {1}", network.ToString(), cidr.ToString()),
                                                         inputtype,
-                                                        calcAddressesCidr(network, cidr)));
-                        view.AddNetwork(String.Format("{0} / {1}", network.ToString(), cidr.ToString()));
+                                                        calcAddressesCidr(network, cidr));
+                        list_networks.Add(currentNetwork);
+                        view.AddNetwork(currentNetwork);
 
                         break;
                     }
@@ -233,7 +228,7 @@ namespace BP_LicenseAudit.Controller
             //Customer
             foreach (Customer c in list_customers)
             {
-                view.AddCustomer(c.Name);
+                view.AddCustomer(c);
             }
             //Networks
             //Show all networks belonging to the customer with the cnr = index of selected element cmbCustomer

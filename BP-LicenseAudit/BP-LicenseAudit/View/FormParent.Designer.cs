@@ -50,6 +50,8 @@
             this.cmbCustomer.Name = "cmbCustomer";
             this.cmbCustomer.Size = new System.Drawing.Size(121, 21);
             this.cmbCustomer.TabIndex = 1;
+            this.cmbCustomer.DisplayMember = "Name";
+            this.cmbCustomer.SelectedIndexChanged += new System.EventHandler(this.cmbCustomer_SelectedIndexChanged);
             // 
             // lblCustomer
             // 

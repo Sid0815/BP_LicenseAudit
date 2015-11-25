@@ -68,7 +68,7 @@ namespace BP_LicenseAudit.Controller
             //Customer
             foreach (Customer c in list_customers)
             {
-                view.AddCustomer(c.Name);
+                view.AddCustomer(c);
             }
 
         }
