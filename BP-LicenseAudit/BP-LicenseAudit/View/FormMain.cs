@@ -81,7 +81,7 @@ namespace BP_LicenseAudit.View
 
         private void lstCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentcontroller.SelectedCustomerChanged(lstCustomer.SelectedIndex);
+            currentcontroller.SelectedCustomerChanged(lstCustomer.SelectedItem);
         }
     }
 }
