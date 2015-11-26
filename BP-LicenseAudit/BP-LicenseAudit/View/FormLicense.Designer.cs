@@ -28,25 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lstLicenses = new System.Windows.Forms.ListBox();
             this.lblLicenses = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.lblLicense = new System.Windows.Forms.Label();
+            this.cmbLicense = new System.Windows.Forms.ComboBox();
+            this.lblCount = new System.Windows.Forms.Label();
+            this.numCount = new System.Windows.Forms.NumericUpDown();
+            this.btnLicense = new System.Windows.Forms.Button();
+            this.dgvLicense = new System.Windows.Forms.DataGridView();
+            this.clmLicense = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.numCount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLicense)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lstLicenses
-            // 
-            this.lstLicenses.FormattingEnabled = true;
-            this.lstLicenses.Items.AddRange(new object[] {
-            "(leer)"});
-            this.lstLicenses.Location = new System.Drawing.Point(9, 54);
-            this.lstLicenses.Name = "lstLicenses";
-            this.lstLicenses.Size = new System.Drawing.Size(120, 173);
-            this.lstLicenses.TabIndex = 5;
             // 
             // lblLicenses
             // 
@@ -57,47 +50,71 @@
             this.lblLicenses.TabIndex = 4;
             this.lblLicenses.Text = "Lizenzen:";
             // 
-            // label1
+            // lblLicense
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(135, 54);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(40, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Lizenz:";
+            this.lblLicense.AutoSize = true;
+            this.lblLicense.Location = new System.Drawing.Point(6, 276);
+            this.lblLicense.Name = "lblLicense";
+            this.lblLicense.Size = new System.Drawing.Size(40, 13);
+            this.lblLicense.TabIndex = 6;
+            this.lblLicense.Text = "Lizenz:";
             // 
-            // comboBox1
+            // cmbLicense
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(181, 51);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(124, 21);
-            this.comboBox1.TabIndex = 7;
+            this.cmbLicense.FormattingEnabled = true;
+            this.cmbLicense.Location = new System.Drawing.Point(52, 273);
+            this.cmbLicense.Name = "cmbLicense";
+            this.cmbLicense.Size = new System.Drawing.Size(210, 21);
+            this.cmbLicense.TabIndex = 7;
             // 
-            // label2
+            // lblCount
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(135, 91);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Anzahl:";
+            this.lblCount.AutoSize = true;
+            this.lblCount.Location = new System.Drawing.Point(6, 313);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(42, 13);
+            this.lblCount.TabIndex = 8;
+            this.lblCount.Text = "Anzahl:";
             // 
-            // numericUpDown1
+            // numCount
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(183, 89);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(122, 20);
-            this.numericUpDown1.TabIndex = 9;
+            this.numCount.Location = new System.Drawing.Point(54, 311);
+            this.numCount.Name = "numCount";
+            this.numCount.Size = new System.Drawing.Size(208, 20);
+            this.numCount.TabIndex = 9;
             // 
-            // button1
+            // btnLicense
             // 
-            this.button1.Location = new System.Drawing.Point(138, 152);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 39);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Lizenzen hinzufügen";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnLicense.Location = new System.Drawing.Point(9, 347);
+            this.btnLicense.Name = "btnLicense";
+            this.btnLicense.Size = new System.Drawing.Size(120, 39);
+            this.btnLicense.TabIndex = 10;
+            this.btnLicense.Text = "Lizenzen hinzufügen";
+            this.btnLicense.UseVisualStyleBackColor = true;
+            // 
+            // dgvLicense
+            // 
+            this.dgvLicense.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLicense.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmLicense,
+            this.clmCount});
+            this.dgvLicense.Location = new System.Drawing.Point(9, 58);
+            this.dgvLicense.Name = "dgvLicense";
+            this.dgvLicense.RowHeadersVisible = false;
+            this.dgvLicense.Size = new System.Drawing.Size(253, 200);
+            this.dgvLicense.TabIndex = 11;
+            // 
+            // clmLicense
+            // 
+            this.clmLicense.HeaderText = "Lizenz";
+            this.clmLicense.Name = "clmLicense";
+            this.clmLicense.Width = 200;
+            // 
+            // clmCount
+            // 
+            this.clmCount.HeaderText = "Anzahl";
+            this.clmCount.Name = "clmCount";
+            this.clmCount.Width = 50;
             //
             //inherited Elements
             //
@@ -105,7 +122,7 @@
             // cmbCustomer
             // 
             this.cmbCustomer.Location = new System.Drawing.Point(53, 9);
-            this.cmbCustomer.Size = new System.Drawing.Size(252, 21);
+            this.cmbCustomer.Size = new System.Drawing.Size(212, 21);
             this.cmbCustomer.TabIndex = 3;
             // 
             // lblCustomer
@@ -115,39 +132,48 @@
             this.lblCustomer.TabIndex = 2;
             // 
             // btnEnd
-            // 
-            this.btnEnd.Location = new System.Drawing.Point(229, 152);
-            this.btnEnd.Size = new System.Drawing.Size(76, 39);
+            this.btnEnd.Location = new System.Drawing.Point(145, 347);
+            this.btnEnd.Size = new System.Drawing.Size(117, 39);
             this.btnEnd.TabIndex = 11;
             // 
             // FormLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 239);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lstLicenses);
+            this.ClientSize = new System.Drawing.Size(275, 398);
+            this.Controls.Add(this.dgvLicense);
+            this.Controls.Add(this.btnLicense);
+            this.Controls.Add(this.numCount);
+            this.Controls.Add(this.lblCount);
+            this.Controls.Add(this.cmbLicense);
+            this.Controls.Add(this.lblLicense);
             this.Controls.Add(this.lblLicenses);
             this.Name = "FormLicense";
             this.Text = "FormLicense";
             this.Load += new System.EventHandler(this.FormLicense_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.Controls.SetChildIndex(this.lblLicenses, 0);
+            this.Controls.SetChildIndex(this.lblLicense, 0);
+            this.Controls.SetChildIndex(this.cmbLicense, 0);
+            this.Controls.SetChildIndex(this.lblCount, 0);
+            this.Controls.SetChildIndex(this.numCount, 0);
+            this.Controls.SetChildIndex(this.btnLicense, 0);
+            this.Controls.SetChildIndex(this.dgvLicense, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.numCount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLicense)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.ListBox lstLicenses;
         private System.Windows.Forms.Label lblLicenses;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lblLicense;
+        private System.Windows.Forms.ComboBox cmbLicense;
+        private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.NumericUpDown numCount;
+        private System.Windows.Forms.Button btnLicense;
+        private System.Windows.Forms.DataGridView dgvLicense;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmLicense;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmCount;
     }
 }
