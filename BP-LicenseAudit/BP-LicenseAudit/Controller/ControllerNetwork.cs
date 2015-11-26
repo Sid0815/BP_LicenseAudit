@@ -14,10 +14,10 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_networkinventories;
         private NetworkInventory currentNetworkInventory;
         private Network currentNetwork;
-        private int inputtype=0;
+        private int inputtype = 0;
 
         //constructor
-        public ControllerNetwork(ControllerParent calling, FormNetwork view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories) :base(calling)
+        public ControllerNetwork(ControllerParent calling, FormNetwork view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories) : base(calling)
         {
             //connect controller to its view
             this.view = view;
@@ -43,6 +43,8 @@ namespace BP_LicenseAudit.Controller
                 start = IPAddress.Parse(Convert.ToString(h));
                 addresses.Add(start);
             }
+
+
             return addresses;
         }
 
@@ -86,132 +88,128 @@ namespace BP_LicenseAudit.Controller
             inputtype = view.GetInputtype();
             if (currentCustomer != null)
             {
-            switch (inputtype)
-            {
-                //Start- Endaddress
-                case 1:
+                try
+                {
+                    switch (inputtype)
                     {
-                        //Get Address-Bytes as string
-                        string[] str_startaddress = new string[4];
-                        str_startaddress = view.GetStartAddress();
-                        string[] str_endaddress = new string[4];
-                        str_endaddress = view.GetEndAddress();
-                        //Convert into byte
-                        Byte[] b_startaddress = new Byte[4];
-                        Byte[] b_endaddress = new Byte[4];
-                        try
-                        {
-                            //Checks automaticaly for right value by its type and by converting
-                            b_startaddress[0] = Convert.ToByte(str_startaddress[0]);
-                            b_startaddress[1] = Convert.ToByte(str_startaddress[1]);
-                            b_startaddress[2] = Convert.ToByte(str_startaddress[2]);
-                            b_startaddress[3] = Convert.ToByte(str_startaddress[3]);
-                            b_endaddress[0] = Convert.ToByte(str_endaddress[0]);
-                            b_endaddress[1] = Convert.ToByte(str_endaddress[1]);
-                            b_endaddress[2] = Convert.ToByte(str_endaddress[2]);
-                            b_endaddress[3] = Convert.ToByte(str_endaddress[3]);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
-                            MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                        }
-                        IPAddress start = new IPAddress(b_startaddress);
-                        IPAddress end = new IPAddress(b_endaddress);
-                        //Check for right input: Start must be lower than end
-                        if (convertIPtoUInt32(start) > convertIPtoUInt32(end))
-                        {
-                            IPAddress helper = start;
-                            start = end;
-                            end = helper;
-                            MessageBox.Show("Addressen gedreht.", "Inputfehler korregiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        //Creating and adding network
-                        currentNetwork = new Network(list_networks.Count,
-                                                        String.Format("{0} - {1}", start.ToString(), end.ToString()),
-                                                        inputtype,
-                                                        calcAddressesSE(start, end));
-                        view.ClearStartEndInput();
-                        break;
-                    }
-                //Host
-                case 2:
-                    {
-                        //Get Address-Bytes as string
-                        string[] str_hostaddress = new string[4];
-                        str_hostaddress = view.GetHostAddress();
-                        //Convert into byte
-                        Byte[] b_hostaddress = new Byte[4];
-                        try
-                        {
-                            //Checks automaticaly for right value by its type and by converting
-                            b_hostaddress[0] = Convert.ToByte(str_hostaddress[0]);
-                            b_hostaddress[1] = Convert.ToByte(str_hostaddress[1]);
-                            b_hostaddress[2] = Convert.ToByte(str_hostaddress[2]);
-                            b_hostaddress[3] = Convert.ToByte(str_hostaddress[3]);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
-                            MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                        }
-                        IPAddress host = new IPAddress(b_hostaddress);
-                        ArrayList addresses = new ArrayList();
-                        addresses.Add(host);
-                        currentNetwork = new Network(list_networks.Count,
-                                                        host.ToString(),
-                                                        inputtype,
-                                                        addresses);
-                        view.ClearHostInput();
-                        break;
-                    }
-                    
-                //Cidr
-                case 3:
-                    {
-                        //Get Address-Bytes as string
-                        string[] str_cidraddress = new string[5];
-                        str_cidraddress = view.GetCidrAddress();
-                        //Convert into byte
-                        Byte[] b_cidraddress = new Byte[4];
-                        byte cidr=0;
-                        try
-                        {
-                            //Checks automaticaly for right value by its type and by converting
-                            b_cidraddress[0] = Convert.ToByte(str_cidraddress[0]);
-                            b_cidraddress[1] = Convert.ToByte(str_cidraddress[1]);
-                            b_cidraddress[2] = Convert.ToByte(str_cidraddress[2]);
-                            b_cidraddress[3] = Convert.ToByte(str_cidraddress[3]);
-                            cidr = Convert.ToByte(str_cidraddress[4]);
-                            if (cidr > 32) throw new Exception();
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
-                            MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                        }
-                        //Creating and adding network
-                        IPAddress network = new IPAddress(b_cidraddress);
-                        currentNetwork = new Network(list_networks.Count,
-                                                        String.Format("{0} / {1}", network.ToString(), cidr.ToString()),
-                                                        inputtype,
-                                                        calcAddressesCidr(network, cidr));
-                        view.ClearCidrInput();
-                        break;
-                    }
-                    default:
-                    Console.WriteLine("Unknown Inputtype");
-                    break;
-            }
-            
+                        //Start- Endaddress
+                        case 1:
+                            {
+                                //Get Address-Bytes as string
+                                string[] str_startaddress = new string[4];
+                                str_startaddress = view.GetStartAddress();
+                                string[] str_endaddress = new string[4];
+                                str_endaddress = view.GetEndAddress();
+                                //Convert into byte
+                                Byte[] b_startaddress = new Byte[4];
+                                Byte[] b_endaddress = new Byte[4];
+                                //Checks automaticaly for right value by its type and by converting
+                                b_startaddress[0] = Convert.ToByte(str_startaddress[0]);
+                                b_startaddress[1] = Convert.ToByte(str_startaddress[1]);
+                                b_startaddress[2] = Convert.ToByte(str_startaddress[2]);
+                                b_startaddress[3] = Convert.ToByte(str_startaddress[3]);
+                                b_endaddress[0] = Convert.ToByte(str_endaddress[0]);
+                                b_endaddress[1] = Convert.ToByte(str_endaddress[1]);
+                                b_endaddress[2] = Convert.ToByte(str_endaddress[2]);
+                                b_endaddress[3] = Convert.ToByte(str_endaddress[3]);
+                                IPAddress start = new IPAddress(b_startaddress);
+                                IPAddress end = new IPAddress(b_endaddress);
+                                //Check for right input: Start must be lower than end
+                                if (convertIPtoUInt32(start) > convertIPtoUInt32(end))
+                                {
+                                    IPAddress helper = start;
+                                    start = end;
+                                    end = helper;
+                                    MessageBox.Show("Addressen gedreht.", "Inputfehler korregiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                //Creating and adding network
+                                currentNetwork = new Network(list_networks.Count,
+                                                                String.Format("{0} - {1}", start.ToString(), end.ToString()),
+                                                                inputtype,
+                                                                calcAddressesSE(start, end));
+                                view.ClearStartEndInput();
+                                break;
+                            }
+                        //Host
+                        case 2:
+                            {
+                                //Get Address-Bytes as string
+                                string[] str_hostaddress = new string[4];
+                                str_hostaddress = view.GetHostAddress();
+                                //Convert into byte
+                                Byte[] b_hostaddress = new Byte[4];
+                                //Checks automaticaly for right value by its type and by converting
+                                b_hostaddress[0] = Convert.ToByte(str_hostaddress[0]);
+                                b_hostaddress[1] = Convert.ToByte(str_hostaddress[1]);
+                                b_hostaddress[2] = Convert.ToByte(str_hostaddress[2]);
+                                b_hostaddress[3] = Convert.ToByte(str_hostaddress[3]);
+                                IPAddress host = new IPAddress(b_hostaddress);
+                                ArrayList addresses = new ArrayList();
+                                addresses.Add(host);
+                                currentNetwork = new Network(list_networks.Count,
+                                                                host.ToString(),
+                                                                inputtype,
+                                                                addresses);
+                                view.ClearHostInput();
+                                break;
+                            }
 
-            list_networks.Add(currentNetwork);
-            view.AddNetwork(currentNetwork);
-            currentNetworkInventory.AddNetwork(currentNetwork);
+                        //Cidr
+                        case 3:
+                            {
+                                //Get Address-Bytes as string
+                                string[] str_cidraddress = new string[5];
+                                str_cidraddress = view.GetCidrAddress();
+                                //Convert into byte
+                                Byte[] b_cidraddress = new Byte[4];
+                                byte cidr = 0;
+                                //Checks automaticaly for right value by its type and by converting
+                                b_cidraddress[0] = Convert.ToByte(str_cidraddress[0]);
+                                b_cidraddress[1] = Convert.ToByte(str_cidraddress[1]);
+                                b_cidraddress[2] = Convert.ToByte(str_cidraddress[2]);
+                                b_cidraddress[3] = Convert.ToByte(str_cidraddress[3]);
+                                cidr = Convert.ToByte(str_cidraddress[4]);
+                                if (cidr > 32) throw new Exception();
+                                //Creating and adding network
+                                IPAddress network = new IPAddress(b_cidraddress);
+                                currentNetwork = new Network(list_networks.Count,
+                                                                String.Format("{0} / {1}", network.ToString(), cidr.ToString()),
+                                                                inputtype,
+                                                                calcAddressesCidr(network, cidr));
+                                view.ClearCidrInput();
+                                break;
+                            }
+                        default:
+                            Console.WriteLine("Unknown Inputtype");
+                            break;
+                    }
+
+
+                    list_networks.Add(currentNetwork);
+                    view.AddNetwork(currentNetwork);
+                    currentNetworkInventory.AddNetwork(currentNetwork);
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
+                    MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                catch (OutOfMemoryException e)
+                {
+                    MessageBox.Show("Maximal zulässige Anzahl an Adressen überschritten. Das Netzwerk wurde nicht hinzugefügt. Bitte Netzwerk korregieren.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("Speicherüberlauf: " + e.Message);
+                    GC.Collect();
+                    return;
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Allgemeiner Fehler.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("Allgemeiner Fehler: " + e.Message);
+                    return;
+                }
             }
+
             UpdateView(false);
         }
 
@@ -239,7 +237,7 @@ namespace BP_LicenseAudit.Controller
 
             //Networks
             view.ClearNetworks();
-            if(currentNetworkInventory!=null && currentNetworkInventory.List_networks.Count > 0)
+            if (currentNetworkInventory != null && currentNetworkInventory.List_networks.Count > 0)
             {
                 foreach (Network n in currentNetworkInventory.List_networks)
                 {
