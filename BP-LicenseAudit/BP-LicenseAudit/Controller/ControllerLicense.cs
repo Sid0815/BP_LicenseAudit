@@ -44,12 +44,13 @@ namespace BP_LicenseAudit.Controller
         //functions
         public void AddLicenseToInventory(Object license, decimal count)
         {
+            //Check if all values are available
             License l = (License)license;
             if (currentCustomer == null)
             {
                 MessageBox.Show("Bitte einen Kunden auswählen und Lizenz erneut hinzufügen.", "Kein Kunde ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if(license == null)
+            else if (license == null)
             {
                 MessageBox.Show("Bitte einen Lizenztyp auswählen und Lizenz erneut hinzufügen.", "Kein Lizenztyp ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -57,32 +58,37 @@ namespace BP_LicenseAudit.Controller
             {
                 //Check if Licensetype is already in Licenseinventory
                 int x = -1;
+                DialogResult dr = DialogResult.No;
                 foreach (Tuple<int, int> t in currentLicenseInventory.Inventory)
                 {
-                    
                     if (t.Item1 == l.LicenseNumber)
-                    {
-                        count += t.Item2;
+                    {   //Get Index of license, in the loop deleting is not possible
                         x = currentLicenseInventory.Inventory.IndexOf(t);
-                        //
-                        MessageBox.Show(String.Format("Lizenz bereits im Inventar vorhanden. Lizenz wurde von {0} auf {1} aktualisiert.", t.Item2, count), "Lizenz aktualisiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //If the new count is the same as already in the inventory
+                        if (t.Item2 == count)
+                        {
+                            MessageBox.Show("Lizenz bereits im Inventar vorhanden. Es wurden keine Daten geändert.", "Lizenz bereits vorhanden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            dr = MessageBox.Show(String.Format("Lizenz bereits im Inventar vorhanden. Soll die Lizenz von {0} auf {1} aktualisiert werden.", t.Item2, count), "Lizenz aktualisiert", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        }
                     }
                 }
-                if (!(x == -1))
+                //License doubled and update yes --> remove old status
+                if (dr == DialogResult.Yes && !(x == -1))
                 {
                     currentLicenseInventory.RemoveLicenseFromInventory(l.LicenseNumber);
                 }
-                Console.WriteLine("Index of t: {0}", x);
+                //License doubled and update false --> exit
+                else if (dr == DialogResult.No && !(x == -1))
+                {
+                    return;
+                }
+                //Add license to inventory (new license or updated status after removing old one)
                 currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
             }
-            
-
             UpdateView(false);
-        }
-
-        public void CreateLicenseInventory()
-        {
-
         }
 
         public void GetLicenseInventoryFromDB()
