@@ -54,7 +54,7 @@ namespace BP_LicenseAudit.Model
         {
             get
             {
-                return City;
+                return city;
             }
             set
             {
@@ -67,7 +67,7 @@ namespace BP_LicenseAudit.Model
         {
             get
             {
-                return Zip;
+                return zip;
             }
             set
             {

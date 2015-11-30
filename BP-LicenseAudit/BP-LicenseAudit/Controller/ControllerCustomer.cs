@@ -22,7 +22,9 @@ namespace BP_LicenseAudit.Controller
         //Functions
         public void AddCustomer(int nr, string name, string street, string streetnr, string city, string zip)
         {
-            list_customers.Add(new Customer(nr, name, street, streetnr, city, zip));
+            Customer c = new Customer(nr, name, street, streetnr, city, zip);
+            list_customers.Add(c);
+            db.SaveCustomer(c);
         }
 
         public void UpdateCustomer()
@@ -48,7 +50,7 @@ namespace BP_LicenseAudit.Controller
         }
 
         public override void UpdateInformation()
-        {//Updates all neccesary properties of the controller (could be caled by a controller who self was caled by this)
+        {//Updates all neccesary properties of the controller (could be caled by a controller who self was called by this)
         }
 
 

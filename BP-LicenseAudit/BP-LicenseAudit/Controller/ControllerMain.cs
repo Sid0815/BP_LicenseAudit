@@ -34,6 +34,9 @@ namespace BP_LicenseAudit.Controller
             list_networks = new ArrayList();
             list_networkinventories = new ArrayList();
 
+            //initialising by database
+            list_customers = db.GetCustomers();
+
             //Creating Forms
             fAudit = new FormAudit();
             fChanges = new FormChange();
@@ -64,10 +67,11 @@ namespace BP_LicenseAudit.Controller
             fNetwork.Currentcontroller = cNetwork;
             fSystemInventory.Currentcontroller = cSystemInventory;
 
-            //TODO: initialising by database
-
+            //Update View with Information initialised by Database
+            UpdateView(true);
 
         }
+        
 
         //functions
         public void CollectInformation()

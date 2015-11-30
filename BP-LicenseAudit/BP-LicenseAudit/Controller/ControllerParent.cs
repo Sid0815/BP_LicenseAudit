@@ -10,11 +10,13 @@ namespace BP_LicenseAudit.Controller
         protected Customer currentCustomer;
         protected ControllerParent callingController;
         protected ArrayList list_customers;
+        protected Database db;
 
         public ControllerParent (ControllerParent callingController)
         {
             this.callingController = callingController;
             this.list_customers = new ArrayList();
+            this.db = new Database();
         }
 
 
