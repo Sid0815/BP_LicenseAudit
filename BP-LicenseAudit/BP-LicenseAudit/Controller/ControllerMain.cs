@@ -22,8 +22,10 @@ namespace BP_LicenseAudit.Controller
         private ControllerNetwork cNetwork;
         private ControllerSystemInventory cSystemInventory;
         private ArrayList list_networks;
-        private ArrayList list_networkinventories;
+        private ArrayList list_networkInventories;
         private NetworkInventory currentNetworkInventory;
+        private ArrayList list_licenses;
+        private ArrayList list_licenseInventories;
 
         //constructor
         public ControllerMain(FormMain view):base(null)
@@ -32,10 +34,16 @@ namespace BP_LicenseAudit.Controller
             this.view = view;
 
             list_networks = new ArrayList();
-            list_networkinventories = new ArrayList();
+            list_networkInventories = new ArrayList();
+            list_licenses = new ArrayList();
+            list_licenseInventories = new ArrayList();
 
             //initialising by database
             list_customers = db.GetCustomers();
+            //list_networks =db.GetNeetworks();
+            //list_networkInventories = db.GetNetworkInventoriers();
+            list_licenses = db.GetLicenses();
+            //list_licenseInventoriers = db.GetLicenseInventoriers();
 
             //Creating Forms
             fAudit = new FormAudit();
@@ -55,8 +63,8 @@ namespace BP_LicenseAudit.Controller
             cAudit = new ControllerAudit(this, fAudit, list_customers);
             cChanges = new ControllerChanges(this, fChanges, list_customers);
             cCustomer = new ControllerCustomer(this, fCustomer, list_customers);
-            cLicense = new ControllerLicense(this, fLicense, list_customers);
-            cNetwork = new ControllerNetwork(this, fNetwork, list_customers, list_networks, list_networkinventories);
+            cLicense = new ControllerLicense(this, fLicense, list_customers, list_licenses, list_licenseInventories);
+            cNetwork = new ControllerNetwork(this, fNetwork, list_customers, list_networks, list_networkInventories);
             cSystemInventory = new ControllerSystemInventory(this, fSystemInventory, list_customers);
 
             //Connect Controller to View
@@ -151,7 +159,7 @@ namespace BP_LicenseAudit.Controller
             Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
             currentNetworkInventory = null;
             //Get Networkinventor of the customer
-            foreach (NetworkInventory n in list_networkinventories)
+            foreach (NetworkInventory n in list_networkInventories)
             {
                 if (n.Customernumber == currentCustomer.Cnumber)
                 {

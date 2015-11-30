@@ -61,6 +61,7 @@
             // 
             // cmbLicense
             // 
+            this.cmbLicense.DisplayMember = "Name";
             this.cmbLicense.FormattingEnabled = true;
             this.cmbLicense.Location = new System.Drawing.Point(52, 273);
             this.cmbLicense.Name = "cmbLicense";
@@ -91,15 +92,21 @@
             this.btnLicense.TabIndex = 10;
             this.btnLicense.Text = "Lizenzen hinzufügen";
             this.btnLicense.UseVisualStyleBackColor = true;
+            this.btnLicense.Click += new System.EventHandler(this.btnLicense_Click);
             // 
             // dgvLicense
             // 
+            this.dgvLicense.AllowUserToAddRows = false;
+            this.dgvLicense.AllowUserToDeleteRows = false;
+            this.dgvLicense.AllowUserToResizeColumns = false;
+            this.dgvLicense.AllowUserToResizeRows = false;
             this.dgvLicense.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLicense.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmLicense,
             this.clmCount});
             this.dgvLicense.Location = new System.Drawing.Point(9, 58);
             this.dgvLicense.Name = "dgvLicense";
+            this.dgvLicense.ReadOnly = true;
             this.dgvLicense.RowHeadersVisible = false;
             this.dgvLicense.Size = new System.Drawing.Size(253, 200);
             this.dgvLicense.TabIndex = 11;
@@ -108,12 +115,14 @@
             // 
             this.clmLicense.HeaderText = "Lizenz";
             this.clmLicense.Name = "clmLicense";
+            this.clmLicense.ReadOnly = true;
             this.clmLicense.Width = 200;
             // 
             // clmCount
             // 
             this.clmCount.HeaderText = "Anzahl";
             this.clmCount.Name = "clmCount";
+            this.clmCount.ReadOnly = true;
             this.clmCount.Width = 50;
             //
             //inherited Elements

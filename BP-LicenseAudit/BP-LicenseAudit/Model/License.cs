@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BP_LicenseAudit.Model
 {
-    class License
+    public class License
     {
         //properties
         private int licenseNumber;

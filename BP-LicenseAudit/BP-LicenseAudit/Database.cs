@@ -10,7 +10,7 @@ namespace BP_LicenseAudit
         private string pathCustomer = "customers.txt";
         private string pathNetwork = "networks.txt";
         private string pathNetworkInventory = "NI.txt";
-        private string pathLicense = "license.txt";
+        private string pathLicenses = "licenses.txt";
         private string pathLicenseInventory = "LI.txt";
 
         public void SaveCustomer(Customer c)
@@ -64,6 +64,40 @@ namespace BP_LicenseAudit
                 sr.Close();
                 return list_customers;
                 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading File: {0}", e.Message);
+                return null;
+            }
+        }
+
+        public ArrayList GetLicenses()
+        {
+            Console.WriteLine("Database.GetLicenseTypes called");
+            //If File doesn't exist create it
+            if (!File.Exists(pathLicenses))
+            {
+                File.Create(pathLicenses);
+                return new ArrayList();
+            }
+            try
+            {
+                FileStream fs = new FileStream(pathLicenses, FileMode.Open);
+                StreamReader sr = new StreamReader(fs);
+                string read;
+                ArrayList list_licenses = new ArrayList();
+                while (sr.Peek() != -1)
+                {
+                    read = sr.ReadLine();
+                    string[] input = read.Split(';');
+                    License l = new License(int.Parse(input[0]), input[1]);
+                    list_licenses.Add(l);
+                    Console.WriteLine("License {0} added to list", l.LicenseNumber);
+                }
+                sr.Close();
+                return list_licenses;
+
             }
             catch (Exception e)
             {

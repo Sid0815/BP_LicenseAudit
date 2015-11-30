@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BP_LicenseAudit.Model
 {
-    class LicenseInventory : Inventory
+    public class LicenseInventory : Inventory
     {
-        //properties
         private int licenseInventoryNumber;
+        private ArrayList inventory;
+
+        //properties        
         public int LicenseInventoryNumber
         {
             get
@@ -21,8 +23,9 @@ namespace BP_LicenseAudit.Model
                 licenseInventoryNumber = value;
             }
         }
-        private object inventory;
-        public object Inventory
+        
+        //List of Tuples<Licensenumber,Count>
+        public ArrayList Inventory
         {
             get
             {
@@ -38,7 +41,7 @@ namespace BP_LicenseAudit.Model
         public LicenseInventory(int customerNumber, int number):base(customerNumber)
         {
             licenseInventoryNumber = number;
-            inventory = null;
+            inventory = new ArrayList();
         }
 
         //functions
@@ -49,7 +52,9 @@ namespace BP_LicenseAudit.Model
 
         public void AddLicenseToInventory(int licenseNumer, int count)
         {
-
+            Tuple<int, int> currentlicense = new Tuple<int, int>(licenseNumer, count);
+            Console.WriteLine("Added License to inventory: {0}", currentlicense);
+            inventory.Add(currentlicense);
         }
 
         public void GetLicenseInventoryFromDB()

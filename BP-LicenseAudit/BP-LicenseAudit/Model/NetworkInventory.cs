@@ -9,8 +9,11 @@ namespace BP_LicenseAudit.Model
 {
     public class NetworkInventory : Inventory
     {
-        //properties
         private int networkInventoryNumber;
+        private ArrayList list_networks;
+
+        //properties
+
         public int NetworkInventoryNumber
         {
             get
@@ -22,7 +25,7 @@ namespace BP_LicenseAudit.Model
                 networkInventoryNumber = value;
             }
         }
-        private ArrayList list_networks;
+
         public ArrayList List_networks
         {
             get
@@ -36,10 +39,10 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public NetworkInventory(int customerNumber, int niNumber, ArrayList networks):base(customerNumber)
+        public NetworkInventory(int customerNumber, int niNumber, ArrayList networks) : base(customerNumber)
         {
             this.networkInventoryNumber = niNumber;
-            this.list_networks =  networks;
+            this.list_networks = networks;
         }
 
         //functions
