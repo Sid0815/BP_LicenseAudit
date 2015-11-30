@@ -39,16 +39,21 @@ namespace BP_LicenseAudit.View
         {
             cmbLicense.Items.Add(l);
         }
+        
+        public int CountLicenseTypes()
+        {
+            return cmbLicense.Items.Count;
+        }
 
         public void ClearLicenseTypes()
         {
             cmbLicense.Items.Clear();
         }
 
-        public void AddLicense(License l, int count)
+        public void AddLicense(string license, int count)
         {
             int i = dgvLicense.Rows.Add();
-            dgvLicense.Rows[i].Cells[0].Value = l;
+            dgvLicense.Rows[i].Cells[0].Value = license;
             dgvLicense.Rows[i].Cells[1].Value = count;
         }
 

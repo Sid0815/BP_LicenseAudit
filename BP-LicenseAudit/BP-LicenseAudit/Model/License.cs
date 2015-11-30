@@ -21,8 +21,8 @@ namespace BP_LicenseAudit.Model
                 licenseNumber = value;
             }
         }
-        private String name;
-        public String Name
+        private string name;
+        public string Name
         {
             get
             {

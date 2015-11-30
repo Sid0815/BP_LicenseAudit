@@ -57,6 +57,19 @@ namespace BP_LicenseAudit.Model
             inventory.Add(currentlicense);
         }
 
+        public void RemoveLicenseFromInventory(int licenseNumber)
+        {
+            Tuple<int, int> help = new Tuple<int, int>(-1, -1);
+            foreach(Tuple<int, int> t in Inventory)
+            {
+                if(t.Item1 == licenseNumber)
+                {
+                    help = t;
+                }
+            }
+            inventory.Remove(help);
+        }
+
         public void GetLicenseInventoryFromDB()
         {
 

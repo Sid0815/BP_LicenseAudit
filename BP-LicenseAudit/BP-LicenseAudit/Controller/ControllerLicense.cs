@@ -45,7 +45,38 @@ namespace BP_LicenseAudit.Controller
         public void AddLicenseToInventory(Object license, decimal count)
         {
             License l = (License)license;
-            currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
+            if (currentCustomer == null)
+            {
+                MessageBox.Show("Bitte einen Kunden auswählen und Lizenz erneut hinzufügen.", "Kein Kunde ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if(license == null)
+            {
+                MessageBox.Show("Bitte einen Lizenztyp auswählen und Lizenz erneut hinzufügen.", "Kein Lizenztyp ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //Check if Licensetype is already in Licenseinventory
+                int x = -1;
+                foreach (Tuple<int, int> t in currentLicenseInventory.Inventory)
+                {
+                    
+                    if (t.Item1 == l.LicenseNumber)
+                    {
+                        count += t.Item2;
+                        x = currentLicenseInventory.Inventory.IndexOf(t);
+                        //
+                        MessageBox.Show(String.Format("Lizenz bereits im Inventar vorhanden. Lizenz wurde von {0} auf {1} aktualisiert.", t.Item2, count), "Lizenz aktualisiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                if (!(x == -1))
+                {
+                    currentLicenseInventory.RemoveLicenseFromInventory(l.LicenseNumber);
+                }
+                Console.WriteLine("Index of t: {0}", x);
+                currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
+            }
+            
+
             UpdateView(false);
         }
 
@@ -80,13 +111,16 @@ namespace BP_LicenseAudit.Controller
                     view.AddCustomer(c);
                 }
             }
-            //License Types
-            view.ClearLicenseTypes();
-            foreach (License l in list_allAvailableLicenses)
+            //License Types (only updated if a the number of diplayed types and the number of types is different)
+            if (!(list_allAvailableLicenses.Count == view.CountLicenseTypes()))
             {
-                view.AddLicenseType(l);
+                Console.WriteLine("ViewUpdate Licensetypes");
+                view.ClearLicenseTypes();
+                foreach (License l in list_allAvailableLicenses)
+                {
+                    view.AddLicenseType(l);
+                }
             }
-
             //LicenseInventory
             view.ClearLicenses();
             if (currentLicenseInventory != null)
@@ -99,7 +133,7 @@ namespace BP_LicenseAudit.Controller
                     {
                         if (l.LicenseNumber == licensenumber)
                         {
-                            view.AddLicense(l, count);
+                            view.AddLicense(l.Name, count);
                         }
                     }
 
