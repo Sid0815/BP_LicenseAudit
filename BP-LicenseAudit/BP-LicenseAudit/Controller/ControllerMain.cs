@@ -26,9 +26,10 @@ namespace BP_LicenseAudit.Controller
         private NetworkInventory currentNetworkInventory;
         private ArrayList list_licenses;
         private ArrayList list_licenseInventories;
+        private LicenseInventory currentLicenseInventory;
 
         //constructor
-        public ControllerMain(FormMain view):base(null)
+        public ControllerMain(FormMain view) : base(null)
         {
             //connect controller to its view
             this.view = view;
@@ -79,7 +80,7 @@ namespace BP_LicenseAudit.Controller
             UpdateView(true);
 
         }
-        
+
 
         //functions
         public void CollectInformation()
@@ -137,7 +138,7 @@ namespace BP_LicenseAudit.Controller
                     view.AddCustomer(c);
                 }
             }
-            //Network
+            //NetworkInventory (if customer has one)
             view.ClearNetworks();
             if (currentNetworkInventory != null)
             {
@@ -146,25 +147,60 @@ namespace BP_LicenseAudit.Controller
                     view.AddNetwork(n);
                 }
             }
+            //LicenseInventory (if customer has one)
+            view.ClearLicenses();
+            if (currentLicenseInventory != null)
+            {
+                //Get for each License in the Inventory the Licensename and add a row to the data grid view
+                foreach (Tuple<int, int> t in currentLicenseInventory.Inventory)
+                {
+                    int licensenumber = t.Item1;
+                    int count = t.Item2;
+                    foreach (License l in list_licenses)
+                    {
+                        if (l.LicenseNumber == licensenumber)
+                        {
+                            view.AddLicense(l.Name, count);
+                        }
+                    }
+                }
+            }
+
         }
 
         public override void UpdateInformation()
-        {
-            
+        {   //Updates the view only if a customer is selected
+            if (currentCustomer != null)
+            {
+                view.lstCustomer_SelectedIndexChanged(new object(), new EventArgs());
+            }
+
         }
 
         public override void SelectedCustomerChanged(Object customer)
         {
             base.SelectedCustomerChanged(customer);
             Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+
+            //Get Networkinventory of the customer
             currentNetworkInventory = null;
-            //Get Networkinventor of the customer
             foreach (NetworkInventory n in list_networkInventories)
             {
                 if (n.Customernumber == currentCustomer.Cnumber)
                 {
                     currentNetworkInventory = n;
                     Console.WriteLine("NetworkInventory for customer {0} found", currentCustomer.Name);
+                }
+            }
+
+            //Get LicenseInventory of the customer
+            currentLicenseInventory = null;
+            foreach (LicenseInventory li in list_licenseInventories)
+            {
+                if (li.Customernumber == currentCustomer.Cnumber)
+                {
+                    currentLicenseInventory = li;
+                    Console.WriteLine("LicenseInventory for customer {0} found", currentCustomer.Name);
                 }
             }
             UpdateView(false);

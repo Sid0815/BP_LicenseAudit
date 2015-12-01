@@ -17,6 +17,7 @@ namespace BP_LicenseAudit.Controller
             this.callingController = callingController;
             this.list_customers = new ArrayList();
             this.db = new Database();
+            currentCustomer = null;
         }
 
 

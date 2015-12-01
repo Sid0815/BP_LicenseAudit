@@ -89,6 +89,7 @@ namespace BP_LicenseAudit.Controller
                 currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
             }
             UpdateView(false);
+            callingController.UpdateInformation();
         }
 
         public void GetLicenseInventoryFromDB()

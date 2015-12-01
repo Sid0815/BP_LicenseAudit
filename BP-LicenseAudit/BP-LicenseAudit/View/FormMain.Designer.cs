@@ -182,6 +182,7 @@
             this.dgvLicenses.AllowUserToResizeRows = false;
             this.dgvLicenses.ReadOnly = true;
             this.dgvLicenses.RowHeadersVisible = false;
+            this.dgvLicenses.SelectionChanged += new System.EventHandler(this.dgvLicenses_SelectionChanged);
             // 
             // clmLicense
             // 

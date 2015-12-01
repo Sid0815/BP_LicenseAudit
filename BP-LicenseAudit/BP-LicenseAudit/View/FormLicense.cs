@@ -30,10 +30,6 @@ namespace BP_LicenseAudit.View
 
         }
 
-        private void btnEnd_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
 
         public void AddLicenseType(License l)
         {
@@ -70,6 +66,11 @@ namespace BP_LicenseAudit.View
         private void btnLicense_Click(object sender, EventArgs e)
         {
             currentcontroller.AddLicenseToInventory(cmbLicense.SelectedItem, numCount.Value);
+        }
+
+        private void dgvLicense_SelectionChanged(Object sender, EventArgs e)
+        {
+            dgvLicense.ClearSelection();
         }
     }
 }

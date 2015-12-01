@@ -58,7 +58,7 @@ namespace BP_LicenseAudit.View
             lstCustomer.Items.Add(customer);
         }
 
-
+        //DOUBLED
         public void ClearCustomerList()
         {
             lstCustomer.Items.Clear();
@@ -79,9 +79,27 @@ namespace BP_LicenseAudit.View
             lstNetworks.Items.Clear();
         }
 
-        private void lstCustomer_SelectedIndexChanged(object sender, EventArgs e)
+        public void lstCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
             currentcontroller.SelectedCustomerChanged(lstCustomer.SelectedItem);
         }
+
+        public void ClearLicenses()
+        {
+            dgvLicenses.Rows.Clear();
+        }
+
+        public void AddLicense(string license, int count)
+        {
+            int i = dgvLicenses.Rows.Add();
+            dgvLicenses.Rows[i].Cells[0].Value = license;
+            dgvLicenses.Rows[i].Cells[1].Value = count;
+        }
+
+        private void dgvLicenses_SelectionChanged(Object sender, EventArgs e)
+        {
+            dgvLicenses.ClearSelection();
+        }
+
     }
 }

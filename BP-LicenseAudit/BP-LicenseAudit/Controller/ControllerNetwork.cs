@@ -188,6 +188,8 @@ namespace BP_LicenseAudit.Controller
                     list_networks.Add(currentNetwork);
                     view.AddNetwork(currentNetwork);
                     currentNetworkInventory.AddNetwork(currentNetwork);
+                    db.SaveNetwork(currentNetwork);
+                    callingController.UpdateInformation();
                 }
                 catch (FormatException e)
                 {
