@@ -56,6 +56,9 @@
             this.lstNetworks.Name = "lstNetworks";
             this.lstNetworks.Size = new System.Drawing.Size(120, 199);
             this.lstNetworks.TabIndex = 7;
+            this.lstNetworks.DisplayMember = "Name";
+            this.lstNetworks.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstNetworks.SelectedIndexChanged += new System.EventHandler(this.lstNetworks_SelectedIndexChanged);
             // 
             // lstClients
             // 
@@ -85,6 +88,7 @@
             this.lstDetails.Name = "lstDetails";
             this.lstDetails.Size = new System.Drawing.Size(120, 199);
             this.lstDetails.TabIndex = 11;
+            this.lstDetails.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             // 
             // lblDetail
             // 
@@ -104,6 +108,7 @@
             this.chkAll.TabIndex = 12;
             this.chkAll.Text = "alle auswählen";
             this.chkAll.UseVisualStyleBackColor = true;
+            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
             // btnInventory
             // 

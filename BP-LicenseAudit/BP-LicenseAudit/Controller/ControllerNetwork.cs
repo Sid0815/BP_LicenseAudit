@@ -287,7 +287,7 @@ namespace BP_LicenseAudit.Controller
             if (currentNetworkInventory == null)
             {
                 currentNetworkInventory = CreateNetworkInventory(currentCustomer.Cnumber);
-                Console.WriteLine("new inventory created");
+                Console.WriteLine("new NetworkInventory created");
             }
             UpdateView(false);
         }

@@ -77,6 +77,7 @@
             this.lstNetworks.Name = "lstNetworks";
             this.lstNetworks.Size = new System.Drawing.Size(250, 446);
             this.lstNetworks.TabIndex = 2;
+            this.lstNetworks.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
             // lblLicense
             // 

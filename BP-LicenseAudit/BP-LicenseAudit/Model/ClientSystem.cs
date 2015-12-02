@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BP_LicenseAudit.Model
 {
-    class ClientSystem
+    public class ClientSystem
     {
-        //properties
         private int clientSystemNumber;
+        private string type;
+        private IPAddress clientIP;
+        private ArrayList software;
+        private int cores;
+
+        //properties
+
         public int ClientSystemNumber
         {
             get
@@ -22,7 +29,6 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        private string type;
         public string Type
         {
             get
@@ -35,20 +41,18 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        private string ipAddress;
-        public string IpAddress
+        public IPAddress ClientIP
         {
             get
             {
-                return ipAddress;
+                return clientIP;
             }
             set
             {
-                ipAddress = value;
+                clientIP = value;
             }
         }
 
-        private ArrayList software;
         public ArrayList Software
         {
             get
@@ -61,7 +65,6 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        private int cores;
         public int Cores
         {
             get
@@ -75,11 +78,11 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public ClientSystem(int number)
+        public ClientSystem(int number, IPAddress clientIP)
         {
             clientSystemNumber = number;
             type = null;
-            ipAddress = null;
+            this.clientIP = clientIP;
             software = new ArrayList();
             cores = 0;
         }

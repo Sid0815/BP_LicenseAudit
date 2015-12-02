@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace BP_LicenseAudit.Model
 {
-    class SystemInventory : Inventory
+    public class SystemInventory : Inventory
     {
-        //properties
         private int systemInventoryNumber;
+        private ArrayList list_systems;
+        private DateTime date;
+
+        //properties
         public int SystemInventoryNumber
         {
             get
@@ -22,9 +25,7 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        private ArrayList list_systems;
-
-        private DateTime date;
+        
         public DateTime Date
         {
             get
@@ -38,7 +39,7 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public SystemInventory(int customernumber, int number):base(customernumber)
+        public SystemInventory(int customernumber, int number) : base(customernumber)
         {
             systemInventoryNumber = number;
             list_systems = new ArrayList();
@@ -46,7 +47,6 @@ namespace BP_LicenseAudit.Model
         }
 
         //functions
-
         public void SearchClientSystem()
         {
 

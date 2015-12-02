@@ -82,6 +82,7 @@
             this.lstNetworks.Size = new System.Drawing.Size(120, 173);
             this.lstNetworks.TabIndex = 3;
             this.lstNetworks.DisplayMember = "Name";
+            this.lstNetworks.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             // 
             // tabNetwork
             // 
