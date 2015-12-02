@@ -8,11 +8,11 @@ namespace BP_LicenseAudit
 {
     public class Database
     {
-        private string pathCustomer = "customers.txt";
-        private string pathNetwork = "networks.txt";
-        private string pathNetworkInventory = "NI.txt";
-        private string pathLicenses = "licenses.txt";
-        private string pathLicenseInventory = "LI.txt";
+        private string pathCustomer = "..\\..\\customers.txt";
+        private string pathNetwork = "..\\..\\networks.txt";
+        private string pathNetworkInventory = "..\\..\\NI.txt";
+        private string pathLicenses = "..\\..\\licenses.txt";
+        private string pathLicenseInventory = "..\\..\\LI.txt";
 
         private void checkFile(string path)
         {

@@ -1,0 +1,3 @@
+0;Hans;Feldweg;12;Bad Vilbel;06123
+1;Paul;Dorfstrasse;324;Bad Vilbel;06123
+2;BlackPoint;Friedberger;105;Bad Vilbel;12345
