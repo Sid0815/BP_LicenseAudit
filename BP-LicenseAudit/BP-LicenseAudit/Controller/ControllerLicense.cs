@@ -90,6 +90,7 @@ namespace BP_LicenseAudit.Controller
             }
             UpdateView(false);
             callingController.UpdateInformation();
+            db.SaveLicenseInventories(list_licenseInventories);
         }
 
         public void GetLicenseInventoryFromDB()
@@ -183,6 +184,7 @@ namespace BP_LicenseAudit.Controller
         {
             currentLicenseInventory = new LicenseInventory(customerNumber, list_licenseInventories.Count);
             list_licenseInventories.Add(currentLicenseInventory);
+            db.SaveLicenseInventories(list_licenseInventories);
             return currentLicenseInventory;
         }
 

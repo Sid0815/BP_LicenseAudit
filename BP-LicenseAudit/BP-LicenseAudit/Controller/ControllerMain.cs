@@ -41,10 +41,10 @@ namespace BP_LicenseAudit.Controller
 
             //initialising by database
             list_customers = db.GetCustomers();
-            //list_networks =db.GetNeetworks();
-            //list_networkInventories = db.GetNetworkInventoriers();
+            list_networks =db.GetNetworks();
+            list_networkInventories = db.GetNetworkInventories();
             list_licenses = db.GetLicenses();
-            //list_licenseInventoriers = db.GetLicenseInventoriers();
+            list_licenseInventories = db.GetLicenseInventories();
 
             //Creating Forms
             fAudit = new FormAudit();
