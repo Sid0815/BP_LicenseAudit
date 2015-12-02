@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
 using BP_LicenseAudit.View;
 using System.Windows.Forms;
 using System.Collections;
 using System.Net;
+using System.Net.NetworkInformation;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -46,7 +43,15 @@ namespace BP_LicenseAudit.Controller
             {
                 foreach(IPAddress ip in n.IpAddresses)
                 {
-
+                    // Ping the ip address
+                    Ping pingSender = new Ping();
+                    PingReply reply = pingSender.Send(ip, 100);
+                    Console.WriteLine("Ping: {0}", ip.ToString());
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        currentSystem = new ClientSystem(list_systems.Count, ip);
+                        list_systems.Add(currentSystem);
+                    }
                 }
             }
 
