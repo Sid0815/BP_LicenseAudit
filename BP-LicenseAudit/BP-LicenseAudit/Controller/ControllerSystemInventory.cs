@@ -41,7 +41,8 @@ namespace BP_LicenseAudit.Controller
         {
             foreach (Network n in selectedNetworks)
             {
-                foreach(IPAddress ip in n.IpAddresses)
+                Console.WriteLine("INVENTORY: {0}", n.Name);
+                foreach (IPAddress ip in n.IpAddresses)
                 {
                     // Ping the ip address
                     Ping pingSender = new Ping();
@@ -51,10 +52,17 @@ namespace BP_LicenseAudit.Controller
                     {
                         currentSystem = new ClientSystem(list_systems.Count, ip);
                         list_systems.Add(currentSystem);
+                        currentSystemInventory.AddSystemToInventory(currentSystem);
+                        Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
                     }
                 }
             }
 
+        }
+
+        public void Inventory()
+        {
+            scanNetwork();
         }
 
         private void scanDetails()

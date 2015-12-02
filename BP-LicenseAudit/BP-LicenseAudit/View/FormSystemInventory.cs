@@ -28,6 +28,11 @@ namespace BP_LicenseAudit.View
 
         }
 
+        private void btnInventory_Click (Object sender, EventArgs e)
+        {
+            currentcontroller.Inventory();
+        }
+
         private void btnEnd_Click(object sender, EventArgs e)
         {
             Close();

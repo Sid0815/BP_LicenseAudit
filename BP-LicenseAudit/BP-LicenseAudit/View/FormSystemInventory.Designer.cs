@@ -118,6 +118,7 @@
             this.btnInventory.TabIndex = 13;
             this.btnInventory.Text = "Inventarisierung starten";
             this.btnInventory.UseVisualStyleBackColor = true;
+            this.btnInventory.Click += new System.EventHandler(btnInventory_Click);
             //
             //inherited Elements
             //

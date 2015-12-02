@@ -57,6 +57,11 @@ namespace BP_LicenseAudit.Model
 
         }
 
+        public void AddSystemToInventory(ClientSystem sys)
+        {
+            list_systems.Add(sys);
+        }
+
 
     }
 }
