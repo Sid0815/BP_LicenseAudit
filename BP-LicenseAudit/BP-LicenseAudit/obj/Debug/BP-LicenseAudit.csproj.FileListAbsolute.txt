@@ -45,3 +45,6 @@ C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseA
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.View.FormNetwork.resources
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.Properties.Resources.resources
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csproj.GenerateResource.Cache
+C:\Users\User\Dropbox\1Studium_FH_FFM\Bachelorarbeit\BPLA2\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.exe.config
+C:\Users\User\Dropbox\1Studium_FH_FFM\Bachelorarbeit\BPLA2\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.exe
+C:\Users\User\Dropbox\1Studium_FH_FFM\Bachelorarbeit\BPLA2\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.pdb
