@@ -24,6 +24,7 @@ namespace BP_LicenseAudit.Controller
             //connect controller to its view
             this.view = view;
             this.list_customers = list_customers;
+            Console.WriteLine("Created");
         }
 
         //functions

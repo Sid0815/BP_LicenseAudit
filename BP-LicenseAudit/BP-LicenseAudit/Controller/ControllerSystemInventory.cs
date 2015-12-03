@@ -12,6 +12,8 @@ namespace BP_LicenseAudit.Controller
     {
         //properties
         private FormSystemInventory view;
+        private String test;
+        private String test2;
         private NetworkInventory currentNetworkInventory;
         private SystemInventory currentSystemInventory;
         private ClientSystem currentSystem;
