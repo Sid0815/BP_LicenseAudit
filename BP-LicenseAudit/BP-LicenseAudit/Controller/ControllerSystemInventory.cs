@@ -41,7 +41,8 @@ namespace BP_LicenseAudit.Controller
         {
             foreach (Network n in selectedNetworks)
             {
-                Console.WriteLine("INVENTORY2: {0}", n.Name);
+                Console.WriteLine("INVENTORY23: {0}", n.Name);
+                Console.WriteLine("INVENTORY23: {0}", n.Name);
                 foreach (IPAddress ip in n.IpAddresses)
                 {
                     // Ping the ip address
