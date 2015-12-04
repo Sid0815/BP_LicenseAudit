@@ -26,7 +26,7 @@ namespace BP_LicenseAudit.Controller
         private string password;
 
         //constructor
-        public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view, ArrayList list_customers, 
+        public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view, ArrayList list_customers,
                                          ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_systems, ArrayList list_systemInventories) : base(calling)
         {
             //connect controller to its view
@@ -74,7 +74,7 @@ namespace BP_LicenseAudit.Controller
             username = null;
             password = null;
             GetCredenials();
-            if(username==null || password == null)
+            if (username == null || password == null)
             {
                 MessageBox.Show("Keine Zugangsdaten übermittelt. Bitte Inventarisierung erneut starten.", "Keine Zugangsdaten", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -85,15 +85,31 @@ namespace BP_LicenseAudit.Controller
             }
             scanNetwork();
             scanDetails();
+            MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //Scan all Clients in current System Inevntory for Details
         private void scanDetails()
         {
+            Console.WriteLine("Scanning Details");
+            //Get IP of local Host because the wmi conection differs
+
+            IPAddress[] me = Dns.GetHostAddresses("");
+            ArrayList localadrresses = new ArrayList();
+            foreach (IPAddress ip in me)
+            {   //only IPv4
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    localadrresses.Add(ip.ToString());
+                    Console.WriteLine("Local Adresses: {0}", ip.ToString());
+                }
+            }
 
             foreach (ClientSystem c in currentSystemInventory.List_Systems)
             {
                 //Connect via WMI
+                string host = c.ClientIP.ToString();
+                Console.WriteLine("Connecting to {0}", host);
                 ConnectionOptions options =
                 new ConnectionOptions();
                 options.Username = username;
@@ -102,9 +118,47 @@ namespace BP_LicenseAudit.Controller
                 //options.Authentication = AuthenticationLevel.PacketPrivacy;
                 ManagementScope scope;
                 //Localhost don't need credentials
-                /*if (host.Equals("localhost", StringComparison.InvariantCultureIgnoreCase) || host.Equals(Dns.GetHostName(), StringComparison.InvariantCultureIgnoreCase)) scope = new ManagementScope("\\\\" + host + "\\root\\cimv2");
-                else scope = new ManagementScope("\\\\" + host + "\\root\\cimv2", options);
-                scope.Connect();*/
+                if (localadrresses.Contains(host))
+                {
+                    scope = new ManagementScope("\\\\" + host + "\\root\\cimv2");
+                }
+                else
+                {
+                    scope = new ManagementScope("\\\\" + host + "\\root\\cimv2", options);
+                }
+                try
+                {
+                    scope.Connect();
+                    //Query Operating System Informations
+                    ObjectQuery query = new ObjectQuery(
+                   "SELECT * FROM Win32_OperatingSystem");
+                    ManagementObjectSearcher searcher =
+                        new ManagementObjectSearcher(scope, query);
+                    ManagementObjectCollection queryCollection = searcher.Get();
+                    foreach (ManagementObject m in queryCollection)
+                    {
+                        // Display the remote computer information
+                        Console.WriteLine("Computer Name : {0}",
+                            m["csname"]);
+                        Console.WriteLine("Windows Directory : {0}",
+                            m["WindowsDirectory"]);
+                        Console.WriteLine("Operating System: {0}",
+                            m["Caption"]);
+                        Console.WriteLine("Version: {0}", m["Version"]);
+                        Console.WriteLine("Manufacturer : {0}",
+                            m["Manufacturer"]);
+                        Console.WriteLine("SerialNumber : {0}",
+                            m["SerialNumber"]);
+                        Console.WriteLine("OSType : {0}",
+                            m["OSType"]);
+                    }
+                }catch (Exception e)
+                {
+                    //System.Runtime.InteropServices.COMException: Fehler beim der WMI Abfrage: Der RPC-Server ist nicht verfügbar. (Ausnahme von HRESULT: 0x800706BA)
+                    //System.Management.ManagementException: Fehler beim der WMI Abfrage: Zugriff verweigert. 
+                    Console.WriteLine("Fehler beim der WMI Abfrage: {0}", e.Message);
+                }
+
             }
 
         }
@@ -153,7 +207,7 @@ namespace BP_LicenseAudit.Controller
                 return;
             }
             //activate checkbox if all networks are selected manually
-            else if((selectedNetworks.Count == currentNetworkInventory.List_networks.Count) && (state== false))
+            else if ((selectedNetworks.Count == currentNetworkInventory.List_networks.Count) && (state == false))
             {
                 //Console.WriteLine("All networks selected manually");
                 view.SetChkAll(true);
