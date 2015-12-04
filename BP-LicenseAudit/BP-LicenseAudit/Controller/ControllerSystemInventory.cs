@@ -12,8 +12,6 @@ namespace BP_LicenseAudit.Controller
     {
         //properties
         private FormSystemInventory view;
-        private String test;
-        private String test2;
         private NetworkInventory currentNetworkInventory;
         private SystemInventory currentSystemInventory;
         private ClientSystem currentSystem;
@@ -22,6 +20,7 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_systems;
         private ArrayList list_systemInventories;
         private ArrayList selectedNetworks;
+        private bool chkall;
 
         //constructor
         public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view, ArrayList list_customers, 
@@ -35,6 +34,7 @@ namespace BP_LicenseAudit.Controller
             this.list_systems = list_systems;
             this.list_systemInventories = list_systemInventories;
             selectedNetworks = new ArrayList();
+            chkall = false;
         }
 
 
@@ -43,8 +43,6 @@ namespace BP_LicenseAudit.Controller
         {
             foreach (Network n in selectedNetworks)
             {
-                Console.WriteLine("INVENTORY23: {0}", n.Name);
-                Console.WriteLine("INVENTORY23: {0}", n.Name);
                 foreach (IPAddress ip in n.IpAddresses)
                 {
                     // Ping the ip address
@@ -63,8 +61,14 @@ namespace BP_LicenseAudit.Controller
 
         }
 
-        public void Inventory()
+        public void Inventory(ListBox.SelectedObjectCollection selectedNetworks)
         {
+            //Add selected Networks to List
+            this.selectedNetworks.Clear();
+            foreach (Network n in selectedNetworks)
+            {
+                this.selectedNetworks.Add(n);
+            }
             scanNetwork();
         }
 
@@ -108,20 +112,24 @@ namespace BP_LicenseAudit.Controller
 
         public void lstNetworksSelected(ListBox.SelectedObjectCollection selectedNetworks)
         {
-            //Add selected Networks to List
-            foreach (Network n in selectedNetworks)
-            {
-                selectedNetworks.Add(n);
-            }
             //Set Checkbox State
-            if(selectedNetworks.Count == currentNetworkInventory.List_networks.Count)
+            bool state = view.chkAll_State();
+            //if the networks get selected by the checkbox dont do anaything
+            if (chkall)
+            {
+                return;
+            }
+            //activate checkbox if all networks are selected manually
+            else if((selectedNetworks.Count == currentNetworkInventory.List_networks.Count) && (state== false))
             {
                 view.SetChkAll(true);
             }
-            else
+            //diable checkbox if not all networks are selected manually
+            else if (state && (selectedNetworks.Count != currentNetworkInventory.List_networks.Count))
             {
                 view.SetChkAll(false);
             }
+
         }
 
         public override void UpdateView(bool customerUpdated)
@@ -186,12 +194,25 @@ namespace BP_LicenseAudit.Controller
 
         public void chkAll_Changed()
         {
+            Console.WriteLine("chkAll_Changed called");
             if (view.chkAll_State())
             {
+                //set chkall to true to disable lstNetworksSelected (avoid loop)
+                chkall = true;
                 //Select all networks
                 foreach (Network n in currentNetworkInventory.List_networks)
                 {
-                    view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n));
+                    view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n), true);
+                }
+                //set chkall to false to enable lstNetworksSelected
+                chkall = false;
+            }
+            else
+            {
+                //Unselect all networks
+                foreach (Network n in currentNetworkInventory.List_networks)
+                {
+                    view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n), false);
                 }
             }
         }

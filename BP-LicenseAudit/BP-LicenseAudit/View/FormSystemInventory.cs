@@ -28,9 +28,9 @@ namespace BP_LicenseAudit.View
 
         }
 
-        private void btnInventory_Click (Object sender, EventArgs e)
+        private void btnInventory_Click(Object sender, EventArgs e)
         {
-            currentcontroller.Inventory();
+            currentcontroller.Inventory(lstNetworks.SelectedItems);
         }
 
         private void btnEnd_Click(object sender, EventArgs e)
@@ -53,14 +53,23 @@ namespace BP_LicenseAudit.View
             lstNetworks.Items.Clear();
         }
 
-        private void lstNetworks_SelectedIndexChanged (Object sender, EventArgs e)
+        private void lstNetworks_SelectedIndexChanged(Object sender, EventArgs e)
         {
             currentcontroller.lstNetworksSelected(lstNetworks.SelectedItems);
         }
 
-        public void lstNetworks_selectItem(int index)
+        //selects item if state is true or unselects item if state is false
+        public void lstNetworks_selectItem(int index, bool state)
         {
-            lstNetworks.SetSelected(index, true);
+            if (state)
+            {
+                lstNetworks.SetSelected(index, true);
+            }
+            else
+            {
+                lstNetworks.SetSelected(index, false);
+            }
+
         }
 
         private void chkAll_CheckedChanged(Object sender, EventArgs e)
