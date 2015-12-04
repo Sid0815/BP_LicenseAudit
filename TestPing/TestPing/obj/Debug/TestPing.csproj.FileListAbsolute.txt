@@ -16,3 +16,6 @@ C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\bin\Debug
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.csprojResolveAssemblyReference.cache
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.exe
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.pdb
+C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\bin\Debug\TestPing.exe.config
+C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.exe
+C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\TestPing\TestPing\obj\Debug\TestPing.pdb

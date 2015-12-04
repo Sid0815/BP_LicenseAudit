@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Management;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -21,6 +22,8 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_systemInventories;
         private ArrayList selectedNetworks;
         private bool chkall;
+        private string username;
+        private string password;
 
         //constructor
         public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view, ArrayList list_customers, 
@@ -39,6 +42,8 @@ namespace BP_LicenseAudit.Controller
 
 
         //funtions
+
+        //scan Network for Clients
         private void scanNetwork()
         {
             foreach (Network n in selectedNetworks)
@@ -65,15 +70,42 @@ namespace BP_LicenseAudit.Controller
         {
             //Add selected Networks to List
             this.selectedNetworks.Clear();
+            //Get Admin credntials
+            username = null;
+            password = null;
+            GetCredenials();
+            if(username==null || password == null)
+            {
+                MessageBox.Show("Keine Zugangsdaten übermittelt. Bitte Inventarisierung erneut starten.", "Keine Zugangsdaten", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             foreach (Network n in selectedNetworks)
             {
                 this.selectedNetworks.Add(n);
             }
             scanNetwork();
+            scanDetails();
         }
 
+        //Scan all Clients in current System Inevntory for Details
         private void scanDetails()
         {
+
+            foreach (ClientSystem c in currentSystemInventory.List_Systems)
+            {
+                //Connect via WMI
+                ConnectionOptions options =
+                new ConnectionOptions();
+                options.Username = username;
+                options.Password = password;
+                //options.Authority = "ntdlmdomain:bpade.local";
+                //options.Authentication = AuthenticationLevel.PacketPrivacy;
+                ManagementScope scope;
+                //Localhost don't need credentials
+                /*if (host.Equals("localhost", StringComparison.InvariantCultureIgnoreCase) || host.Equals(Dns.GetHostName(), StringComparison.InvariantCultureIgnoreCase)) scope = new ManagementScope("\\\\" + host + "\\root\\cimv2");
+                else scope = new ManagementScope("\\\\" + host + "\\root\\cimv2", options);
+                scope.Connect();*/
+            }
 
         }
 
@@ -117,16 +149,19 @@ namespace BP_LicenseAudit.Controller
             //if the networks get selected by the checkbox dont do anaything
             if (chkall)
             {
+                //Console.WriteLine("Networks Selected ignored");
                 return;
             }
             //activate checkbox if all networks are selected manually
             else if((selectedNetworks.Count == currentNetworkInventory.List_networks.Count) && (state== false))
             {
+                //Console.WriteLine("All networks selected manually");
                 view.SetChkAll(true);
             }
             //diable checkbox if not all networks are selected manually
             else if (state && (selectedNetworks.Count != currentNetworkInventory.List_networks.Count))
             {
+                //Console.WriteLine("Not all networks selected manually");
                 view.SetChkAll(false);
             }
 
@@ -194,7 +229,7 @@ namespace BP_LicenseAudit.Controller
 
         public void chkAll_Changed()
         {
-            Console.WriteLine("chkAll_Changed called");
+            //Console.WriteLine("chkAll_Changed called");
             if (view.chkAll_State())
             {
                 //set chkall to true to disable lstNetworksSelected (avoid loop)
@@ -215,6 +250,19 @@ namespace BP_LicenseAudit.Controller
                     view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n), false);
                 }
             }
+        }
+
+        public void GetCredenials()
+        {
+            FormCredentials view_credentials = new FormCredentials(this);
+            view_credentials.ShowDialog();
+        }
+
+
+        public void SetCredentials(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
         }
 
     }

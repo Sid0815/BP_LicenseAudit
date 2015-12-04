@@ -25,6 +25,18 @@ namespace BP_LicenseAudit.Model
             }
         }
 
+        public ArrayList List_Systems
+        {
+            get
+            {
+                return list_systems;
+            }
+            private set
+            {
+                list_systems = value;
+            }
+        }
+
         
         public DateTime Date
         {
