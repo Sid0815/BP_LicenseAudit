@@ -137,26 +137,33 @@ namespace BP_LicenseAudit.Controller
                     ManagementObjectCollection queryCollection = searcher.Get();
                     foreach (ManagementObject m in queryCollection)
                     {
-                        // Display the remote computer information
+                        //Computername
                         Console.WriteLine("Computer Name : {0}",
                             m["csname"]);
-                        Console.WriteLine("Windows Directory : {0}",
-                            m["WindowsDirectory"]);
-                        Console.WriteLine("Operating System: {0}",
-                            m["Caption"]);
-                        Console.WriteLine("Version: {0}", m["Version"]);
-                        Console.WriteLine("Manufacturer : {0}",
-                            m["Manufacturer"]);
-                        Console.WriteLine("SerialNumber : {0}",
-                            m["SerialNumber"]);
-                        Console.WriteLine("OSType : {0}",
-                            m["OSType"]);
+                        c.Computername = (string)m["csname"];
+                        //Operatingsystem
+                        Console.WriteLine("Operating System: {0}", m["Caption"]);
+                        c.Type = (string)m["Caption"];
+                        //OperatingSystemSerial
+                        Console.WriteLine("SerialNumber : {0}", m["SerialNumber"]);
+                        c.Type = (string)m["Caption"];
                     }
-                }catch (Exception e)
+                }
+                catch (System.Runtime.InteropServices.COMException e)
                 {
-                    //System.Runtime.InteropServices.COMException: Fehler beim der WMI Abfrage: Der RPC-Server ist nicht verfügbar. (Ausnahme von HRESULT: 0x800706BA)
-                    //System.Management.ManagementException: Fehler beim der WMI Abfrage: Zugriff verweigert. 
-                    Console.WriteLine("Fehler beim der WMI Abfrage: {0}", e.Message);
+                    //Der RPC-Server ist nicht verfügbar. (Ausnahme von HRESULT: 0x800706BA)
+                    Console.WriteLine("COM-Fehler bei der WMI Abfrage: {0}", e.Message);
+                    //TODO: Add to ClientSystem Com Exception
+                }
+                catch (ManagementException e)
+                {
+                    //Fehler beim der WMI Abfrage: Zugriff verweigert. 
+                    Console.WriteLine("Zugriffs-Fehler bei der WMI Abfrage: {0}", e.Message);
+                    //TODO: Add to ClientSystem Management Exception
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("AllgemeinerFehler bei der WMI Abfrage: {0}", e.Message);
                 }
 
             }

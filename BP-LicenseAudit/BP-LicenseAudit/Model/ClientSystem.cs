@@ -11,6 +11,7 @@ namespace BP_LicenseAudit.Model
     {
         private int clientSystemNumber;
         private string type;
+        private string serial;
         private IPAddress clientIP;
         private ArrayList software;
         private int cores;
@@ -38,6 +39,18 @@ namespace BP_LicenseAudit.Model
             set
             {
                 type = value;
+            }
+        }
+
+        public string Serial
+        {
+            get
+            {
+                return serial;
+            }
+            set
+            {
+                serial = value;
             }
         }
 
@@ -82,6 +95,7 @@ namespace BP_LicenseAudit.Model
         {
             clientSystemNumber = number;
             type = null;
+            serial = null;
             this.clientIP = clientIP;
             software = new ArrayList();
             cores = 0;
