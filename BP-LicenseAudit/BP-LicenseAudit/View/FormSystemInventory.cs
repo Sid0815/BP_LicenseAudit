@@ -101,5 +101,23 @@ namespace BP_LicenseAudit.View
         {
             currentcontroller.ClientSelected(lstClients.SelectedItem);
         }
+
+        public void ClearClientDetails()
+        {
+            lstDetails.Items.Clear();
+        }
+
+        public void UpdateClientDetails(string computername, string ip, string os)
+        {
+            lstDetails.Items.Clear();
+            lstDetails.Items.Add("Computername:");
+            lstDetails.Items.Add(computername);
+            lstDetails.Items.Add("");
+            lstDetails.Items.Add("IP-Adresse:");
+            lstDetails.Items.Add(ip);
+            lstDetails.Items.Add("");
+            lstDetails.Items.Add("Betriebssystem:");
+            lstDetails.Items.Add(os);
+        }
     }
 }

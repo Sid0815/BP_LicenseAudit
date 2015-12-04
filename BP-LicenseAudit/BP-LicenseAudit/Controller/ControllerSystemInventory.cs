@@ -231,11 +231,12 @@ namespace BP_LicenseAudit.Controller
         {
             //Add for each selected network all matching ClientSystems from current SystemInventory
             view.ClearClientSystems();
-            foreach(Network n in selectedNetworks)
+            view.ClearClientDetails();
+            foreach (Network n in selectedNetworks)
             {
-                foreach(ClientSystem c in currentSystemInventory.List_Systems)
+                foreach (ClientSystem c in currentSystemInventory.List_Systems)
                 {
-                    if(c.Networknumber == n.NetworkNumber && c.Type!=null)
+                    if (c.Networknumber == n.NetworkNumber && c.Type != null)
                     {
                         view.AddClientSystem(c);
                     }
@@ -255,6 +256,8 @@ namespace BP_LicenseAudit.Controller
                 }
             }
 
+            view.SetChkAll(false);
+
             //Networks
             view.ClearNetworks();
             if (currentNetworkInventory != null && currentNetworkInventory.List_networks.Count > 0)
@@ -266,6 +269,8 @@ namespace BP_LicenseAudit.Controller
             }
 
             //System
+            view.ClearClientDetails();
+            view.ClearClientSystems();
         }
 
         public override void SelectedCustomerChanged(Object customer)
@@ -348,7 +353,11 @@ namespace BP_LicenseAudit.Controller
         //Updates the Clientinformations in the view
         public void ClientSelected(Object c)
         {
-            currentSystem = (ClientSystem)c;
+            if (c != null)
+            {
+                currentSystem = (ClientSystem)c;
+                view.UpdateClientDetails(currentSystem.Computername, currentSystem.ClientIP.ToString(), currentSystem.Type);
+            }
 
         }
     }

@@ -54,7 +54,7 @@
             "(leer)"});
             this.lstNetworks.Location = new System.Drawing.Point(10, 56);
             this.lstNetworks.Name = "lstNetworks";
-            this.lstNetworks.Size = new System.Drawing.Size(120, 199);
+            this.lstNetworks.Size = new System.Drawing.Size(140, 199);
             this.lstNetworks.TabIndex = 7;
             this.lstNetworks.DisplayMember = "Name";
             this.lstNetworks.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -67,10 +67,11 @@
             "(leer)"});
             this.lstClients.Location = new System.Drawing.Point(152, 56);
             this.lstClients.Name = "lstClients";
-            this.lstClients.Size = new System.Drawing.Size(120, 199);
+            this.lstClients.Size = new System.Drawing.Size(140, 199);
             this.lstClients.TabIndex = 9;
             this.lstClients.DisplayMember = "computername";
             this.lstClients.SelectedIndexChanged += new System.EventHandler(this.lstClients_SelectedIndexChanged);
+            this.lstClients.SelectionMode = System.Windows.Forms.SelectionMode.One;
             // 
             // lblClients
             // 
@@ -88,9 +89,9 @@
             "(leer)"});
             this.lstDetails.Location = new System.Drawing.Point(296, 56);
             this.lstDetails.Name = "lstDetails";
-            this.lstDetails.Size = new System.Drawing.Size(120, 199);
+            this.lstDetails.Size = new System.Drawing.Size(140, 199);
             this.lstDetails.TabIndex = 11;
-            this.lstDetails.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstDetails.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
             // lblDetail
             // 
@@ -139,7 +140,7 @@
             // 
             // btnEnd
             // 
-            this.btnEnd.Location = new System.Drawing.Point(166, 297);
+            this.btnEnd.Location = new System.Drawing.Point(152, 297);
             this.btnEnd.Size = new System.Drawing.Size(140, 33);
             this.btnEnd.TabIndex = 14;
             // 
@@ -147,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 338);
+            this.ClientSize = new System.Drawing.Size(440, 338);
             this.Controls.Add(this.btnInventory);
             this.Controls.Add(this.chkAll);
             this.Controls.Add(this.lstDetails);
