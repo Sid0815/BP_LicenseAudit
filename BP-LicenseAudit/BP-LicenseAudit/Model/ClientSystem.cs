@@ -10,6 +10,8 @@ namespace BP_LicenseAudit.Model
     public class ClientSystem
     {
         private int clientSystemNumber;
+        private int networknumber;
+        private string computername;
         private string type;
         private string serial;
         private IPAddress clientIP;
@@ -20,13 +22,25 @@ namespace BP_LicenseAudit.Model
 
         public int ClientSystemNumber
         {
+            get { return clientSystemNumber; }
+            private set { clientSystemNumber = value; }
+        }
+
+        public int Networknumber
+        {
+            get { return networknumber; }
+            set { networknumber = value; }
+        }
+
+        public string Computername
+        {
             get
             {
-                return clientSystemNumber;
+                return computername;
             }
-            private set
+            set
             {
-                clientSystemNumber = value;
+                computername = value;
             }
         }
 
@@ -91,7 +105,7 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public ClientSystem(int number, IPAddress clientIP)
+        public ClientSystem(int number, IPAddress clientIP, int networknumber)
         {
             clientSystemNumber = number;
             type = null;
@@ -99,6 +113,7 @@ namespace BP_LicenseAudit.Model
             this.clientIP = clientIP;
             software = new ArrayList();
             cores = 0;
+            this.networknumber = networknumber;
         }
 
     }

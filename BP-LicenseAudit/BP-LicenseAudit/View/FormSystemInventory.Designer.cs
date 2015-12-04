@@ -69,6 +69,8 @@
             this.lstClients.Name = "lstClients";
             this.lstClients.Size = new System.Drawing.Size(120, 199);
             this.lstClients.TabIndex = 9;
+            this.lstClients.DisplayMember = "computername";
+            this.lstClients.SelectedIndexChanged += new System.EventHandler(this.lstClients_SelectedIndexChanged);
             // 
             // lblClients
             // 

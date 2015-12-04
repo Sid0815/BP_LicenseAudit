@@ -86,5 +86,20 @@ namespace BP_LicenseAudit.View
         {
             chkAll.Checked = state;
         }
+
+        public void ClearClientSystems()
+        {
+            lstClients.Items.Clear();
+        }
+
+        public void AddClientSystem(ClientSystem c)
+        {
+            lstClients.Items.Add(c);
+        }
+
+        private void lstClients_SelectedIndexChanged(Object sender, EventArgs e)
+        {
+            currentcontroller.ClientSelected(lstClients.SelectedItem);
+        }
     }
 }

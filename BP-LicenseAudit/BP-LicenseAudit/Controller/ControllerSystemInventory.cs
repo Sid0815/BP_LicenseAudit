@@ -50,13 +50,13 @@ namespace BP_LicenseAudit.Controller
             {
                 foreach (IPAddress ip in n.IpAddresses)
                 {
-                    // Ping the ip address
+                    // Ping the ip address with timeout of 100ms
                     Ping pingSender = new Ping();
                     PingReply reply = pingSender.Send(ip, 100);
                     Console.WriteLine("Ping: {0}", ip.ToString());
                     if (reply.Status == IPStatus.Success)
                     {
-                        currentSystem = new ClientSystem(list_systems.Count, ip);
+                        currentSystem = new ClientSystem(list_systems.Count, ip, n.NetworkNumber);
                         list_systems.Add(currentSystem);
                         currentSystemInventory.AddSystemToInventory(currentSystem);
                         Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
@@ -85,6 +85,7 @@ namespace BP_LicenseAudit.Controller
             }
             scanNetwork();
             scanDetails();
+            UpdateClients(selectedNetworks);
             MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -178,10 +179,6 @@ namespace BP_LicenseAudit.Controller
             return currentSystemInventory;
         }
 
-        public void AddSystemToInventory()
-        {
-
-        }
 
         public void GetSystemInventoryFromDB()
         {
@@ -205,11 +202,12 @@ namespace BP_LicenseAudit.Controller
 
         public void lstNetworksSelected(ListBox.SelectedObjectCollection selectedNetworks)
         {
-            //Set Checkbox State
+            //Get the Checkbox State
             bool state = view.chkAll_State();
             //if the networks get selected by the checkbox dont do anaything
             if (chkall)
             {
+                UpdateClients(selectedNetworks);
                 //Console.WriteLine("Networks Selected ignored");
                 return;
             }
@@ -225,7 +223,24 @@ namespace BP_LicenseAudit.Controller
                 //Console.WriteLine("Not all networks selected manually");
                 view.SetChkAll(false);
             }
+            UpdateClients(selectedNetworks);
 
+        }
+
+        private void UpdateClients(ListBox.SelectedObjectCollection selectedNetworks)
+        {
+            //Add for each selected network all matching ClientSystems from current SystemInventory
+            view.ClearClientSystems();
+            foreach(Network n in selectedNetworks)
+            {
+                foreach(ClientSystem c in currentSystemInventory.List_Systems)
+                {
+                    if(c.Networknumber == n.NetworkNumber && c.Type!=null)
+                    {
+                        view.AddClientSystem(c);
+                    }
+                }
+            }
         }
 
         public override void UpdateView(bool customerUpdated)
@@ -249,6 +264,8 @@ namespace BP_LicenseAudit.Controller
                     view.AddNetwork(n);
                 }
             }
+
+            //System
         }
 
         public override void SelectedCustomerChanged(Object customer)
@@ -288,6 +305,7 @@ namespace BP_LicenseAudit.Controller
             UpdateView(false);
         }
 
+        //manage the checkbox to select or diselect all networks
         public void chkAll_Changed()
         {
             //Console.WriteLine("chkAll_Changed called");
@@ -313,18 +331,25 @@ namespace BP_LicenseAudit.Controller
             }
         }
 
+        //Open new Form to get credentials for WMI Authorization
         public void GetCredenials()
         {
             FormCredentials view_credentials = new FormCredentials(this);
             view_credentials.ShowDialog();
         }
 
-
+        //set the credentials
         public void SetCredentials(string username, string password)
         {
             this.username = username;
             this.password = password;
         }
 
+        //Updates the Clientinformations in the view
+        public void ClientSelected(Object c)
+        {
+            currentSystem = (ClientSystem)c;
+
+        }
     }
 }
