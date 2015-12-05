@@ -85,6 +85,7 @@
             this.dgvLicense.RowHeadersVisible = false;
             this.dgvLicense.Size = new System.Drawing.Size(253, 290);
             this.dgvLicense.TabIndex = 11;
+            this.dgvLicense.SelectionChanged += new System.EventHandler(this.dgvLicense_SelectionChanged);
             // 
             // clmLicense
             // 

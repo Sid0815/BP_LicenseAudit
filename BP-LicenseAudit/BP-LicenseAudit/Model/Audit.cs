@@ -8,8 +8,11 @@ namespace BP_LicenseAudit.Model
 {
     class Audit
     {
-        //propperties
         private int auditNumber;
+        private int customerNumber;
+        private DateTime date;
+        private int[] results;
+        //propperties
         public int AuditNumber
         {
             get
@@ -22,7 +25,6 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        private int customerNumber;
         public int CustomerNumber
         {
             get
@@ -35,7 +37,6 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        private DateTime date;
         public DateTime Date
         {
             get
@@ -47,8 +48,6 @@ namespace BP_LicenseAudit.Model
                 date = value;
             }
         }
-
-        private int[] results;
 
         //constructor
         public Audit(int number)

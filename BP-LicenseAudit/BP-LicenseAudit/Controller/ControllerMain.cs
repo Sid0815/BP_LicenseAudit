@@ -30,6 +30,8 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_systems;
         private ArrayList list_systemInventories;
         private SystemInventory currentSystemInventory;
+        private ArrayList list_Audits;
+        private Audit currentAudit;
 
         //constructor
         public ControllerMain(FormMain view) : base(null)
@@ -43,6 +45,7 @@ namespace BP_LicenseAudit.Controller
             list_licenseInventories = new ArrayList();
             list_systems = new ArrayList();
             list_systemInventories = new ArrayList();
+            list_Audits = new ArrayList();
 
             //initialising by database
             list_customers = db.GetCustomers();
@@ -52,6 +55,7 @@ namespace BP_LicenseAudit.Controller
             list_licenseInventories = db.GetLicenseInventories();
             list_systems = db.GetClientSystems();
             list_systemInventories = db.GetSystemInventories();
+            //list_audits = db.GetAudits();
 
             //Creating Forms
             fAudit = new FormAudit();
@@ -68,7 +72,7 @@ namespace BP_LicenseAudit.Controller
             fSystemInventory.Visible = false;
 
             //Creating Controllers and connect data
-            cAudit = new ControllerAudit(this, fAudit, list_customers);
+            cAudit = new ControllerAudit(this, fAudit, list_customers, list_licenseInventories, list_systemInventories, list_Audits, list_licenses);
             cChanges = new ControllerChanges(this, fChanges, list_customers);
             cCustomer = new ControllerCustomer(this, fCustomer, list_customers);
             cLicense = new ControllerLicense(this, fLicense, list_customers, list_licenses, list_licenseInventories);
@@ -179,6 +183,10 @@ namespace BP_LicenseAudit.Controller
             {
                 view.AddAction(string.Format("Inventarisierung {0}", currentSystemInventory.Date));
             }
+            if (currentAudit != null)
+            {
+                view.AddAction(string.Format("Audit {0}", currentAudit.Date));
+            }
 
         }
 
@@ -226,6 +234,17 @@ namespace BP_LicenseAudit.Controller
                 {
                     currentSystemInventory = si;
                     Console.WriteLine("SystemInventory for customer {0} found", currentCustomer.Name);
+                }
+            }
+
+            //GetAudits of the customer
+            currentAudit = null;
+            foreach (Audit a in list_Audits)
+            {
+                if (a.CustomerNumber == currentCustomer.Cnumber)
+                {
+                    currentAudit = a;
+                    Console.WriteLine("Audit for customer {0} found", currentCustomer.Name);
                 }
             }
             UpdateView(false);
