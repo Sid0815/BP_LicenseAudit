@@ -42,30 +42,6 @@ namespace BP_LicenseAudit.Controller
 
 
         //funtions
-
-        //scan Network for Clients
-        private void scanNetwork()
-        {
-            foreach (Network n in selectedNetworks)
-            {
-                foreach (IPAddress ip in n.IpAddresses)
-                {
-                    // Ping the ip address with timeout of 100ms
-                    Ping pingSender = new Ping();
-                    PingReply reply = pingSender.Send(ip, 100);
-                    Console.WriteLine("Ping: {0}", ip.ToString());
-                    if (reply.Status == IPStatus.Success)
-                    {
-                        currentSystem = new ClientSystem(list_systems.Count, ip, n.NetworkNumber);
-                        list_systems.Add(currentSystem);
-                        currentSystemInventory.AddSystemToInventory(currentSystem);
-                        Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
-                    }
-                }
-            }
-
-        }
-
         public void Inventory(ListBox.SelectedObjectCollection selectedNetworks)
         {
             //Add selected Networks to List
@@ -86,18 +62,59 @@ namespace BP_LicenseAudit.Controller
             scanNetwork();
             scanDetails();
             UpdateClients(selectedNetworks);
+            //Client Systems are passed by reference, no need to update list_systems
+            db.SaveClientSystems(list_systems);
+            db.SaveSystemInventories(list_systemInventories);
             MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        //scan Network for Clients
+        private void scanNetwork()
+        {
+            //Get the latest systemnumber
+            currentSystem = (ClientSystem)list_systems[list_systems.Count - 1];
+            int latestsystemnumber = currentSystem.ClientSystemNumber;
+            //scan Networks
+            foreach (Network n in selectedNetworks)
+            {
+                //Clear old Systems of this network from list_systems
+                for(int i=0; i<list_systems.Count; i++)
+                {
+                    ClientSystem c = (ClientSystem)list_systems[i];
+                    if (c.Networknumber == n.NetworkNumber)
+                    {
+                        list_systems.Remove(c);
+                        i--;
+                    }
+                }
+                foreach (IPAddress ip in n.IpAddresses)
+                {
+                    // Ping the ip address with timeout of 100ms
+                    Ping pingSender = new Ping();
+                    PingReply reply = pingSender.Send(ip, 100);
+                    Console.WriteLine("Ping: {0}", ip.ToString());
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        currentSystem = new ClientSystem(++latestsystemnumber, ip, n.NetworkNumber);
+                        list_systems.Add(currentSystem);
+                        currentSystemInventory.AddSystemToInventory(currentSystem);
+                        Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
+                    }
+                }
+            }
+
+        }
+
+
 
         //Scan all Clients in current System Inevntory for Details
         private void scanDetails()
         {
             Console.WriteLine("Scanning Details");
             //Get IP of local Host because the wmi conection differs
-
-            IPAddress[] me = Dns.GetHostAddresses("");
+            IPAddress[] localhost = Dns.GetHostAddresses("");
             ArrayList localadrresses = new ArrayList();
-            foreach (IPAddress ip in me)
+            foreach (IPAddress ip in localhost)
             {   //only IPv4
                 if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 {
@@ -147,7 +164,7 @@ namespace BP_LicenseAudit.Controller
                         c.Type = (string)m["Caption"];
                         //OperatingSystemSerial
                         Console.WriteLine("SerialNumber : {0}", m["SerialNumber"]);
-                        c.Type = (string)m["Caption"];
+                        c.Serial = (string)m["SerialNumber"];
                     }
                 }
                 catch (System.Runtime.InteropServices.COMException e)
@@ -236,7 +253,7 @@ namespace BP_LicenseAudit.Controller
             {
                 foreach (ClientSystem c in currentSystemInventory.List_Systems)
                 {
-                    if (c.Networknumber == n.NetworkNumber && c.Type != null)
+                    if (c.Networknumber == n.NetworkNumber && (c.Type != null && !(c.Type.Equals(""))))
                     {
                         view.AddClientSystem(c);
                     }

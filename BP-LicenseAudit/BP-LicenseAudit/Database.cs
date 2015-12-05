@@ -13,6 +13,8 @@ namespace BP_LicenseAudit
         private string pathNetworkInventory = "..\\..\\NI.txt";
         private string pathLicenses = "..\\..\\licenses.txt";
         private string pathLicenseInventory = "..\\..\\LI.txt";
+        private string pathClientSystems = "..\\..\\clientsystems.txt";
+        private string pathSystemInventory = "..\\..\\SI.txt";
 
         private void checkFile(string path)
         {
@@ -315,7 +317,7 @@ namespace BP_LicenseAudit
                     LicenseInventory li = new LicenseInventory(int.Parse(input[0]), int.Parse(input[1]));
                     int i = int.Parse(input[2]);
                     for (int x = 0; x < i; x++)
-                    {   
+                    {
                         //add tuples to license Inventory
                         read = sr.ReadLine();
                         input = read.Split(';');
@@ -333,6 +335,163 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 Console.WriteLine("Error reading Network Inventories: {0}", e.Message);
+                return null;
+            }
+        }
+
+        public void SaveClientSystems(ArrayList clientsystems)
+        {
+            //If File doesn't exist create it
+            checkFile(pathClientSystems);
+            //Save ClientSystems
+            Console.WriteLine("Database.SaveClientSystems called");
+            try
+            {
+                FileStream fs = new FileStream(pathClientSystems, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs);
+                string towrite;
+                foreach (ClientSystem sys in clientsystems)
+                {
+                    towrite = String.Format("{0};{1};{2};{3};{4};{5}", sys.ClientSystemNumber, sys.Networknumber, sys.Computername, sys.Type, sys.Serial, sys.ClientIP.ToString());
+                    Console.WriteLine(towrite);
+                    sw.WriteLine(towrite);
+                }
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing File ClientSystems: {0}", e.Message);
+            }
+        }
+
+        public ArrayList GetClientSystems()
+        {
+            //If File doesn't exist create it
+            checkFile(pathClientSystems);
+            //Get networks
+            Console.WriteLine("Database.GetClientSystems called");
+            try
+            {
+                FileStream fs = new FileStream(pathClientSystems, FileMode.Open);
+                StreamReader sr = new StreamReader(fs);
+                string read;
+                ArrayList list_ClientSystems = new ArrayList();
+                while (sr.Peek() != -1)
+                {
+                    read = sr.ReadLine();
+                    string[] input = read.Split(';');
+                    ClientSystem c = new ClientSystem(int.Parse(input[0]), IPAddress.Parse(input[5]), int.Parse(input[1]));
+                    c.Computername = input[2];
+                    c.Type = input[3];
+                    c.Serial = input[4];
+                    list_ClientSystems.Add(c);
+                    Console.WriteLine("ClientSystem {0} added to list", c.ClientSystemNumber);
+                }
+                sr.Close();
+                return list_ClientSystems;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading File Client Systems: {0}", e.Message);
+                return null;
+            }
+        }
+
+        public void SaveSystemInventories(ArrayList list_systeminventories)
+        {
+            //If File doesn't exist create it
+            checkFile(pathSystemInventory);
+            //Save NetworkInventory
+            Console.WriteLine("Database.SaveSystemInventory called");
+            try
+            {
+                FileStream fs = new FileStream(pathSystemInventory, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs);
+                //to avoid inconsistency write all inventories each time
+                foreach (SystemInventory si in list_systeminventories)
+                {
+                    string towrite;
+                    //Customernumber;Systeminventorynumber;Number of ClientSystems in inventory, date
+                    //Clientsystemnumber
+                    //Clientsystemnumber
+                    //...
+                    towrite = String.Format("{0};{1};{2};{3}", si.Customernumber, si.SystemInventoryNumber, si.List_Systems.Count, si.Date);
+                    Console.WriteLine(towrite);
+                    sw.WriteLine(towrite);
+                    //Write belonging Clientsystems
+                    for (int i = 0; i < si.List_Systems.Count; i++)
+                    {
+                        ClientSystem c = (ClientSystem)si.List_Systems[i];
+                        towrite = String.Format("{0}", c.ClientSystemNumber);
+                        sw.WriteLine(towrite);
+                    }
+                }
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing System Inventory: {0}", e.Message);
+            }
+        }
+
+        public ArrayList GetSystemInventories()
+        {
+            //If File doesn't exist create it
+            checkFile(pathSystemInventory);
+            //Get License Inventories
+            Console.WriteLine("Database.GetSystemInventories called");
+            try
+            {
+                FileStream fs = new FileStream(pathSystemInventory, FileMode.Open);
+                StreamReader sr = new StreamReader(fs);
+                string read;
+                ArrayList list_systeminventories = new ArrayList();
+                ArrayList list_clientsystems = GetClientSystems();
+                while (sr.Peek() != -1)
+                {
+                    read = sr.ReadLine();
+                    string[] input = read.Split(';');
+                    SystemInventory si = new SystemInventory(int.Parse(input[0]), int.Parse(input[1]));
+                    si.Date = DateTime.Parse(input[3]);
+                    int i = int.Parse(input[2]);
+                    for (int x = 0; x < i; x++)
+                    {
+                        //add ClientSystems to System Inventory
+                        read = sr.ReadLine();
+                        int clientsystemnumber = int.Parse(read);
+                        //Console.WriteLine(clientsystemnumber);
+                        ClientSystem currentsystem = null;
+                        foreach (ClientSystem c in list_clientsystems)
+                        {
+                            //Console.WriteLine("Comparing ClientSystem {0} against clientsystemnumber", c.ClientSystemNumber);
+                            if (c.ClientSystemNumber == clientsystemnumber)
+                            {
+                                currentsystem = c;
+                                Console.WriteLine("Clientsystem {0} found.", currentsystem.ClientSystemNumber);
+                                break;
+                            }
+                            else
+                            {
+                                currentsystem = null;
+                            }
+                        }
+                        if (currentsystem != null)
+                        {
+                            si.List_Systems.Add(currentsystem);
+                        }
+                        Console.WriteLine("ClientSystem {0} zu SystemInventory {1} hinzugefügt.", currentsystem.ClientSystemNumber, si.SystemInventoryNumber);
+                    }
+                    list_systeminventories.Add(si);
+                    Console.WriteLine("SystemInventory {0} added to list", si.SystemInventoryNumber);
+                }
+                sr.Close();
+                return list_systeminventories;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading System Inventories: {0}", e.Message);
                 return null;
             }
         }

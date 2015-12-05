@@ -37,7 +37,6 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        
         public DateTime Date
         {
             get
