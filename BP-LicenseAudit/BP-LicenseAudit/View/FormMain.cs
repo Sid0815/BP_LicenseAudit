@@ -101,5 +101,15 @@ namespace BP_LicenseAudit.View
             dgvLicenses.ClearSelection();
         }
 
+        public void ClearActions()
+        {
+            lstActions.Items.Clear();
+        }
+
+        public void AddAction(string action)
+        {
+            lstActions.Items.Add(action);
+        }
+
     }
 }

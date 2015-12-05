@@ -71,6 +71,7 @@ namespace BP_LicenseAudit.Controller
         //scan Network for Clients
         private void scanNetwork()
         {
+            currentSystemInventory.List_Systems.Clear();
             //Get the latest systemnumber
             currentSystem = (ClientSystem)list_systems[list_systems.Count - 1];
             int latestsystemnumber = currentSystem.ClientSystemNumber;
@@ -87,9 +88,9 @@ namespace BP_LicenseAudit.Controller
                         i--;
                     }
                 }
+                // Ping each ip address of the network with timeout of 100ms
                 foreach (IPAddress ip in n.IpAddresses)
                 {
-                    // Ping the ip address with timeout of 100ms
                     Ping pingSender = new Ping();
                     PingReply reply = pingSender.Send(ip, 100);
                     Console.WriteLine("Ping: {0}", ip.ToString());

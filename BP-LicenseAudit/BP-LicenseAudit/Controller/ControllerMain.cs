@@ -29,6 +29,7 @@ namespace BP_LicenseAudit.Controller
         private LicenseInventory currentLicenseInventory;
         private ArrayList list_systems;
         private ArrayList list_systemInventories;
+        private SystemInventory currentSystemInventory;
 
         //constructor
         public ControllerMain(FormMain view) : base(null)
@@ -172,6 +173,12 @@ namespace BP_LicenseAudit.Controller
                     }
                 }
             }
+            //Actions
+            view.ClearActions();
+            if (currentSystemInventory != null)
+            {
+                view.AddAction(string.Format("Inventarisierung {0}", currentSystemInventory.Date));
+            }
 
         }
 
@@ -208,6 +215,17 @@ namespace BP_LicenseAudit.Controller
                 {
                     currentLicenseInventory = li;
                     Console.WriteLine("LicenseInventory for customer {0} found", currentCustomer.Name);
+                }
+            }
+
+            //GetSystemInventory of the customer
+            currentSystemInventory = null;
+            foreach (SystemInventory si in list_systemInventories)
+            {
+                if (si.Customernumber == currentCustomer.Cnumber)
+                {
+                    currentSystemInventory = si;
+                    Console.WriteLine("SystemInventory for customer {0} found", currentCustomer.Name);
                 }
             }
             UpdateView(false);
