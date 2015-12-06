@@ -30,5 +30,3 @@ C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudi
 C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.Properties.Resources.resources
 C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csproj.GenerateResource.Cache
 C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP_LicenseAudit.View.FormCredentials.resources
-C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.exe.CodeAnalysisLog.xml
-C:\Users\Sid0815\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.exe.lastcodeanalysissucceeded
