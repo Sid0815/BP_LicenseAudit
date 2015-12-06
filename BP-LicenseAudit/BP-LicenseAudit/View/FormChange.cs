@@ -26,5 +26,10 @@ namespace BP_LicenseAudit.View
         {
 
         }
+
+        private void dgvLicense_SelectionChanged(Object sender, EventArgs e)
+        {
+            //dgvLicense.ClearSelection();
+        }
     }
 }

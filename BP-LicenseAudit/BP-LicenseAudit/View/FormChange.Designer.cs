@@ -40,46 +40,50 @@
             this.lblCName = new System.Windows.Forms.Label();
             this.btnCustomer = new System.Windows.Forms.Button();
             this.lblLicense = new System.Windows.Forms.Label();
-            this.lstLicense = new System.Windows.Forms.ListBox();
             this.lstNetwork = new System.Windows.Forms.ListBox();
             this.lblNetwork = new System.Windows.Forms.Label();
             this.tabNetwork = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtEAByte4 = new System.Windows.Forms.TextBox();
+            this.txtEAByte3 = new System.Windows.Forms.TextBox();
+            this.txtEAByte2 = new System.Windows.Forms.TextBox();
+            this.txtEAByte1 = new System.Windows.Forms.TextBox();
+            this.txtSAByte4 = new System.Windows.Forms.TextBox();
+            this.txtSAByte3 = new System.Windows.Forms.TextBox();
+            this.txtSAByte2 = new System.Windows.Forms.TextBox();
+            this.txtSAByte1 = new System.Windows.Forms.TextBox();
             this.lblNetworkEndadress = new System.Windows.Forms.Label();
             this.lblNetworkStart = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.txtHostByte4 = new System.Windows.Forms.TextBox();
+            this.txtHostByte3 = new System.Windows.Forms.TextBox();
+            this.txtHostByte2 = new System.Windows.Forms.TextBox();
+            this.txtHostByte1 = new System.Windows.Forms.TextBox();
+            this.lbllNetworkHost = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.txtCidrCidr = new System.Windows.Forms.TextBox();
+            this.lblNetworkCidr2 = new System.Windows.Forms.Label();
+            this.txtCidrByte4 = new System.Windows.Forms.TextBox();
+            this.txtCidrByte3 = new System.Windows.Forms.TextBox();
+            this.txtCidrByte2 = new System.Windows.Forms.TextBox();
+            this.txtCidrByte1 = new System.Windows.Forms.TextBox();
+            this.lblNetworkCidr = new System.Windows.Forms.Label();
             this.lblLicense2 = new System.Windows.Forms.Label();
             this.cmbLicense = new System.Windows.Forms.ComboBox();
             this.lblCount = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numCount = new System.Windows.Forms.NumericUpDown();
             this.btnLicense = new System.Windows.Forms.Button();
             this.btnNetwork = new System.Windows.Forms.Button();
             this.tabNetwork.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.dgvLicense = new System.Windows.Forms.DataGridView();
+            this.clmLicense = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLicense)).BeginInit();
+            this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCount)).BeginInit();
             this.SuspendLayout();
             // 
             // txtCzip
@@ -180,16 +184,6 @@
             this.lblLicense.TabIndex = 23;
             this.lblLicense.Text = "Lizenzen:";
             // 
-            // lstLicense
-            // 
-            this.lstLicense.FormattingEnabled = true;
-            this.lstLicense.Items.AddRange(new object[] {
-            "(leer)"});
-            this.lstLicense.Location = new System.Drawing.Point(15, 141);
-            this.lstLicense.Name = "lstLicense";
-            this.lstLicense.Size = new System.Drawing.Size(120, 160);
-            this.lstLicense.TabIndex = 24;
-            // 
             // lstNetwork
             // 
             this.lstNetwork.FormattingEnabled = true;
@@ -222,14 +216,14 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.textBox5);
-            this.tabPage1.Controls.Add(this.textBox6);
-            this.tabPage1.Controls.Add(this.textBox7);
-            this.tabPage1.Controls.Add(this.textBox8);
-            this.tabPage1.Controls.Add(this.textBox3);
-            this.tabPage1.Controls.Add(this.textBox4);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.txtEAByte4);
+            this.tabPage1.Controls.Add(this.txtEAByte3);
+            this.tabPage1.Controls.Add(this.txtEAByte2);
+            this.tabPage1.Controls.Add(this.txtEAByte1);
+            this.tabPage1.Controls.Add(this.txtSAByte4);
+            this.tabPage1.Controls.Add(this.txtSAByte3);
+            this.tabPage1.Controls.Add(this.txtSAByte2);
+            this.tabPage1.Controls.Add(this.txtSAByte1);
             this.tabPage1.Controls.Add(this.lblNetworkEndadress);
             this.tabPage1.Controls.Add(this.lblNetworkStart);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -240,61 +234,61 @@
             this.tabPage1.Text = "Start / End";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // textBox5
+            // txtEAByte4
             // 
-            this.textBox5.Location = new System.Drawing.Point(205, 45);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(38, 20);
-            this.textBox5.TabIndex = 9;
+            this.txtEAByte4.Location = new System.Drawing.Point(205, 45);
+            this.txtEAByte4.Name = "txtEAByte4";
+            this.txtEAByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtEAByte4.TabIndex = 9;
             // 
-            // textBox6
+            // txtEAByte3
             // 
-            this.textBox6.Location = new System.Drawing.Point(161, 45);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(38, 20);
-            this.textBox6.TabIndex = 8;
+            this.txtEAByte3.Location = new System.Drawing.Point(161, 45);
+            this.txtEAByte3.Name = "txtEAByte3";
+            this.txtEAByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtEAByte3.TabIndex = 8;
             // 
-            // textBox7
+            // txtEAByte2
             // 
-            this.textBox7.Location = new System.Drawing.Point(117, 45);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(38, 20);
-            this.textBox7.TabIndex = 7;
+            this.txtEAByte2.Location = new System.Drawing.Point(117, 45);
+            this.txtEAByte2.Name = "txtEAByte2";
+            this.txtEAByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtEAByte2.TabIndex = 7;
             // 
-            // textBox8
+            // txtEAByte1
             // 
-            this.textBox8.Location = new System.Drawing.Point(73, 45);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(38, 20);
-            this.textBox8.TabIndex = 6;
+            this.txtEAByte1.Location = new System.Drawing.Point(73, 45);
+            this.txtEAByte1.Name = "txtEAByte1";
+            this.txtEAByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtEAByte1.TabIndex = 6;
             // 
-            // textBox3
+            // txtSAByte4
             // 
-            this.textBox3.Location = new System.Drawing.Point(205, 13);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(38, 20);
-            this.textBox3.TabIndex = 5;
+            this.txtSAByte4.Location = new System.Drawing.Point(205, 13);
+            this.txtSAByte4.Name = "txtSAByte4";
+            this.txtSAByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtSAByte4.TabIndex = 5;
             // 
-            // textBox4
+            // txtSAByte3
             // 
-            this.textBox4.Location = new System.Drawing.Point(161, 13);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(38, 20);
-            this.textBox4.TabIndex = 4;
+            this.txtSAByte3.Location = new System.Drawing.Point(161, 13);
+            this.txtSAByte3.Name = "txtSAByte3";
+            this.txtSAByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtSAByte3.TabIndex = 4;
             // 
-            // textBox2
+            // txtSAByte2
             // 
-            this.textBox2.Location = new System.Drawing.Point(117, 13);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(38, 20);
-            this.textBox2.TabIndex = 3;
+            this.txtSAByte2.Location = new System.Drawing.Point(117, 13);
+            this.txtSAByte2.Name = "txtSAByte2";
+            this.txtSAByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtSAByte2.TabIndex = 3;
             // 
-            // textBox1
+            // txtSAByte1
             // 
-            this.textBox1.Location = new System.Drawing.Point(73, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(38, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtSAByte1.Location = new System.Drawing.Point(73, 13);
+            this.txtSAByte1.Name = "txtSAByte1";
+            this.txtSAByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtSAByte1.TabIndex = 2;
             // 
             // lblNetworkEndadress
             // 
@@ -316,11 +310,11 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.textBox9);
-            this.tabPage2.Controls.Add(this.textBox10);
-            this.tabPage2.Controls.Add(this.textBox11);
-            this.tabPage2.Controls.Add(this.textBox12);
-            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.txtHostByte4);
+            this.tabPage2.Controls.Add(this.txtHostByte3);
+            this.tabPage2.Controls.Add(this.txtHostByte2);
+            this.tabPage2.Controls.Add(this.txtHostByte1);
+            this.tabPage2.Controls.Add(this.lbllNetworkHost);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -329,52 +323,52 @@
             this.tabPage2.Text = "Host";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // textBox9
+            // txtHostByte4
             // 
-            this.textBox9.Location = new System.Drawing.Point(208, 19);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(38, 20);
-            this.textBox9.TabIndex = 9;
+            this.txtHostByte4.Location = new System.Drawing.Point(208, 19);
+            this.txtHostByte4.Name = "txtHostByte4";
+            this.txtHostByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtHostByte4.TabIndex = 9;
             // 
-            // textBox10
+            // txtHostByte3
             // 
-            this.textBox10.Location = new System.Drawing.Point(164, 19);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(38, 20);
-            this.textBox10.TabIndex = 8;
+            this.txtHostByte3.Location = new System.Drawing.Point(164, 19);
+            this.txtHostByte3.Name = "txtHostByte3";
+            this.txtHostByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtHostByte3.TabIndex = 8;
             // 
-            // textBox11
+            // txtHostByte2
             // 
-            this.textBox11.Location = new System.Drawing.Point(120, 19);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(38, 20);
-            this.textBox11.TabIndex = 7;
+            this.txtHostByte2.Location = new System.Drawing.Point(120, 19);
+            this.txtHostByte2.Name = "txtHostByte2";
+            this.txtHostByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtHostByte2.TabIndex = 7;
             // 
-            // textBox12
+            // txtHostByte1
             // 
-            this.textBox12.Location = new System.Drawing.Point(76, 19);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(38, 20);
-            this.textBox12.TabIndex = 6;
+            this.txtHostByte1.Location = new System.Drawing.Point(76, 19);
+            this.txtHostByte1.Name = "txtHostByte1";
+            this.txtHostByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtHostByte1.TabIndex = 6;
             // 
-            // label1
+            // lbllNetworkHost
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Hostadresse:";
+            this.lbllNetworkHost.AutoSize = true;
+            this.lbllNetworkHost.Location = new System.Drawing.Point(7, 22);
+            this.lbllNetworkHost.Name = "lbllNetworkHost";
+            this.lbllNetworkHost.Size = new System.Drawing.Size(69, 13);
+            this.lbllNetworkHost.TabIndex = 0;
+            this.lbllNetworkHost.Text = "Hostadresse:";
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.textBox17);
-            this.tabPage3.Controls.Add(this.label3);
-            this.tabPage3.Controls.Add(this.textBox13);
-            this.tabPage3.Controls.Add(this.textBox14);
-            this.tabPage3.Controls.Add(this.textBox15);
-            this.tabPage3.Controls.Add(this.textBox16);
-            this.tabPage3.Controls.Add(this.label2);
+            this.tabPage3.Controls.Add(this.txtCidrCidr);
+            this.tabPage3.Controls.Add(this.lblNetworkCidr2);
+            this.tabPage3.Controls.Add(this.txtCidrByte4);
+            this.tabPage3.Controls.Add(this.txtCidrByte3);
+            this.tabPage3.Controls.Add(this.txtCidrByte2);
+            this.tabPage3.Controls.Add(this.txtCidrByte1);
+            this.tabPage3.Controls.Add(this.lblNetworkCidr);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -383,96 +377,63 @@
             this.tabPage3.Text = "CIDR";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBox17
+            // txtCidrCidr
             // 
-            this.textBox17.Location = new System.Drawing.Point(196, 38);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(38, 20);
-            this.textBox17.TabIndex = 11;
+            this.txtCidrCidr.Location = new System.Drawing.Point(196, 38);
+            this.txtCidrCidr.Name = "txtCidrCidr";
+            this.txtCidrCidr.Size = new System.Drawing.Size(38, 20);
+            this.txtCidrCidr.TabIndex = 11;
             // 
-            // label3
+            // lblNetworkCidr2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(180, 35);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(15, 24);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "/";
+            this.lblNetworkCidr2.AutoSize = true;
+            this.lblNetworkCidr2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNetworkCidr2.Location = new System.Drawing.Point(180, 35);
+            this.lblNetworkCidr2.Name = "lblNetworkCidr2";
+            this.lblNetworkCidr2.Size = new System.Drawing.Size(15, 24);
+            this.lblNetworkCidr2.TabIndex = 10;
+            this.lblNetworkCidr2.Text = "/";
             // 
-            // textBox13
+            // txtCidrByte4
             // 
-            this.textBox13.Location = new System.Drawing.Point(141, 38);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(38, 20);
-            this.textBox13.TabIndex = 9;
+            this.txtCidrByte4.Location = new System.Drawing.Point(141, 38);
+            this.txtCidrByte4.Name = "txtCidrByte4";
+            this.txtCidrByte4.Size = new System.Drawing.Size(38, 20);
+            this.txtCidrByte4.TabIndex = 9;
             // 
-            // textBox14
+            // txtCidrByte3
             // 
-            this.textBox14.Location = new System.Drawing.Point(97, 38);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(38, 20);
-            this.textBox14.TabIndex = 8;
+            this.txtCidrByte3.Location = new System.Drawing.Point(97, 38);
+            this.txtCidrByte3.Name = "txtCidrByte3";
+            this.txtCidrByte3.Size = new System.Drawing.Size(38, 20);
+            this.txtCidrByte3.TabIndex = 8;
             // 
-            // textBox15
+            // txtCidrByte2
             // 
-            this.textBox15.Location = new System.Drawing.Point(53, 38);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(38, 20);
-            this.textBox15.TabIndex = 7;
+            this.txtCidrByte2.Location = new System.Drawing.Point(53, 38);
+            this.txtCidrByte2.Name = "txtCidrByte2";
+            this.txtCidrByte2.Size = new System.Drawing.Size(38, 20);
+            this.txtCidrByte2.TabIndex = 7;
             // 
-            // textBox16
+            // txtCidrByte1
             // 
-            this.textBox16.Location = new System.Drawing.Point(9, 38);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(38, 20);
-            this.textBox16.TabIndex = 6;
+            this.txtCidrByte1.Location = new System.Drawing.Point(9, 38);
+            this.txtCidrByte1.Name = "txtCidrByte1";
+            this.txtCidrByte1.Size = new System.Drawing.Size(38, 20);
+            this.txtCidrByte1.TabIndex = 6;
             // 
-            // label2
+            // lblNetworkCidr
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 13);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Netzwerk:";
-            // 
-            // lblLicense2
-            // 
-            this.lblLicense2.AutoSize = true;
-            this.lblLicense2.Location = new System.Drawing.Point(151, 141);
-            this.lblLicense2.Name = "lblLicense2";
-            this.lblLicense2.Size = new System.Drawing.Size(40, 13);
-            this.lblLicense2.TabIndex = 28;
-            this.lblLicense2.Text = "Lizenz:";
-            // 
-            // cmbLicense
-            // 
-            this.cmbLicense.FormattingEnabled = true;
-            this.cmbLicense.Location = new System.Drawing.Point(211, 138);
-            this.cmbLicense.Name = "cmbLicense";
-            this.cmbLicense.Size = new System.Drawing.Size(211, 21);
-            this.cmbLicense.TabIndex = 29;
-            // 
-            // lblCount
-            // 
-            this.lblCount.AutoSize = true;
-            this.lblCount.Location = new System.Drawing.Point(151, 173);
-            this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(42, 13);
-            this.lblCount.TabIndex = 30;
-            this.lblCount.Text = "Anzahl:";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(211, 171);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(211, 20);
-            this.numericUpDown1.TabIndex = 31;
+            this.lblNetworkCidr.AutoSize = true;
+            this.lblNetworkCidr.Location = new System.Drawing.Point(6, 22);
+            this.lblNetworkCidr.Name = "lblNetworkCidr";
+            this.lblNetworkCidr.Size = new System.Drawing.Size(55, 13);
+            this.lblNetworkCidr.TabIndex = 0;
+            this.lblNetworkCidr.Text = "Netzwerk:";
             // 
             // btnLicense
             // 
-            this.btnLicense.Location = new System.Drawing.Point(442, 148);
+            this.btnLicense.Location = new System.Drawing.Point(442, 210);
             this.btnLicense.Name = "btnLicense";
             this.btnLicense.Size = new System.Drawing.Size(119, 38);
             this.btnLicense.TabIndex = 32;
@@ -487,6 +448,71 @@
             this.btnNetwork.TabIndex = 33;
             this.btnNetwork.Text = "Netzwerk ändern";
             this.btnNetwork.UseVisualStyleBackColor = true;
+            // 
+            // lblLicense2
+            // 
+            this.lblLicense2.AutoSize = true;
+            this.lblLicense2.Location = new System.Drawing.Point(280, 141);
+            this.lblLicense2.Name = "lblLicense2";
+            this.lblLicense2.Size = new System.Drawing.Size(40, 13);
+            this.lblLicense2.TabIndex = 28;
+            this.lblLicense2.Text = "Lizenz:";
+            // 
+            // cmbLicense
+            // 
+            this.cmbLicense.FormattingEnabled = true;
+            this.cmbLicense.Location = new System.Drawing.Point(340, 138);
+            this.cmbLicense.Name = "cmbLicense";
+            this.cmbLicense.Size = new System.Drawing.Size(211, 21);
+            this.cmbLicense.TabIndex = 29;
+            // 
+            // lblCount
+            // 
+            this.lblCount.AutoSize = true;
+            this.lblCount.Location = new System.Drawing.Point(280, 173);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(42, 13);
+            this.lblCount.TabIndex = 30;
+            this.lblCount.Text = "Anzahl:";
+            // 
+            // numCount
+            // 
+            this.numCount.Location = new System.Drawing.Point(340, 171);
+            this.numCount.Name = "numCount";
+            this.numCount.Size = new System.Drawing.Size(211, 20);
+            this.numCount.TabIndex = 31;
+            // 
+            // dgvLicense
+            // 
+            this.dgvLicense.AllowUserToAddRows = false;
+            this.dgvLicense.AllowUserToDeleteRows = false;
+            this.dgvLicense.AllowUserToResizeColumns = false;
+            this.dgvLicense.AllowUserToResizeRows = false;
+            this.dgvLicense.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLicense.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmLicense,
+            this.clmCount});
+            this.dgvLicense.Location = new System.Drawing.Point(15, 141);
+            this.dgvLicense.Name = "dgvLicense";
+            this.dgvLicense.ReadOnly = true;
+            this.dgvLicense.RowHeadersVisible = false;
+            this.dgvLicense.Size = new System.Drawing.Size(253, 160);
+            this.dgvLicense.TabIndex = 24;
+            this.dgvLicense.SelectionChanged += new System.EventHandler(this.dgvLicense_SelectionChanged);
+            // 
+            // clmLicense
+            // 
+            this.clmLicense.HeaderText = "Lizenz";
+            this.clmLicense.Name = "clmLicense";
+            this.clmLicense.ReadOnly = true;
+            this.clmLicense.Width = 200;
+            // 
+            // clmCount
+            // 
+            this.clmCount.HeaderText = "Anzahl";
+            this.clmCount.Name = "clmCount";
+            this.clmCount.ReadOnly = true;
+            this.clmCount.Width = 50;
             //
             //inherited Elements
             //
@@ -508,7 +534,6 @@
             this.btnEnd.Location = new System.Drawing.Point(442, 455);
             this.btnEnd.Size = new System.Drawing.Size(119, 38);
             this.btnEnd.TabIndex = 34;
-
             // 
             // FormChange
             // 
@@ -517,14 +542,13 @@
             this.ClientSize = new System.Drawing.Size(573, 505);
             this.Controls.Add(this.btnNetwork);
             this.Controls.Add(this.btnLicense);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.numCount);
             this.Controls.Add(this.lblCount);
             this.Controls.Add(this.cmbLicense);
             this.Controls.Add(this.lblLicense2);
             this.Controls.Add(this.tabNetwork);
             this.Controls.Add(this.lstNetwork);
             this.Controls.Add(this.lblNetwork);
-            this.Controls.Add(this.lstLicense);
             this.Controls.Add(this.lblLicense);
             this.Controls.Add(this.btnCustomer);
             this.Controls.Add(this.txtCzip);
@@ -537,9 +561,31 @@
             this.Controls.Add(this.lblCStreetNr);
             this.Controls.Add(this.lblCStreet);
             this.Controls.Add(this.lblCName);
+            this.Controls.Add(this.dgvLicense);
             this.Name = "FormChange";
             this.Text = "Daten ändern";
             this.Load += new System.EventHandler(this.FormChange_Load);
+            this.Controls.SetChildIndex(this.lblCName, 0);
+            this.Controls.SetChildIndex(this.lblCStreet, 0);
+            this.Controls.SetChildIndex(this.lblCStreetNr, 0);
+            this.Controls.SetChildIndex(this.lblCCity, 0);
+            this.Controls.SetChildIndex(this.lblCzip, 0);
+            this.Controls.SetChildIndex(this.txtCName, 0);
+            this.Controls.SetChildIndex(this.txtCStreet, 0);
+            this.Controls.SetChildIndex(this.txtCCity, 0);
+            this.Controls.SetChildIndex(this.txtCStreetNr, 0);
+            this.Controls.SetChildIndex(this.txtCzip, 0);
+            this.Controls.SetChildIndex(this.btnCustomer, 0);
+            this.Controls.SetChildIndex(this.lblLicense, 0);
+            this.Controls.SetChildIndex(this.lblNetwork, 0);
+            this.Controls.SetChildIndex(this.lstNetwork, 0);
+            this.Controls.SetChildIndex(this.tabNetwork, 0);
+            this.Controls.SetChildIndex(this.lblLicense2, 0);
+            this.Controls.SetChildIndex(this.cmbLicense, 0);
+            this.Controls.SetChildIndex(this.lblCount, 0);
+            this.Controls.SetChildIndex(this.numCount, 0);
+            this.Controls.SetChildIndex(this.btnLicense, 0);
+            this.Controls.SetChildIndex(this.btnNetwork, 0);
             this.tabNetwork.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -547,7 +593,7 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -566,40 +612,42 @@
         private System.Windows.Forms.Label lblCName;
         private System.Windows.Forms.Button btnCustomer;
         private System.Windows.Forms.Label lblLicense;
-        private System.Windows.Forms.ListBox lstLicense;
         private System.Windows.Forms.ListBox lstNetwork;
         private System.Windows.Forms.Label lblNetwork;
         private System.Windows.Forms.TabControl tabNetwork;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtEAByte4;
+        private System.Windows.Forms.TextBox txtEAByte3;
+        private System.Windows.Forms.TextBox txtEAByte2;
+        private System.Windows.Forms.TextBox txtEAByte1;
+        private System.Windows.Forms.TextBox txtSAByte4;
+        private System.Windows.Forms.TextBox txtSAByte3;
+        private System.Windows.Forms.TextBox txtSAByte2;
+        private System.Windows.Forms.TextBox txtSAByte1;
         private System.Windows.Forms.Label lblNetworkEndadress;
         private System.Windows.Forms.Label lblNetworkStart;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtHostByte4;
+        private System.Windows.Forms.TextBox txtHostByte3;
+        private System.Windows.Forms.TextBox txtHostByte2;
+        private System.Windows.Forms.TextBox txtHostByte1;
+        private System.Windows.Forms.Label lbllNetworkHost;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TextBox textBox17;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.TextBox textBox14;
-        private System.Windows.Forms.TextBox textBox15;
-        private System.Windows.Forms.TextBox textBox16;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtCidrCidr;
+        private System.Windows.Forms.Label lblNetworkCidr2;
+        private System.Windows.Forms.TextBox txtCidrByte4;
+        private System.Windows.Forms.TextBox txtCidrByte3;
+        private System.Windows.Forms.TextBox txtCidrByte2;
+        private System.Windows.Forms.TextBox txtCidrByte1;
+        private System.Windows.Forms.Label lblNetworkCidr;
         private System.Windows.Forms.Label lblLicense2;
         private System.Windows.Forms.ComboBox cmbLicense;
         private System.Windows.Forms.Label lblCount;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numCount;
         private System.Windows.Forms.Button btnLicense;
         private System.Windows.Forms.Button btnNetwork;
+        private System.Windows.Forms.DataGridView dgvLicense;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmLicense;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmCount;
     }
 }
