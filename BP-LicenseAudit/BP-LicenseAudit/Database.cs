@@ -15,6 +15,7 @@ namespace BP_LicenseAudit
         private string pathLicenseInventory = "..\\..\\LI.txt";
         private string pathClientSystems = "..\\..\\clientsystems.txt";
         private string pathSystemInventory = "..\\..\\SI.txt";
+        private string pathAudit = "..\\..\\Audit.txt";
 
         private void checkFile(string path)
         {
@@ -402,7 +403,7 @@ namespace BP_LicenseAudit
         {
             //If File doesn't exist create it
             checkFile(pathSystemInventory);
-            //Save NetworkInventory
+            //Save SystemInventory
             Console.WriteLine("Database.SaveSystemInventory called");
             try
             {
@@ -439,7 +440,7 @@ namespace BP_LicenseAudit
         {
             //If File doesn't exist create it
             checkFile(pathSystemInventory);
-            //Get License Inventories
+            //Get System Inventories
             Console.WriteLine("Database.GetSystemInventories called");
             try
             {
@@ -492,6 +493,80 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 Console.WriteLine("Error reading System Inventories: {0}", e.Message);
+                return null;
+            }
+        }
+
+        public void SaveAudit(Audit a)
+        {
+            //If File doesn't exist create it
+            checkFile(pathAudit);
+            //Save Audit
+            Console.WriteLine("Database.SaveAudit called");
+            try
+            {
+                FileStream fs = new FileStream(pathAudit, FileMode.Append);
+                StreamWriter sw = new StreamWriter(fs);
+                string towrite;
+                //Customernumber;Auditnumber;Number of results, date
+                //resulttuple
+                //resulttuple
+                //...
+                towrite = String.Format("{0};{1};{2};{3}", a.CustomerNumber, a.AuditNumber, a.Results.Count, a.Date);
+                Console.WriteLine(towrite);
+                sw.WriteLine(towrite);
+                //Write belonging Results
+                for (int i = 0; i < a.Results.Count; i++)
+                {
+                    Tuple<int, int> t = (Tuple<int, int>)a.Results[i];
+                    towrite = String.Format("{0};{1}", t.Item1, t.Item2);
+                    sw.WriteLine(towrite);
+                }
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing Audit: {0}", e.Message);
+            }
+        }
+
+        public ArrayList GetAudits()
+        {
+            //If File doesn't exist create it
+            checkFile(pathAudit);
+            //Get Audits
+            Console.WriteLine("Database.GetAudits called");
+            try
+            {
+                FileStream fs = new FileStream(pathAudit, FileMode.Open);
+                StreamReader sr = new StreamReader(fs);
+                string read;
+                ArrayList list_audits = new ArrayList();
+                while (sr.Peek() != -1)
+                {
+                    read = sr.ReadLine();
+                    string[] input = read.Split(';');
+                    Audit a = new Audit(int.Parse(input[1]), int.Parse(input[0]));
+                    a.Date = DateTime.Parse(input[3]);
+                    int i = int.Parse(input[2]);
+                    for (int x = 0; x < i; x++)
+                    {
+                        //add tuples to results
+                        read = sr.ReadLine();
+                        input = read.Split(';');
+                        Tuple<int, int> t = new Tuple<int, int>(int.Parse(input[0]), int.Parse(input[1]));
+                        a.Results.Add(t);
+                    }
+                    list_audits.Add(a);
+                    Console.WriteLine("Audit {0} added to list", a.AuditNumber);
+                }
+                sr.Close();
+                return list_audits;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error reading Network Inventories: {0}", e.Message);
                 return null;
             }
         }

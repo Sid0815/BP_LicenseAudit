@@ -65,6 +65,7 @@ namespace BP_LicenseAudit.Controller
             //Client Systems are passed by reference, no need to update list_systems
             db.SaveClientSystems(list_systems);
             db.SaveSystemInventories(list_systemInventories);
+            callingController.UpdateInformation();
             MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

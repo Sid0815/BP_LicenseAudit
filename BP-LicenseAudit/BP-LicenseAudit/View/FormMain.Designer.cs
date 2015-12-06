@@ -106,6 +106,7 @@
             this.lstActions.Name = "lstActions";
             this.lstActions.Size = new System.Drawing.Size(250, 446);
             this.lstActions.TabIndex = 6;
+            this.lstActions.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
             // btnCustomer
             // 

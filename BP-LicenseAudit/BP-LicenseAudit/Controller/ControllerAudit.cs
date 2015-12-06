@@ -95,6 +95,9 @@ namespace BP_LicenseAudit.Controller
                     //Add result to Audit, Licensenumber and number of free licenses of this type
                     currentAudit.AddResult(licensenumber, licenses - count[i]);
                 }
+                list_audits.Add(currentAudit);
+                db.SaveAudit(currentAudit);
+                callingController.UpdateInformation();
                 MessageBox.Show("Audit abgeschlossen.", "Audit abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             UpdateView(false);

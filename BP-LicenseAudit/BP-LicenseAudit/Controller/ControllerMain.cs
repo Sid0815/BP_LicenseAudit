@@ -55,7 +55,7 @@ namespace BP_LicenseAudit.Controller
             list_licenseInventories = db.GetLicenseInventories();
             list_systems = db.GetClientSystems();
             list_systemInventories = db.GetSystemInventories();
-            //list_audits = db.GetAudits();
+            list_Audits = db.GetAudits();
 
             //Creating Forms
             fAudit = new FormAudit();
@@ -226,7 +226,7 @@ namespace BP_LicenseAudit.Controller
                 }
             }
 
-            //GetSystemInventory of the customer
+            //Get latest SystemInventory of the customer
             currentSystemInventory = null;
             foreach (SystemInventory si in list_systemInventories)
             {
@@ -237,7 +237,7 @@ namespace BP_LicenseAudit.Controller
                 }
             }
 
-            //GetAudits of the customer
+            //Get latest Audit of the customer
             currentAudit = null;
             foreach (Audit a in list_Audits)
             {
