@@ -23,7 +23,7 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_allAvailableLicenses;
 
         //constructor
-        public ControllerAudit(ControllerParent calling, FormAudit view, ArrayList list_customers, ArrayList list_licenseinventories, ArrayList list_systeminventories, ArrayList list_audits, ArrayList list_licenses) :base(calling)
+        public ControllerAudit(ControllerParent calling, FormAudit view, ArrayList list_customers, ArrayList list_licenseinventories, ArrayList list_systeminventories, ArrayList list_audits, ArrayList list_licenses) : base(calling)
         {
             //connect controller to its view
             this.view = view;
@@ -37,6 +37,67 @@ namespace BP_LicenseAudit.Controller
         //functions
         public void Compare()
         {
+            if (currentCustomer == null)
+            {
+                MessageBox.Show("Kein Kunde ausgewählt. Bitte einen Kunden auswählen und Audit erneut starten.", "Kein Kunde ausgewählt.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                currentAudit = new Audit(list_audits.Count, currentCustomer.Cnumber);
+                //Count Systems
+                //
+                //get List of system types
+                List<string> types = new List<string>();
+                foreach (ClientSystem c in currentSystemInventory.List_Systems)
+                {
+                    if ((!types.Contains(c.Type))&& (c.Type != null) && !(c.Type.Equals("")))
+                    {
+                        types.Add(c.Type);
+                    }
+                }
+                //count occurence of types in Systeminventory
+                int[] count = new int[types.Count];
+                for (int i = 0; i < types.Count; i++)
+                {
+                    count[i] = 0;
+                    foreach (ClientSystem c in currentSystemInventory.List_Systems)
+                    {
+                        if (c.Type.Equals(types[i]))
+                        {
+                            count[i]++;
+                            Console.WriteLine("{0} occures {1} times", types[i], count[i]);
+                        }
+                    }
+                }
+                //Compare against Licennse Inventory
+                for (int i = 0; i < types.Count; i++)
+                {
+                    int licenses = 0;
+                    //Get the licensenumber of the current type
+                    int licensenumber = -1;
+                    foreach (License l in list_allAvailableLicenses)
+                    {
+                        if (l.Name.Equals(types[i]))
+                        {
+                            licensenumber = l.LicenseNumber;
+                        }
+                    }
+                    //Get the corresponding count of the licensinventory
+                    for (int x = 0; x < currentLicenseInventory.Inventory.Count; x++)
+                    {
+                        Tuple<int, int> t = (Tuple<int, int>)currentLicenseInventory.Inventory[x];
+                        if (t.Item1 == licensenumber)
+                        {
+                            licenses = t.Item2;
+                            x = currentLicenseInventory.Inventory.Count;
+                        }
+                    }
+                    //Add result to Audit, Licensenumber and number of free licenses of this type
+                    currentAudit.AddResult(licensenumber, licenses - count[i]);
+                }
+                MessageBox.Show("Audit abgeschlossen.", "Audit abgeschlossen", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            UpdateView(false);
 
         }
 
@@ -107,7 +168,7 @@ namespace BP_LicenseAudit.Controller
             }
             //SystemInventory
             view.ClearSystemInventory();
-            if(currentSystemInventory != null)
+            if (currentSystemInventory != null)
             {
                 view.AddSystemInventory(string.Format("Inventarisierung {0}", currentSystemInventory.Date));
                 foreach (ClientSystem c in currentSystemInventory.List_Systems)
@@ -116,6 +177,24 @@ namespace BP_LicenseAudit.Controller
                     {
                         view.AddClientSystem(c);
                     }
+                }
+            }
+            //Audit
+            view.ClearAudit();
+            if (currentAudit != null)
+            {
+                foreach (Tuple<int, int> t in currentAudit.Results)
+                {
+                    int licensenumber = t.Item1;
+                    int count = t.Item2;
+                    foreach (License l in list_allAvailableLicenses)
+                    {
+                        if (l.LicenseNumber == licensenumber)
+                        {
+                            view.AddResult(l.Name, count);
+                        }
+                    }
+
                 }
             }
 
@@ -131,6 +210,7 @@ namespace BP_LicenseAudit.Controller
             base.SelectedCustomerChanged(customer);
             currentLicenseInventory = null;
             currentSystemInventory = null;
+            currentAudit = null;
             Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
             //Get Licenseinventory of the customer or Display Message
             foreach (LicenseInventory li in list_licenseInventories)

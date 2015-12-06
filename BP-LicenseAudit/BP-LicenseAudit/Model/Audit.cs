@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
+
 
 namespace BP_LicenseAudit.Model
 {
-    class Audit
+    public class Audit
     {
         private int auditNumber;
         private int customerNumber;
         private DateTime date;
-        private int[] results;
+        private ArrayList results;
         //propperties
         public int AuditNumber
         {
@@ -49,11 +47,32 @@ namespace BP_LicenseAudit.Model
             }
         }
 
-        //constructor
-        public Audit(int number)
+        public ArrayList Results
         {
-            auditNumber = number;
-            date = DateTime.Now;
+            get
+            {
+                return results;
+            }
+            private set
+            {
+                results = value;
+            }
+        }
+
+        //constructor
+        public Audit(int auditNumber, int customerNumber)
+        {
+            this.auditNumber = auditNumber;
+            this.customerNumber = customerNumber;
+            this.date = DateTime.Now;
+            this.results = new ArrayList();
+        }
+
+        //result is the number of free licenses
+        public void AddResult(int licensenumber, int result)
+        {
+            Tuple<int, int> t = new Tuple<int, int>(licensenumber, result);
+            results.Add(t);
         }
     }
 }

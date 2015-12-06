@@ -59,6 +59,7 @@ namespace BP_LicenseAudit.View
         public void ClearSystemInventory()
         {
             cmbInventory.Items.Clear();
+            cmbInventory.Text = "";
             lstClients.Items.Clear();
         }
 
@@ -71,6 +72,28 @@ namespace BP_LicenseAudit.View
         public void AddClientSystem(ClientSystem c)
         {
             lstClients.Items.Add(c);
+        }
+
+        private void btnAudit_Click(Object sender, EventArgs e)
+        {
+            currentcontroller.Compare();
+        }
+
+        private void dgvResult_SelectionChanged(Object sender, EventArgs e)
+        {
+            dgvResult.ClearSelection();
+        }
+
+        public void ClearAudit()
+        {
+            dgvResult.Rows.Clear();
+        }
+
+        public void AddResult(string license, int count)
+        {
+            int i = dgvResult.Rows.Add();
+            dgvResult.Rows[i].Cells[0].Value = license;
+            dgvResult.Rows[i].Cells[1].Value = count;
         }
     }
 }

@@ -34,13 +34,17 @@
             this.lblClients = new System.Windows.Forms.Label();
             this.lstClients = new System.Windows.Forms.ListBox();
             this.lblResult = new System.Windows.Forms.Label();
-            this.lstResult = new System.Windows.Forms.ListBox();
             this.btnAudit = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.dgvLicense = new System.Windows.Forms.DataGridView();
             this.clmLicense = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvResult = new System.Windows.Forms.DataGridView();
+            this.clmLicenseResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clmCountResult = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLicense)).BeginInit();
+            this.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbInventary
@@ -48,7 +52,7 @@
             this.cmbInventory.FormattingEnabled = true;
             this.cmbInventory.Location = new System.Drawing.Point(51, 33);
             this.cmbInventory.Name = "cmbInventary";
-            this.cmbInventory.Size = new System.Drawing.Size(487, 21);
+            this.cmbInventory.Size = new System.Drawing.Size(620, 21);
             this.cmbInventory.TabIndex = 9;
             // 
             // lblInventary
@@ -131,15 +135,37 @@
             this.lblResult.TabIndex = 15;
             this.lblResult.Text = "Ergebnis:";
             // 
-            // lstResult
+            // dgvResult
             // 
-            this.lstResult.FormattingEnabled = true;
-            this.lstResult.Items.AddRange(new object[] {
-            "(leer)"});
-            this.lstResult.Location = new System.Drawing.Point(415, 81);
-            this.lstResult.Name = "lstResult";
-            this.lstResult.Size = new System.Drawing.Size(120, 290);
-            this.lstResult.TabIndex = 14;
+            this.dgvResult.AllowUserToAddRows = false;
+            this.dgvResult.AllowUserToDeleteRows = false;
+            this.dgvResult.AllowUserToResizeColumns = false;
+            this.dgvResult.AllowUserToResizeRows = false;
+            this.dgvResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clmLicenseResult,
+            this.clmCountResult});
+            this.dgvResult.Location = new System.Drawing.Point(415, 81);
+            this.dgvResult.Name = "dgvResult";
+            this.dgvResult.ReadOnly = true;
+            this.dgvResult.RowHeadersVisible = false;
+            this.dgvResult.Size = new System.Drawing.Size(253, 290);
+            this.dgvResult.TabIndex = 14;
+            this.dgvResult.SelectionChanged += new System.EventHandler(this.dgvResult_SelectionChanged);
+            // 
+            // clmLicenseResult
+            // 
+            this.clmLicenseResult.HeaderText = "Lizenz";
+            this.clmLicenseResult.Name = "clmLicenseResult";
+            this.clmLicenseResult.ReadOnly = true;
+            this.clmLicenseResult.Width = 200;
+            // 
+            // clmCountResult
+            // 
+            this.clmCountResult.HeaderText = "Frei";
+            this.clmCountResult.Name = "clmCountResult";
+            this.clmCountResult.ReadOnly = true;
+            this.clmCountResult.Width = 50;
             // 
             // btnAudit
             // 
@@ -149,6 +175,7 @@
             this.btnAudit.TabIndex = 16;
             this.btnAudit.Text = "Audit starten";
             this.btnAudit.UseVisualStyleBackColor = true;
+            this.btnAudit.Click += new System.EventHandler(this.btnAudit_Click);
             // 
             // btnPrint
             // 
@@ -165,7 +192,7 @@
             // cmbCustomer
             // 
             this.cmbCustomer.Location = new System.Drawing.Point(51, 6);
-            this.cmbCustomer.Size = new System.Drawing.Size(487, 21);
+            this.cmbCustomer.Size = new System.Drawing.Size(620, 21);
             this.cmbCustomer.TabIndex = 7;
             // 
             // lblCustomer
@@ -177,24 +204,24 @@
             // btnEnd
             // 
             this.btnEnd.Location = new System.Drawing.Point(418, 387);
-            this.btnEnd.Size = new System.Drawing.Size(120, 30);
+            this.btnEnd.Size = new System.Drawing.Size(253, 30);
             this.btnEnd.TabIndex = 18;
             // 
             // FormAudit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 429);
+            this.ClientSize = new System.Drawing.Size(678, 429);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnAudit);
             this.Controls.Add(this.lblResult);
-            this.Controls.Add(this.lstResult);
             this.Controls.Add(this.lblClients);
             this.Controls.Add(this.lstClients);
             this.Controls.Add(this.lblLicense);
             this.Controls.Add(this.cmbInventory);
             this.Controls.Add(this.lblInventary);
             this.Controls.Add(this.dgvLicense);
+            this.Controls.Add(this.dgvResult);
             this.Name = "FormAudit";
             this.Text = "Audit durchführen";
             this.ResumeLayout(false);
@@ -209,11 +236,13 @@
         private System.Windows.Forms.Label lblClients;
         private System.Windows.Forms.ListBox lstClients;
         private System.Windows.Forms.Label lblResult;
-        private System.Windows.Forms.ListBox lstResult;
         private System.Windows.Forms.Button btnAudit;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.DataGridView dgvLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmCount;
+        private System.Windows.Forms.DataGridView dgvResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmLicenseResult;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clmCountResult;
     }
 }
