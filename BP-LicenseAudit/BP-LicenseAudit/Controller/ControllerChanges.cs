@@ -74,36 +74,46 @@ namespace BP_LicenseAudit.Controller
             //Check if Licensetype is already in Licenseinventory
             int x = -1;
             DialogResult dr = DialogResult.No;
-            foreach (Tuple<int, int> t in currentLicenseInventory.Inventory)
+            if (currentLicenseInventory == null)
             {
-                if (t.Item1 == l.LicenseNumber)
-                {   //Get Index of license, in the loop deleting is not possible
-                    x = currentLicenseInventory.Inventory.IndexOf(t);
-                    //If the new count is the same as already in the inventory
-                    if (t.Item2 == count)
-                    {
-                        MessageBox.Show("Lizenz bereits im Inventar vorhanden. Es wurden keine Daten geändert.", "Lizenz bereits vorhanden", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        dr = MessageBox.Show(String.Format("Soll die Lizenz von {0} auf {1} aktualisiert werden.", t.Item2, count), "Lizenz aktualisiert", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    }
-                }
-            }
-            //License doubled and update yes --> remove old status
-            if (dr == DialogResult.Yes && (x != -1))
-            {
-                currentLicenseInventory.RemoveLicenseFromInventory(l.LicenseNumber);
-            }
-            //License doubled and update false --> exit
-            else if (dr == DialogResult.No && (x != -1))
-            {
+                MessageBox.Show("Kein Lizenzinventar für diesen Kunden gefunden.", "Kein Lizenzinventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            //Add license to inventory (new license or updated status after removing old one)
-            currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
-            callingController.UpdateInformation();
-            db.SaveLicenseInventories(list_licenseInventories);
+            else
+            {
+
+
+                foreach (Tuple<int, int> t in currentLicenseInventory.Inventory)
+                {
+                    if (t.Item1 == l.LicenseNumber)
+                    {   //Get Index of license, in the loop deleting is not possible
+                        x = currentLicenseInventory.Inventory.IndexOf(t);
+                        //If the new count is the same as already in the inventory
+                        if (t.Item2 == count)
+                        {
+                            MessageBox.Show("Lizenz bereits im Inventar vorhanden. Es wurden keine Daten geändert.", "Lizenz bereits vorhanden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            dr = MessageBox.Show(String.Format("Soll die Lizenz von {0} auf {1} aktualisiert werden.", t.Item2, count), "Lizenz aktualisiert", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        }
+                    }
+                }
+                //License doubled and update yes --> remove old status
+                if (dr == DialogResult.Yes && (x != -1))
+                {
+                    currentLicenseInventory.RemoveLicenseFromInventory(l.LicenseNumber);
+                }
+                //License doubled and update false --> exit
+                else if (dr == DialogResult.No && (x != -1))
+                {
+                    return;
+                }
+                //Add license to inventory (new license or updated status after removing old one)
+                currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
+                callingController.UpdateInformation();
+                db.SaveLicenseInventories(list_licenseInventories);
+            }
         }
 
 
@@ -112,9 +122,28 @@ namespace BP_LicenseAudit.Controller
 
         }
 
-        public void UpdateCustomer()
+        public void UpdateCustomer(Object customer, string name, string street, string streetnr, string city, string zip)
         {
-
+            Customer c = (Customer)customer;
+            int x = list_customers.IndexOf(c);
+            currentCustomer = (Customer)list_customers[x];
+            if ((!currentCustomer.Name.Equals(name)) || (!currentCustomer.Street.Equals(street)) || (!currentCustomer.Streetnumber.Equals(streetnr)) || (!currentCustomer.City.Equals(city)) || (!currentCustomer.Zip.Equals(zip)))
+            {
+                DialogResult dr = MessageBox.Show(String.Format("Soll der Kunde {0}, {1}, {2}, {3}, {4} in {5}, {6}, {7}, {8}, {9} geändert werden?",
+                    currentCustomer.Name, currentCustomer.Street, currentCustomer.Streetnumber, currentCustomer.City, currentCustomer.Zip,
+                    name, street, streetnr, city, zip), "Kunde aktualisieren", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    currentCustomer.Name = name;
+                    currentCustomer.Street = street;
+                    currentCustomer.Streetnumber = streetnr;
+                    currentCustomer.City = city;
+                    currentCustomer.Zip = zip;
+                    UpdateView(true);
+                    UpdateCustomerView();
+                    db.SaveCustomerOverride(list_customers);
+                }
+            }
         }
 
         public void RemoveLicense()

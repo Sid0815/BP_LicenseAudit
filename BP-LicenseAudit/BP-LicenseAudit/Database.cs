@@ -48,6 +48,30 @@ namespace BP_LicenseAudit
             }
         }
 
+        public void SaveCustomerOverride(ArrayList list_customers)
+        {
+            //If File doesn't exist create it
+            checkFile(pathCustomer);
+            //write file
+            try
+            {
+                FileStream fs = new FileStream(pathCustomer, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs);
+                string towrite;
+                foreach (Customer c in list_customers)
+                {
+                    towrite = String.Format("{0};{1};{2};{3};{4};{5}", c.Cnumber, c.Name, c.Street, c.Streetnumber, c.City, c.Zip);
+                    Console.WriteLine(towrite);
+                    sw.WriteLine(towrite);
+                }
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing File: {0}", e.Message);
+            }
+        }
+
         public ArrayList GetCustomers()
         {
             //If File doesn't exist create it

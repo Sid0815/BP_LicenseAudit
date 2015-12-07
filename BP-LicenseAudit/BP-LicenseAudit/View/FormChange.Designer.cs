@@ -174,6 +174,7 @@
             this.btnCustomer.TabIndex = 22;
             this.btnCustomer.Text = "Stammdaten ändern";
             this.btnCustomer.UseVisualStyleBackColor = true;
+            this.btnCustomer.Click += new System.EventHandler(this.btnCustomer_Click);
             // 
             // lblLicense
             // 

@@ -63,6 +63,11 @@ namespace BP_LicenseAudit.View
             txtCStreetNr.Text = StretNr;
         }
 
+        private void btnCustomer_Click(Object sender, EventArgs e)
+        {
+            currentcontroller.UpdateCustomer(cmbCustomer.SelectedItem, txtCName.Text, txtCStreet.Text, txtCStreetNr.Text, txtCCity.Text, txtCzip.Text);
+        }
+
         public void ClearLicenses()
         {
             dgvLicense.Rows.Clear();
