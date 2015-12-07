@@ -193,6 +193,7 @@
             this.lstNetwork.Name = "lstNetwork";
             this.lstNetwork.Size = new System.Drawing.Size(120, 160);
             this.lstNetwork.TabIndex = 26;
+            this.lstNetwork.DisplayMember = "Name";
             // 
             // lblNetwork
             // 
@@ -439,6 +440,7 @@
             this.btnLicense.TabIndex = 32;
             this.btnLicense.Text = "Lizenz ändern";
             this.btnLicense.UseVisualStyleBackColor = true;
+            this.btnLicense.Click += new System.EventHandler(this.btnLicense_Click);
             // 
             // btnNetwork
             // 
@@ -465,6 +467,7 @@
             this.cmbLicense.Name = "cmbLicense";
             this.cmbLicense.Size = new System.Drawing.Size(211, 21);
             this.cmbLicense.TabIndex = 29;
+            this.cmbLicense.DisplayMember = "Name";
             // 
             // lblCount
             // 
@@ -499,6 +502,7 @@
             this.dgvLicense.Size = new System.Drawing.Size(253, 160);
             this.dgvLicense.TabIndex = 24;
             this.dgvLicense.SelectionChanged += new System.EventHandler(this.dgvLicense_SelectionChanged);
+            this.dgvLicense.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             // 
             // clmLicense
             // 
