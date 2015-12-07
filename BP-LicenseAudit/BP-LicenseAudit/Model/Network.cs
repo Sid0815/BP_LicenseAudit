@@ -8,8 +8,12 @@ namespace BP_LicenseAudit.Model
 {
     public class Network
     {
-        //properties
         private int networkNumber;
+        private int inputType;
+        private string name;
+        private ArrayList ipAddresses = new ArrayList();
+        //properties
+        
         public int NetworkNumber
         {
             get
@@ -21,8 +25,7 @@ namespace BP_LicenseAudit.Model
                 networkNumber = value;
             }
         }
-
-        private ArrayList ipAddresses = new ArrayList();
+        
         public ArrayList IpAddresses
         {
             get
@@ -34,10 +37,10 @@ namespace BP_LicenseAudit.Model
                 ipAddresses = value;
             }
         }
+
         //1=Start-/EndAddress
         //2=Host only
         //3=Cidr
-        private int inputType;
         public int InputType
         {
             get
@@ -46,12 +49,12 @@ namespace BP_LicenseAudit.Model
             }
             set
             {
-                if (value >= 0 && value < 3) inputType = value;
-                else throw new Exception();
+                if (value > 0 && value <= 3) inputType = value;
+                else throw new Exception("Networkinputtype missleading");
             }
         }
-        private String name;
-        public String Name
+        
+        public string Name
         {
             get
             {

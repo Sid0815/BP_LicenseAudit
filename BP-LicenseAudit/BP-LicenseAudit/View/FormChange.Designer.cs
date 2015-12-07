@@ -74,6 +74,7 @@
             this.numCount = new System.Windows.Forms.NumericUpDown();
             this.btnLicense = new System.Windows.Forms.Button();
             this.btnNetwork = new System.Windows.Forms.Button();
+            this.btnNetworkRemove = new System.Windows.Forms.Button();
             this.tabNetwork.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -195,6 +196,8 @@
             this.lstNetwork.Size = new System.Drawing.Size(120, 160);
             this.lstNetwork.TabIndex = 26;
             this.lstNetwork.DisplayMember = "Name";
+            this.lstNetwork.SelectionMode = System.Windows.Forms.SelectionMode.One;
+            this.lstNetwork.SelectedIndexChanged += new System.EventHandler(this.lstNetwork_SelectedIndexChanged);
             // 
             // lblNetwork
             // 
@@ -451,6 +454,17 @@
             this.btnNetwork.TabIndex = 33;
             this.btnNetwork.Text = "Netzwerk ändern";
             this.btnNetwork.UseVisualStyleBackColor = true;
+            this.btnNetwork.Click += new System.EventHandler(this.btnNetwork_Click);
+            // 
+            // btnNetworkRemove
+            // 
+            this.btnNetworkRemove.Location = new System.Drawing.Point(442, 400);
+            this.btnNetworkRemove.Name = "btnNetworkRemov";
+            this.btnNetworkRemove.Size = new System.Drawing.Size(119, 38);
+            this.btnNetworkRemove.TabIndex = 34;
+            this.btnNetworkRemove.Text = "Netzwerk entfernen";
+            this.btnNetworkRemove.UseVisualStyleBackColor = true;
+            this.btnNetworkRemove.Click += new System.EventHandler(this.btnNetworkRemove_Click);
             // 
             // lblLicense2
             // 
@@ -546,6 +560,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(573, 505);
             this.Controls.Add(this.btnNetwork);
+            this.Controls.Add(this.btnNetworkRemove);
             this.Controls.Add(this.btnLicense);
             this.Controls.Add(this.numCount);
             this.Controls.Add(this.lblCount);
@@ -591,6 +606,7 @@
             this.Controls.SetChildIndex(this.numCount, 0);
             this.Controls.SetChildIndex(this.btnLicense, 0);
             this.Controls.SetChildIndex(this.btnNetwork, 0);
+            this.Controls.SetChildIndex(this.btnNetworkRemove, 0);
             this.tabNetwork.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -651,6 +667,7 @@
         private System.Windows.Forms.NumericUpDown numCount;
         private System.Windows.Forms.Button btnLicense;
         private System.Windows.Forms.Button btnNetwork;
+        private System.Windows.Forms.Button btnNetworkRemove;
         private System.Windows.Forms.DataGridView dgvLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmCount;

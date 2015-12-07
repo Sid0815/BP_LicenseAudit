@@ -37,7 +37,7 @@ namespace BP_LicenseAudit.View
         private void dgvLicense_SelectionChanged(Object sender, EventArgs e)
         {
             DataGridViewSelectedRowCollection row = dgvLicense.SelectedRows;
-            if (row.Count>0 &&(row[0].Cells[0].Value!= null)&& (row[0].Cells[1].Value != null))
+            if (row.Count > 0 && (row[0].Cells[0].Value != null) && (row[0].Cells[1].Value != null))
             {
                 currentcontroller.SelectedLicenseChanged(row[0].Cells[0].Value.ToString(), row[0].Cells[1].Value.ToString());
                 Console.WriteLine("License Selected: {0}, {1}", row[0].Cells[0].Value.ToString(), row[0].Cells[1].Value.ToString());
@@ -122,6 +122,11 @@ namespace BP_LicenseAudit.View
             ClearStartEndInput();
         }
 
+        public void SetNetworkTab(int index)
+        {
+            tabNetwork.SelectedIndex = index;
+        }
+
         public void ClearStartEndInput()
         {
             txtSAByte1.Clear();
@@ -134,12 +139,32 @@ namespace BP_LicenseAudit.View
             txtEAByte4.Clear();
         }
 
+        public void UpdateStartEndInput(string[] start, string[] end)
+        {
+            txtSAByte1.Text = start[0];
+            txtSAByte2.Text = start[1];
+            txtSAByte3.Text = start[2];
+            txtSAByte4.Text = start[3];
+            txtEAByte1.Text = end[0];
+            txtEAByte2.Text = end[1];
+            txtEAByte3.Text = end[2];
+            txtEAByte4.Text = end[3];
+        }
+
         public void ClearHostInput()
         {
             txtHostByte1.Clear();
             txtHostByte2.Clear();
             txtHostByte3.Clear();
             txtHostByte4.Clear();
+        }
+
+        public void UpdateHostInput(string[] host)
+        {
+            txtHostByte1.Text = host[0];
+            txtHostByte2.Text = host[1];
+            txtHostByte3.Text = host[2];
+            txtHostByte4.Text = host[3];
         }
 
         public void ClearCidrInput()
@@ -149,6 +174,15 @@ namespace BP_LicenseAudit.View
             txtCidrByte3.Clear();
             txtCidrByte4.Clear();
             txtCidrCidr.Clear();
+        }
+
+        public void UpdateCidrInput(string[] cidr)
+        {
+            txtCidrByte1.Text = cidr[0];
+            txtCidrByte2.Text = cidr[1];
+            txtCidrByte3.Text = cidr[2];
+            txtCidrByte4.Text = cidr[3];
+            txtCidrCidr.Text = cidr[4];
         }
 
         public int GetNetworkInputtype()
@@ -161,6 +195,7 @@ namespace BP_LicenseAudit.View
             else if (tabNetwork.SelectedTab == tabPage3) return 3;
             //Errror
             else return 0;
+
         }
 
         //returns the input of the startaddress in a string[]
@@ -206,6 +241,21 @@ namespace BP_LicenseAudit.View
             cidraddress[3] = txtCidrByte4.Text;
             cidraddress[4] = txtCidrCidr.Text;
             return cidraddress;
+        }
+
+        private void lstNetwork_SelectedIndexChanged(Object sender, EventArgs e)
+        {
+            currentcontroller.SelectedNetworkChanged(lstNetwork.SelectedItem);
+        }
+
+        private void btnNetwork_Click(object sender, EventArgs e)
+        {
+            currentcontroller.UpdateNetworkInventory(lstNetwork.SelectedItem);
+        }
+
+        private void btnNetworkRemove_Click(object sender, EventArgs e)
+        {
+            currentcontroller.RemoveNetwork(lstNetwork.SelectedItem);
         }
 
 

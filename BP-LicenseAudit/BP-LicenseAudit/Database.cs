@@ -161,6 +161,36 @@ namespace BP_LicenseAudit
             }
         }
 
+        public void SaveNetworkOverride(ArrayList networks)
+        {
+            //If File doesn't exist create it
+            checkFile(pathNetwork);
+            //Save networks
+            Console.WriteLine("Database.SaveNetworks called");
+            try
+            {
+                FileStream fs = new FileStream(pathNetwork, FileMode.Create);
+                StreamWriter sw = new StreamWriter(fs);
+                string towrite;
+                foreach (Network n in networks)
+                {
+                    towrite = String.Format("{0};{1};{2};{3}", n.NetworkNumber, n.Name, n.InputType, n.IpAddresses.Count);
+                    Console.WriteLine(towrite);
+                    sw.WriteLine(towrite);
+                    for (int i = 0; i < n.IpAddresses.Count; i++)
+                    {
+                        towrite = String.Format("{0}", n.IpAddresses[i]);
+                        sw.WriteLine(towrite);
+                    }
+                }
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing File: {0}", e.Message);
+            }
+        }
+
         public ArrayList GetNetworks()
         {
             //If File doesn't exist create it

@@ -27,7 +27,7 @@ namespace BP_LicenseAudit.Controller
         }
 
         //functions
-        private ArrayList calcAddressesSE(IPAddress start, IPAddress end)
+        public static ArrayList calcAddressesSE(IPAddress start, IPAddress end)
         {
             ArrayList addresses = new ArrayList();
             addresses.Add(start);
@@ -48,7 +48,7 @@ namespace BP_LicenseAudit.Controller
             return addresses;
         }
 
-        private ArrayList calcAddressesCidr(IPAddress network, byte cidr)
+        public static ArrayList calcAddressesCidr(IPAddress network, byte cidr)
         {
             ArrayList addresses = new ArrayList();
             UInt32 subnetmask;
@@ -255,7 +255,7 @@ namespace BP_LicenseAudit.Controller
         }
 
         //Converts an IP into an Integer to be able to calculate and compare IPs
-        private UInt32 convertIPtoUInt32(IPAddress ip)
+        public static UInt32 convertIPtoUInt32(IPAddress ip)
         {
             //use UINt32 to handle overflow correct
             UInt32 convertedIP = 0;

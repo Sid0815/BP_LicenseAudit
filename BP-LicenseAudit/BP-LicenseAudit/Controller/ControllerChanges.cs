@@ -6,6 +6,7 @@ using BP_LicenseAudit.View;
 using BP_LicenseAudit.Model;
 using System.Windows.Forms;
 using System.Collections;
+using System.Net;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -35,6 +36,8 @@ namespace BP_LicenseAudit.Controller
         }
 
         //functions
+
+        //Update the vie with the selected license
         public void SelectedLicenseChanged(string license, string count)
         {
             selectedlicense = null;
@@ -63,11 +66,6 @@ namespace BP_LicenseAudit.Controller
 
         }
 
-        public void SelectedNetworkChanged()
-        {
-
-        }
-
         public void UpdateLicenseInventory(Object license, decimal count)
         {
             License l = (License)license;
@@ -81,8 +79,6 @@ namespace BP_LicenseAudit.Controller
             }
             else
             {
-
-
                 foreach (Tuple<int, int> t in currentLicenseInventory.Inventory)
                 {
                     if (t.Item1 == l.LicenseNumber)
@@ -92,6 +88,7 @@ namespace BP_LicenseAudit.Controller
                         if (t.Item2 == count)
                         {
                             MessageBox.Show("Lizenz bereits im Inventar vorhanden. Es wurden keine Daten geändert.", "Lizenz bereits vorhanden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
                         }
                         else
                         {
@@ -99,49 +96,290 @@ namespace BP_LicenseAudit.Controller
                         }
                     }
                 }
-                //License doubled and update yes --> remove old status
+                //License doubled and update yes --> remove old status, and add new status
                 if (dr == DialogResult.Yes && (x != -1))
                 {
                     currentLicenseInventory.RemoveLicenseFromInventory(l.LicenseNumber);
+                    currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
+                    callingController.UpdateInformation();
+                    db.SaveLicenseInventories(list_licenseInventories);
+                    UpdateView(false);
                 }
-                //License doubled and update false --> exit
-                else if (dr == DialogResult.No && (x != -1))
+                else if (dr == DialogResult.No && (x == -1))
                 {
-                    return;
+                    MessageBox.Show("Lizenz nicht im Inventar vorhanden. Bitte einen im Inventar vorhandenen Lizenztyp wählen.", "Lizenz nicht im Inventar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                //Add license to inventory (new license or updated status after removing old one)
-                currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
-                callingController.UpdateInformation();
-                db.SaveLicenseInventories(list_licenseInventories);
+
             }
         }
 
-
-        public void UpdateNetworkInventory()
+        //Update the view with the selected network
+        public void SelectedNetworkChanged(object selectedNetwork)
         {
+            this.selectedNetwork = (Network)selectedNetwork;
+            if (this.selectedNetwork != null)
+            {
+                //1=Start-/EndAddress
+                //2=Host only
+                //3=Cidr
+                int type = this.selectedNetwork.InputType;
+                switch (type)
+                {
+                    case 1:
+                        {
+                            //Get the start and endaddress, get their bytes, convert them to strings and pass them to the view
+                            view.SetNetworkTab(type - 1);
+                            view.ClearStartEndInput();
+                            IPAddress start = (IPAddress)this.selectedNetwork.IpAddresses[0];
+                            IPAddress end = (IPAddress)this.selectedNetwork.IpAddresses[this.selectedNetwork.IpAddresses.Count - 1];
+                            Byte[] b_start = start.GetAddressBytes();
+                            Byte[] b_end = end.GetAddressBytes();
+                            string[] s_start = new string[4], s_end = new string[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                s_start[i] = b_start[i].ToString();
+                                s_end[i] = b_end[i].ToString();
+                            }
+                            view.UpdateStartEndInput(s_start, s_end);
+                            break;
+                        }
 
+                    case 2:
+                        {
+                            //Get Hostaddress and convert their bytes to string and pass them to the view
+                            view.SetNetworkTab(type - 1);
+                            view.ClearHostInput();
+                            IPAddress host = (IPAddress)this.selectedNetwork.IpAddresses[0];
+                            Byte[] b_host = host.GetAddressBytes();
+                            string[] s_host = new string[4];
+                            for (int i = 0; i < 4; i++)
+                            {
+                                s_host[i] = b_host[i].ToString();
+                            }
+                            view.UpdateHostInput(s_host);
+                            break;
+                        }
+
+                    case 3:
+                        {
+                            //Get the name, split cidr and bytes from the name and pass to view
+                            view.SetNetworkTab(type - 1);
+                            view.ClearCidrInput();
+                            string[] cidr = this.selectedNetwork.Name.Split('/', '.');
+                            for (int i = 0; i < cidr.Length; i++)
+                            {
+                                cidr[i].Trim();
+                            }
+                            view.UpdateCidrInput(cidr);
+                            break;
+                        }
+                    default:
+                        {
+                            Console.WriteLine("Error, wrong Inputtype");
+                            break;
+                        }
+
+                }
+            }
+        }
+
+        public void UpdateNetworkInventory(object selectedNetwork)
+        {
+            //bind to existing network
+            if (selectedNetwork == null)
+            {
+                MessageBox.Show("Kein Netzwerk ausgewählt. Bitte zuerst ein Netzwerk auswählen.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Network help = (Network)selectedNetwork;
+                foreach (Network n in list_networks)
+                {
+                    if (help.NetworkNumber == n.NetworkNumber)
+                    {
+                        this.selectedNetwork = n;
+                    }
+                }
+
+                string newname = null;
+                //Question if the network should be changed as selected
+                switch (view.GetNetworkInputtype())
+                {
+                    case 1:
+                        {
+                            string[] str_s = view.GetStartAddress();
+                            string[] str_e = view.GetEndAddress();
+                            newname = String.Format("{0}.{1}.{2}.{3} - {4}.{5}.{6}.{7}", str_s[0], str_s[1], str_s[2], str_s[3], str_e[0], str_e[1], str_e[2], str_e[3]);
+                            break;
+                        }
+                    case 2:
+                        {
+                            string[] str_h = view.GetHostAddress();
+                            newname = String.Format("{0}.{1}.{2}.{3}", str_h[0], str_h[1], str_h[2], str_h[3]);
+                            break;
+                        }
+                    case 3:
+                        {
+                            string[] str_cidr = view.GetCidrAddress();
+                            string[] str_e = view.GetEndAddress();
+                            newname = String.Format("{0}.{1}.{2}.{3} / {4}", str_cidr[0], str_cidr[1], str_cidr[2], str_cidr[3], str_cidr[4]);
+                            break;
+                        }
+                    default:
+                        newname = "";
+                        break;
+                }
+                DialogResult dr = MessageBox.Show(String.Format("Soll das Netzwerk {0} in das Netzwerk {1} geändert werden?", this.selectedNetwork.Name, newname), "Netzwerk ändern", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
+                {
+                    try
+                    {
+                        //Change the network
+                        switch (view.GetNetworkInputtype())
+                        {
+                            case 1:
+                                {
+                                    //Get Address-Bytes as string
+                                    string[] str_startaddress = new string[4];
+                                    str_startaddress = view.GetStartAddress();
+                                    string[] str_endaddress = new string[4];
+                                    str_endaddress = view.GetEndAddress();
+                                    //Convert into byte
+                                    Byte[] b_startaddress = new Byte[4];
+                                    Byte[] b_endaddress = new Byte[4];
+                                    //Checks automaticaly for right value by its type and by converting
+                                    b_startaddress[0] = Convert.ToByte(str_startaddress[0]);
+                                    b_startaddress[1] = Convert.ToByte(str_startaddress[1]);
+                                    b_startaddress[2] = Convert.ToByte(str_startaddress[2]);
+                                    b_startaddress[3] = Convert.ToByte(str_startaddress[3]);
+                                    b_endaddress[0] = Convert.ToByte(str_endaddress[0]);
+                                    b_endaddress[1] = Convert.ToByte(str_endaddress[1]);
+                                    b_endaddress[2] = Convert.ToByte(str_endaddress[2]);
+                                    b_endaddress[3] = Convert.ToByte(str_endaddress[3]);
+                                    IPAddress start = new IPAddress(b_startaddress);
+                                    IPAddress end = new IPAddress(b_endaddress);
+                                    //Check for right input: Start must be lower than end
+                                    if (ControllerNetwork.convertIPtoUInt32(start) > ControllerNetwork.convertIPtoUInt32(end))
+                                    {
+                                        IPAddress helper = start;
+                                        start = end;
+                                        end = helper;
+                                        MessageBox.Show("Addressen gedreht.", "Inputfehler korregiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    }
+                                    this.selectedNetwork.Name = String.Format("{0} - {1}", start.ToString(), end.ToString());
+                                    this.selectedNetwork.InputType = view.GetNetworkInputtype();
+                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesSE(start, end);
+                                    view.ClearStartEndInput();
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    //Get Address-Bytes as string
+                                    string[] str_hostaddress = new string[4];
+                                    str_hostaddress = view.GetHostAddress();
+                                    //Convert into byte
+                                    Byte[] b_hostaddress = new Byte[4];
+                                    //Checks automaticaly for right value by its type and by converting
+                                    b_hostaddress[0] = Convert.ToByte(str_hostaddress[0]);
+                                    b_hostaddress[1] = Convert.ToByte(str_hostaddress[1]);
+                                    b_hostaddress[2] = Convert.ToByte(str_hostaddress[2]);
+                                    b_hostaddress[3] = Convert.ToByte(str_hostaddress[3]);
+                                    IPAddress host = new IPAddress(b_hostaddress);
+                                    ArrayList addresses = new ArrayList();
+                                    addresses.Add(host);
+                                    this.selectedNetwork.Name = host.ToString();
+                                    this.selectedNetwork.InputType = view.GetNetworkInputtype();
+                                    this.selectedNetwork.IpAddresses = addresses;
+                                    view.ClearHostInput();
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    //Get Address-Bytes as string
+                                    string[] str_cidraddress = new string[5];
+                                    str_cidraddress = view.GetCidrAddress();
+                                    //Convert into byte
+                                    Byte[] b_cidraddress = new Byte[4];
+                                    byte cidr = 0;
+                                    //Checks automaticaly for right value by its type and by converting
+                                    b_cidraddress[0] = Convert.ToByte(str_cidraddress[0]);
+                                    b_cidraddress[1] = Convert.ToByte(str_cidraddress[1]);
+                                    b_cidraddress[2] = Convert.ToByte(str_cidraddress[2]);
+                                    b_cidraddress[3] = Convert.ToByte(str_cidraddress[3]);
+                                    cidr = Convert.ToByte(str_cidraddress[4]);
+                                    if (cidr > 32) throw new Exception("Cidr overflow");
+                                    //Creating and adding network
+                                    IPAddress network = new IPAddress(b_cidraddress);
+                                    this.selectedNetwork.Name = String.Format("{0} / {1}", network.ToString(), cidr.ToString());
+                                    Console.WriteLine("NetworktabTest:" + view.GetNetworkInputtype());
+                                    this.selectedNetwork.InputType = view.GetNetworkInputtype();
+                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesCidr(network, cidr);
+                                    view.ClearCidrInput();
+                                    break;
+                                }
+                            default:
+                                newname = "";
+                                break;
+                        }
+                        db.SaveNetworkOverride(list_networks);
+                        callingController.UpdateInformation();
+                        UpdateView(false);
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
+                        MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    catch (OutOfMemoryException e)
+                    {
+                        MessageBox.Show("Maximal zulässige Anzahl an Adressen überschritten. Das Netzwerk wurde nicht hinzugefügt. Bitte Netzwerk korregieren.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine("Speicherüberlauf: " + e.Message);
+                        GC.Collect();
+                        return;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Allgemeiner Fehler.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine("Allgemeiner Fehler: " + e.Message);
+                        return;
+                    }
+                }
+            }
         }
 
         public void UpdateCustomer(Object customer, string name, string street, string streetnr, string city, string zip)
         {
-            Customer c = (Customer)customer;
-            int x = list_customers.IndexOf(c);
-            currentCustomer = (Customer)list_customers[x];
-            if ((!currentCustomer.Name.Equals(name)) || (!currentCustomer.Street.Equals(street)) || (!currentCustomer.Streetnumber.Equals(streetnr)) || (!currentCustomer.City.Equals(city)) || (!currentCustomer.Zip.Equals(zip)))
+            if (customer == null)
             {
-                DialogResult dr = MessageBox.Show(String.Format("Soll der Kunde {0}, {1}, {2}, {3}, {4} in {5}, {6}, {7}, {8}, {9} geändert werden?",
-                    currentCustomer.Name, currentCustomer.Street, currentCustomer.Streetnumber, currentCustomer.City, currentCustomer.Zip,
-                    name, street, streetnr, city, zip), "Kunde aktualisieren", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dr == DialogResult.Yes)
+                MessageBox.Show("Kein Kunde ausgewählt. Bitte zuerst einen Kunden auswählen.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            else if (name == null || street == null || streetnr == null || city == null || zip == null || name.Trim().Equals("") || street.Trim().Equals("") || streetnr.Trim().Equals("") || city.Trim().Equals("") || zip.Trim().Equals(""))
+            {
+                MessageBox.Show("Bitte prüfen Sie ihre Eingabe.", "Eingabefehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Customer c = (Customer)customer;
+                int x = list_customers.IndexOf(c);
+                currentCustomer = (Customer)list_customers[x];
+                if ((!currentCustomer.Name.Equals(name)) || (!currentCustomer.Street.Equals(street)) || (!currentCustomer.Streetnumber.Equals(streetnr)) || (!currentCustomer.City.Equals(city)) || (!currentCustomer.Zip.Equals(zip)))
                 {
-                    currentCustomer.Name = name;
-                    currentCustomer.Street = street;
-                    currentCustomer.Streetnumber = streetnr;
-                    currentCustomer.City = city;
-                    currentCustomer.Zip = zip;
-                    UpdateView(true);
-                    UpdateCustomerView();
-                    db.SaveCustomerOverride(list_customers);
+                    DialogResult dr = MessageBox.Show(String.Format("Soll der Kunde {0}, {1}, {2}, {3}, {4} in {5}, {6}, {7}, {8}, {9} geändert werden?",
+                        currentCustomer.Name, currentCustomer.Street, currentCustomer.Streetnumber, currentCustomer.City, currentCustomer.Zip,
+                        name, street, streetnr, city, zip), "Kunde aktualisieren", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (dr == DialogResult.Yes)
+                    {
+                        currentCustomer.Name = name;
+                        currentCustomer.Street = street;
+                        currentCustomer.Streetnumber = streetnr;
+                        currentCustomer.City = city;
+                        currentCustomer.Zip = zip;
+                        UpdateView(true);
+                        UpdateCustomerView();
+                        db.SaveCustomerOverride(list_customers);
+                    }
                 }
             }
         }
@@ -151,9 +389,26 @@ namespace BP_LicenseAudit.Controller
 
         }
 
-        public void RemoveNetwork()
+        public void RemoveNetwork(Object selectednetwork)
         {
-
+            this.selectedNetwork = (Network)selectedNetwork;
+            DialogResult dr = MessageBox.Show(String.Format("Soll das Netzwerk {0} unwiderruflich gelöscht werden?", this.selectedNetwork.Name), "Netzwerk löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dr == DialogResult.Yes)
+            {
+                for(int i=0; i< currentNetworkInventory.List_networks.Count; i++)
+                {
+                    Network n = (Network)currentNetworkInventory.List_networks[i];
+                    if (n.NetworkNumber == this.selectedNetwork.NetworkNumber)
+                    {
+                        currentNetworkInventory.List_networks.Remove(n);
+                        i = currentNetworkInventory.List_networks.Count;
+                    }
+                }
+                db.SaveNetworkInventories(list_networkInventories);
+                callingController.UpdateInformation();
+                UpdateView(false);
+                MessageBox.Show(String.Format("Das Netzwerk {0} wurde unwiderruflich gelöscht.", this.selectedNetwork.Name), "Netzwerk gelöscht", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         public override void UpdateView(bool customerUpdated)
@@ -223,16 +478,6 @@ namespace BP_LicenseAudit.Controller
             {
                 view.UpdateCustomer(currentCustomer.Name, currentCustomer.City, currentCustomer.Zip, currentCustomer.Street, currentCustomer.Streetnumber);
             }
-        }
-
-        public void UpdateLicenseView()
-        {
-
-        }
-
-        public void updateNetworkView()
-        {
-
         }
 
         public void GetLicenseInventoryFromDB()
