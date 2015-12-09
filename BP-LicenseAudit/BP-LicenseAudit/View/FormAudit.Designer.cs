@@ -52,7 +52,7 @@
             this.cmbInventory.FormattingEnabled = true;
             this.cmbInventory.Location = new System.Drawing.Point(51, 33);
             this.cmbInventory.Name = "cmbInventary";
-            this.cmbInventory.Size = new System.Drawing.Size(620, 21);
+            this.cmbInventory.Size = new System.Drawing.Size(311, 21);
             this.cmbInventory.TabIndex = 9;
             // 
             // lblInventary
@@ -87,7 +87,7 @@
             this.dgvLicense.Name = "dgvLicense";
             this.dgvLicense.ReadOnly = true;
             this.dgvLicense.RowHeadersVisible = false;
-            this.dgvLicense.Size = new System.Drawing.Size(253, 290);
+            this.dgvLicense.Size = new System.Drawing.Size(353, 290);
             this.dgvLicense.TabIndex = 11;
             this.dgvLicense.SelectionChanged += new System.EventHandler(this.dgvLicense_SelectionChanged);
             // 
@@ -96,7 +96,7 @@
             this.clmLicense.HeaderText = "Lizenz";
             this.clmLicense.Name = "clmLicense";
             this.clmLicense.ReadOnly = true;
-            this.clmLicense.Width = 200;
+            this.clmLicense.Width = 300;
             // 
             // clmCount
             // 
@@ -108,7 +108,7 @@
             // lblClients
             // 
             this.lblClients.AutoSize = true;
-            this.lblClients.Location = new System.Drawing.Point(273, 65);
+            this.lblClients.Location = new System.Drawing.Point(373, 65);
             this.lblClients.Name = "lblClients";
             this.lblClients.Size = new System.Drawing.Size(41, 13);
             this.lblClients.TabIndex = 13;
@@ -119,9 +119,9 @@
             this.lstClients.FormattingEnabled = true;
             this.lstClients.Items.AddRange(new object[] {
             "(leer)"});
-            this.lstClients.Location = new System.Drawing.Point(276, 81);
+            this.lstClients.Location = new System.Drawing.Point(376, 81);
             this.lstClients.Name = "lstClients";
-            this.lstClients.Size = new System.Drawing.Size(120, 290);
+            this.lstClients.Size = new System.Drawing.Size(160, 290);
             this.lstClients.TabIndex = 12;
             this.lstClients.DisplayMember = "computername";
             this.lstClients.SelectionMode = System.Windows.Forms.SelectionMode.None;
@@ -129,7 +129,7 @@
             // lblResult
             // 
             this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(415, 65);
+            this.lblResult.Location = new System.Drawing.Point(555, 65);
             this.lblResult.Name = "lblResult";
             this.lblResult.Size = new System.Drawing.Size(51, 13);
             this.lblResult.TabIndex = 15;
@@ -145,11 +145,11 @@
             this.dgvResult.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmLicenseResult,
             this.clmCountResult});
-            this.dgvResult.Location = new System.Drawing.Point(415, 81);
+            this.dgvResult.Location = new System.Drawing.Point(555, 81);
             this.dgvResult.Name = "dgvResult";
             this.dgvResult.ReadOnly = true;
             this.dgvResult.RowHeadersVisible = false;
-            this.dgvResult.Size = new System.Drawing.Size(253, 290);
+            this.dgvResult.Size = new System.Drawing.Size(353, 290);
             this.dgvResult.TabIndex = 14;
             this.dgvResult.SelectionChanged += new System.EventHandler(this.dgvResult_SelectionChanged);
             // 
@@ -158,7 +158,7 @@
             this.clmLicenseResult.HeaderText = "Lizenz";
             this.clmLicenseResult.Name = "clmLicenseResult";
             this.clmLicenseResult.ReadOnly = true;
-            this.clmLicenseResult.Width = 200;
+            this.clmLicenseResult.Width = 300;
             // 
             // clmCountResult
             // 
@@ -171,7 +171,7 @@
             // 
             this.btnAudit.Location = new System.Drawing.Point(7, 387);
             this.btnAudit.Name = "btnAudit";
-            this.btnAudit.Size = new System.Drawing.Size(253, 30);
+            this.btnAudit.Size = new System.Drawing.Size(353, 30);
             this.btnAudit.TabIndex = 16;
             this.btnAudit.Text = "Audit starten";
             this.btnAudit.UseVisualStyleBackColor = true;
@@ -179,9 +179,9 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.Location = new System.Drawing.Point(276, 387);
+            this.btnPrint.Location = new System.Drawing.Point(376, 387);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(120, 30);
+            this.btnPrint.Size = new System.Drawing.Size(160, 30);
             this.btnPrint.TabIndex = 17;
             this.btnPrint.Text = "Ergebnis drucken";
             this.btnPrint.UseVisualStyleBackColor = true;
@@ -192,7 +192,7 @@
             // cmbCustomer
             // 
             this.cmbCustomer.Location = new System.Drawing.Point(51, 6);
-            this.cmbCustomer.Size = new System.Drawing.Size(620, 21);
+            this.cmbCustomer.Size = new System.Drawing.Size(311, 21);
             this.cmbCustomer.TabIndex = 7;
             // 
             // lblCustomer
@@ -203,15 +203,15 @@
             // 
             // btnEnd
             // 
-            this.btnEnd.Location = new System.Drawing.Point(418, 387);
-            this.btnEnd.Size = new System.Drawing.Size(253, 30);
+            this.btnEnd.Location = new System.Drawing.Point(555, 387);
+            this.btnEnd.Size = new System.Drawing.Size(353, 30);
             this.btnEnd.TabIndex = 18;
             // 
             // FormAudit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(678, 429);
+            this.ClientSize = new System.Drawing.Size(918, 429);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnAudit);
             this.Controls.Add(this.lblResult);
