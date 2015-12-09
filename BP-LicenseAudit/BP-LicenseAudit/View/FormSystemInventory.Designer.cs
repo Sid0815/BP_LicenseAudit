@@ -54,7 +54,7 @@
             "(leer)"});
             this.lstNetworks.Location = new System.Drawing.Point(10, 56);
             this.lstNetworks.Name = "lstNetworks";
-            this.lstNetworks.Size = new System.Drawing.Size(140, 199);
+            this.lstNetworks.Size = new System.Drawing.Size(180, 199);
             this.lstNetworks.TabIndex = 7;
             this.lstNetworks.DisplayMember = "Name";
             this.lstNetworks.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -65,7 +65,7 @@
             this.lstClients.FormattingEnabled = true;
             this.lstClients.Items.AddRange(new object[] {
             "(leer)"});
-            this.lstClients.Location = new System.Drawing.Point(152, 56);
+            this.lstClients.Location = new System.Drawing.Point(192, 56);
             this.lstClients.Name = "lstClients";
             this.lstClients.Size = new System.Drawing.Size(140, 199);
             this.lstClients.TabIndex = 9;
@@ -76,7 +76,7 @@
             // lblClients
             // 
             this.lblClients.AutoSize = true;
-            this.lblClients.Location = new System.Drawing.Point(149, 39);
+            this.lblClients.Location = new System.Drawing.Point(189, 39);
             this.lblClients.Name = "lblClients";
             this.lblClients.Size = new System.Drawing.Size(41, 13);
             this.lblClients.TabIndex = 8;
@@ -87,16 +87,16 @@
             this.lstDetails.FormattingEnabled = true;
             this.lstDetails.Items.AddRange(new object[] {
             "(leer)"});
-            this.lstDetails.Location = new System.Drawing.Point(296, 56);
+            this.lstDetails.Location = new System.Drawing.Point(336, 56);
             this.lstDetails.Name = "lstDetails";
-            this.lstDetails.Size = new System.Drawing.Size(140, 199);
+            this.lstDetails.Size = new System.Drawing.Size(290, 199);
             this.lstDetails.TabIndex = 11;
             this.lstDetails.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
             // lblDetail
             // 
             this.lblDetail.AutoSize = true;
-            this.lblDetail.Location = new System.Drawing.Point(293, 39);
+            this.lblDetail.Location = new System.Drawing.Point(336, 39);
             this.lblDetail.Name = "lblDetail";
             this.lblDetail.Size = new System.Drawing.Size(42, 13);
             this.lblDetail.TabIndex = 10;
@@ -117,7 +117,7 @@
             // 
             this.btnInventory.Location = new System.Drawing.Point(10, 297);
             this.btnInventory.Name = "btnInventory";
-            this.btnInventory.Size = new System.Drawing.Size(140, 33);
+            this.btnInventory.Size = new System.Drawing.Size(180, 33);
             this.btnInventory.TabIndex = 13;
             this.btnInventory.Text = "Inventarisierung starten";
             this.btnInventory.UseVisualStyleBackColor = true;
@@ -129,7 +129,7 @@
             // cmbCustomer
             // 
             this.cmbCustomer.Location = new System.Drawing.Point(54, 9);
-            this.cmbCustomer.Size = new System.Drawing.Size(362, 21);
+            this.cmbCustomer.Size = new System.Drawing.Size(573, 21);
             this.cmbCustomer.TabIndex = 5;
             // 
             // lblCustomer
@@ -140,7 +140,7 @@
             // 
             // btnEnd
             // 
-            this.btnEnd.Location = new System.Drawing.Point(152, 297);
+            this.btnEnd.Location = new System.Drawing.Point(189, 297);
             this.btnEnd.Size = new System.Drawing.Size(140, 33);
             this.btnEnd.TabIndex = 14;
             // 
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 338);
+            this.ClientSize = new System.Drawing.Size(630, 338);
             this.Controls.Add(this.btnInventory);
             this.Controls.Add(this.chkAll);
             this.Controls.Add(this.lstDetails);
