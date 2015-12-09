@@ -185,6 +185,7 @@
             this.btnPrint.TabIndex = 17;
             this.btnPrint.Text = "Ergebnis drucken";
             this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             //
             //inherited Elements
             //

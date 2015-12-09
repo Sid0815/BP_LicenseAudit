@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BP_LicenseAudit.Model
+﻿namespace BP_LicenseAudit.Model
 {
     public class License
     {
-        //properties
+        private string name;
         private int licenseNumber;
+        //properties
         public int LicenseNumber
         {
             get
@@ -21,7 +16,7 @@ namespace BP_LicenseAudit.Model
                 licenseNumber = value;
             }
         }
-        private string name;
+        
         public string Name
         {
             get
@@ -40,6 +35,5 @@ namespace BP_LicenseAudit.Model
             licenseNumber = number;
             this.name = name;
         }
-
     }
 }

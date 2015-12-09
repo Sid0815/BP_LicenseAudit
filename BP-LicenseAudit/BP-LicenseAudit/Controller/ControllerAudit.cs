@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
 using BP_LicenseAudit.View;
 using System.Windows.Forms;
 using System.Collections;
+using System.Xml;
+using System.Text;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -32,6 +31,9 @@ namespace BP_LicenseAudit.Controller
             this.list_systemInventories = list_systeminventories;
             this.list_audits = list_audits;
             this.list_allAvailableLicenses = list_licenses;
+            currentAudit = null;
+            currentLicenseInventory = null;
+            currentSystemInventory = null;
         }
 
         //functions
@@ -125,7 +127,7 @@ namespace BP_LicenseAudit.Controller
                     }
                     if (!contains)
                     {
-                      currentAudit.AddResult(tuplelicense.Item1, tuplelicense.Item2);
+                        currentAudit.AddResult(tuplelicense.Item1, tuplelicense.Item2);
                     }
                 }
                 list_audits.Add(currentAudit);
@@ -139,7 +141,98 @@ namespace BP_LicenseAudit.Controller
 
         public void PrintResults()
         {
-
+            if (currentAudit != null)
+            {
+                XmlTextWriter writer = new XmlTextWriter("..\\..\\audit.xml", new UnicodeEncoding());
+                writer.WriteStartDocument();
+                writer.WriteStartElement("Audit");
+                writer.WriteAttributeString("Datum", currentAudit.Date.ToString());
+                //Write customer
+                writer.WriteStartElement("Kunde");
+                writer.WriteAttributeString("Kundennummer", currentCustomer.Cnumber.ToString());
+                writer.WriteAttributeString("Name", currentCustomer.Name);
+                writer.WriteAttributeString("Strasse", currentCustomer.Street);
+                writer.WriteAttributeString("Hausnummer", currentCustomer.Streetnumber);
+                writer.WriteAttributeString("Ort", currentCustomer.City);
+                writer.WriteAttributeString("Postleitzahl", currentCustomer.Zip);
+                writer.WriteEndElement(); //END Customer
+                //Systeminventory
+                writer.WriteStartElement("Systeminventar");
+                writer.WriteAttributeString("Systeminventarnummer", currentSystemInventory.SystemInventoryNumber.ToString());
+                writer.WriteAttributeString("Datum", currentSystemInventory.Date.ToString());
+                foreach (ClientSystem c in currentSystemInventory.List_Systems)
+                {
+                    //Write only Systems with detailed informations
+                    if ((c.Type != null) && !(c.Type.Equals("")))
+                    {
+                        writer.WriteStartElement("Client-System");
+                        writer.WriteAttributeString("Clientsystemnummer", c.ClientSystemNumber.ToString());
+                        writer.WriteAttributeString("Netzwerknummer", c.Networknumber.ToString());
+                        writer.WriteAttributeString("Computername", c.Computername);
+                        writer.WriteAttributeString("Betriebssystemtyp", c.Type);
+                        writer.WriteAttributeString("Betriebssytem-Seriennummer", c.Serial);
+                        writer.WriteAttributeString("IP-Adresse", c.ClientIP.ToString());
+                        writer.WriteEndElement();
+                    }
+                }
+                writer.WriteEndElement(); //END Systeminventory
+                //Licenseinventory
+                writer.WriteStartElement("Lizenzinventar");
+                writer.WriteAttributeString("Lizenzinventarnummer", currentLicenseInventory.LicenseInventoryNumber.ToString());
+                foreach (Tuple<int, int> t in currentLicenseInventory.Inventory)
+                {
+                    foreach (License l in list_allAvailableLicenses)
+                    {
+                        if (t.Item1 == l.LicenseNumber)
+                        {
+                            writer.WriteStartElement("Lizenz");
+                            writer.WriteAttributeString("Lizenzmnummer", l.LicenseNumber.ToString());
+                            writer.WriteAttributeString("Lizenzname", l.Name);
+                            writer.WriteAttributeString("Anzahl", t.Item2.ToString());
+                            writer.WriteEndElement();
+                        }
+                    }
+                }
+                writer.WriteEndElement(); //END Licensinventory
+                //Auditresults
+                writer.WriteStartElement("Auditergebnis");
+                foreach (Tuple<int, int> t in currentAudit.Results)
+                {
+                    foreach (License l in list_allAvailableLicenses)
+                    {
+                        if (t.Item1 == l.LicenseNumber)
+                        {
+                            writer.WriteStartElement("Ergebnis");
+                            writer.WriteAttributeString("Lizenzmnummer", l.LicenseNumber.ToString());
+                            writer.WriteAttributeString("Lizenzname", l.Name);
+                            if (t.Item2 > 0)
+                            {
+                                writer.WriteAttributeString("Ergebnis", String.Format("+{0}", t.Item2.ToString()));
+                            }
+                            else
+                            {
+                                writer.WriteAttributeString("Ergebnis", t.Item2.ToString());
+                            }
+                            if (t.Item2 < 0)
+                            {
+                                writer.WriteString("unterlizensiert");
+                            }
+                            else if (t.Item2 > 0)
+                            {
+                                writer.WriteString("überlizensiert");
+                            }
+                            else
+                            {
+                                writer.WriteString("ausreichend lizensiert");
+                            }
+                            writer.WriteEndElement();
+                        }
+                    }
+                }
+                writer.WriteEndElement();//END Auditresults
+                writer.WriteEndDocument();
+                writer.Close();
+            }
         }
 
 
@@ -264,6 +357,19 @@ namespace BP_LicenseAudit.Controller
             {
                 MessageBox.Show("Kein Systeminventar für diesen Kunden gefunden. Bitte führen Sie zuerst ein Netzwerkinventarisierung durch.", "Kein Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 view.DisableAudit();
+            }
+            //Get Audit
+            foreach (Audit a in list_audits)
+            {
+                if (a.CustomerNumber == currentCustomer.Cnumber)
+                {
+                    currentAudit = a;
+                }
+            }
+            if (currentAudit != null)
+            {
+                Console.WriteLine("Audit for customer {0} found", currentCustomer.Name);
+                MessageBox.Show(String.Format("Audit für diesen Kunden gefunden. Audit vom {0} wird dargestellt.", currentAudit.Date), "Audit vorhanden", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             UpdateView(false);
         }

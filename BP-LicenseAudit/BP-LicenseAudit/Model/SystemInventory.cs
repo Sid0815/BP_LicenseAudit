@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BP_LicenseAudit.Model
 {
@@ -72,7 +69,6 @@ namespace BP_LicenseAudit.Model
         {
             list_systems.Add(sys);
         }
-
 
     }
 }

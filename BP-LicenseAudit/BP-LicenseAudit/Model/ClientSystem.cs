@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 
 namespace BP_LicenseAudit.Model
 {
@@ -87,6 +82,5 @@ namespace BP_LicenseAudit.Model
             this.clientIP = clientIP;
             this.networknumber = networknumber;
         }
-
     }
 }

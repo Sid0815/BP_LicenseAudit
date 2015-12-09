@@ -108,5 +108,10 @@ namespace BP_LicenseAudit.View
                 dgvResult.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
             }
         }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            currentcontroller.PrintResults();
+        }
     }
 }

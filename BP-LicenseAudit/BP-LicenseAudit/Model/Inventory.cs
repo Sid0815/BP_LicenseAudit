@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace BP_LicenseAudit.Model
 {
-    public class Inventory
+    public abstract class Inventory
     {
         //properties
         private int customerNumber;
@@ -26,5 +21,6 @@ namespace BP_LicenseAudit.Model
         {
             this.customerNumber = customerNumber;
         }
+        
     }
 }

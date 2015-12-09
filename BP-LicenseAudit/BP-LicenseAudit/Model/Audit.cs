@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 
-
 namespace BP_LicenseAudit.Model
 {
     public class Audit
