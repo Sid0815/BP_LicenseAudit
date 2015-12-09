@@ -89,14 +89,14 @@
             // 
             // txtCzip
             // 
-            this.txtCzip.Location = new System.Drawing.Point(281, 90);
+            this.txtCzip.Location = new System.Drawing.Point(341, 90);
             this.txtCzip.Name = "txtCzip";
             this.txtCzip.Size = new System.Drawing.Size(141, 20);
             this.txtCzip.TabIndex = 21;
             // 
             // txtCStreetNr
             // 
-            this.txtCStreetNr.Location = new System.Drawing.Point(281, 61);
+            this.txtCStreetNr.Location = new System.Drawing.Point(341, 61);
             this.txtCStreetNr.Name = "txtCStreetNr";
             this.txtCStreetNr.Size = new System.Drawing.Size(141, 20);
             this.txtCStreetNr.TabIndex = 20;
@@ -105,27 +105,27 @@
             // 
             this.txtCCity.Location = new System.Drawing.Point(59, 90);
             this.txtCCity.Name = "txtCCity";
-            this.txtCCity.Size = new System.Drawing.Size(163, 20);
+            this.txtCCity.Size = new System.Drawing.Size(220, 20);
             this.txtCCity.TabIndex = 19;
             // 
             // txtCStreet
             // 
             this.txtCStreet.Location = new System.Drawing.Point(59, 61);
             this.txtCStreet.Name = "txtCStreet";
-            this.txtCStreet.Size = new System.Drawing.Size(163, 20);
+            this.txtCStreet.Size = new System.Drawing.Size(220, 20);
             this.txtCStreet.TabIndex = 18;
             // 
             // txtCName
             // 
             this.txtCName.Location = new System.Drawing.Point(59, 33);
             this.txtCName.Name = "txtCName";
-            this.txtCName.Size = new System.Drawing.Size(363, 20);
+            this.txtCName.Size = new System.Drawing.Size(424, 20);
             this.txtCName.TabIndex = 17;
             // 
             // lblCzip
             // 
             this.lblCzip.AutoSize = true;
-            this.lblCzip.Location = new System.Drawing.Point(251, 93);
+            this.lblCzip.Location = new System.Drawing.Point(310, 93);
             this.lblCzip.Name = "lblCzip";
             this.lblCzip.Size = new System.Drawing.Size(30, 13);
             this.lblCzip.TabIndex = 16;
@@ -143,7 +143,7 @@
             // lblCStreetNr
             // 
             this.lblCStreetNr.AutoSize = true;
-            this.lblCStreetNr.Location = new System.Drawing.Point(251, 64);
+            this.lblCStreetNr.Location = new System.Drawing.Point(310, 64);
             this.lblCStreetNr.Name = "lblCStreetNr";
             this.lblCStreetNr.Size = new System.Drawing.Size(24, 13);
             this.lblCStreetNr.TabIndex = 14;
@@ -169,7 +169,7 @@
             // 
             // btnCustomer
             // 
-            this.btnCustomer.Location = new System.Drawing.Point(445, 51);
+            this.btnCustomer.Location = new System.Drawing.Point(570, 51);
             this.btnCustomer.Name = "btnCustomer";
             this.btnCustomer.Size = new System.Drawing.Size(119, 38);
             this.btnCustomer.TabIndex = 22;
@@ -193,7 +193,7 @@
             "(leer)"});
             this.lstNetwork.Location = new System.Drawing.Point(15, 333);
             this.lstNetwork.Name = "lstNetwork";
-            this.lstNetwork.Size = new System.Drawing.Size(120, 160);
+            this.lstNetwork.Size = new System.Drawing.Size(180, 160);
             this.lstNetwork.TabIndex = 26;
             this.lstNetwork.DisplayMember = "Name";
             this.lstNetwork.SelectionMode = System.Windows.Forms.SelectionMode.One;
@@ -213,7 +213,7 @@
             this.tabNetwork.Controls.Add(this.tabPage1);
             this.tabNetwork.Controls.Add(this.tabPage2);
             this.tabNetwork.Controls.Add(this.tabPage3);
-            this.tabNetwork.Location = new System.Drawing.Point(154, 333);
+            this.tabNetwork.Location = new System.Drawing.Point(214, 333);
             this.tabNetwork.Name = "tabNetwork";
             this.tabNetwork.SelectedIndex = 0;
             this.tabNetwork.Size = new System.Drawing.Size(272, 117);
@@ -438,7 +438,7 @@
             // 
             // btnLicense
             // 
-            this.btnLicense.Location = new System.Drawing.Point(442, 210);
+            this.btnLicense.Location = new System.Drawing.Point(570, 265);
             this.btnLicense.Name = "btnLicense";
             this.btnLicense.Size = new System.Drawing.Size(119, 38);
             this.btnLicense.TabIndex = 32;
@@ -448,7 +448,7 @@
             // 
             // btnNetwork
             // 
-            this.btnNetwork.Location = new System.Drawing.Point(442, 355);
+            this.btnNetwork.Location = new System.Drawing.Point(570, 355);
             this.btnNetwork.Name = "btnNetwork";
             this.btnNetwork.Size = new System.Drawing.Size(119, 38);
             this.btnNetwork.TabIndex = 33;
@@ -458,7 +458,7 @@
             // 
             // btnNetworkRemove
             // 
-            this.btnNetworkRemove.Location = new System.Drawing.Point(442, 400);
+            this.btnNetworkRemove.Location = new System.Drawing.Point(570, 400);
             this.btnNetworkRemove.Name = "btnNetworkRemov";
             this.btnNetworkRemove.Size = new System.Drawing.Size(119, 38);
             this.btnNetworkRemove.TabIndex = 34;
@@ -469,7 +469,7 @@
             // lblLicense2
             // 
             this.lblLicense2.AutoSize = true;
-            this.lblLicense2.Location = new System.Drawing.Point(280, 141);
+            this.lblLicense2.Location = new System.Drawing.Point(380, 141);
             this.lblLicense2.Name = "lblLicense2";
             this.lblLicense2.Size = new System.Drawing.Size(40, 13);
             this.lblLicense2.TabIndex = 28;
@@ -478,16 +478,16 @@
             // cmbLicense
             // 
             this.cmbLicense.FormattingEnabled = true;
-            this.cmbLicense.Location = new System.Drawing.Point(340, 138);
+            this.cmbLicense.Location = new System.Drawing.Point(380, 161);
             this.cmbLicense.Name = "cmbLicense";
-            this.cmbLicense.Size = new System.Drawing.Size(211, 21);
+            this.cmbLicense.Size = new System.Drawing.Size(310, 21);
             this.cmbLicense.TabIndex = 29;
             this.cmbLicense.DisplayMember = "Name";
             // 
             // lblCount
             // 
             this.lblCount.AutoSize = true;
-            this.lblCount.Location = new System.Drawing.Point(280, 173);
+            this.lblCount.Location = new System.Drawing.Point(380, 193);
             this.lblCount.Name = "lblCount";
             this.lblCount.Size = new System.Drawing.Size(42, 13);
             this.lblCount.TabIndex = 30;
@@ -495,9 +495,9 @@
             // 
             // numCount
             // 
-            this.numCount.Location = new System.Drawing.Point(340, 171);
+            this.numCount.Location = new System.Drawing.Point(380, 213);
             this.numCount.Name = "numCount";
-            this.numCount.Size = new System.Drawing.Size(211, 20);
+            this.numCount.Size = new System.Drawing.Size(310, 20);
             this.numCount.TabIndex = 31;
             // 
             // dgvLicense
@@ -514,7 +514,7 @@
             this.dgvLicense.Name = "dgvLicense";
             this.dgvLicense.ReadOnly = true;
             this.dgvLicense.RowHeadersVisible = false;
-            this.dgvLicense.Size = new System.Drawing.Size(253, 160);
+            this.dgvLicense.Size = new System.Drawing.Size(353, 160);
             this.dgvLicense.TabIndex = 24;
             this.dgvLicense.SelectionChanged += new System.EventHandler(this.dgvLicense_SelectionChanged);
             this.dgvLicense.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -524,7 +524,7 @@
             this.clmLicense.HeaderText = "Lizenz";
             this.clmLicense.Name = "clmLicense";
             this.clmLicense.ReadOnly = true;
-            this.clmLicense.Width = 200;
+            this.clmLicense.Width = 300;
             // 
             // clmCount
             // 
@@ -539,7 +539,7 @@
             // cmbCustomer
             // 
             this.cmbCustomer.Location = new System.Drawing.Point(59, 6);
-            this.cmbCustomer.Size = new System.Drawing.Size(363, 21);
+            this.cmbCustomer.Size = new System.Drawing.Size(425, 21);
             this.cmbCustomer.TabIndex = 7;
             // 
             // lblCustomer
@@ -550,7 +550,7 @@
             // 
             // btnEnd
             // 
-            this.btnEnd.Location = new System.Drawing.Point(442, 455);
+            this.btnEnd.Location = new System.Drawing.Point(570, 455);
             this.btnEnd.Size = new System.Drawing.Size(119, 38);
             this.btnEnd.TabIndex = 34;
             // 
@@ -558,7 +558,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(573, 505);
+            this.ClientSize = new System.Drawing.Size(700, 505);
             this.Controls.Add(this.btnNetwork);
             this.Controls.Add(this.btnNetworkRemove);
             this.Controls.Add(this.btnLicense);
