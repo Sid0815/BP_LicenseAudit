@@ -79,7 +79,7 @@
             "(leer)"});
             this.lstNetworks.Location = new System.Drawing.Point(16, 64);
             this.lstNetworks.Name = "lstNetworks";
-            this.lstNetworks.Size = new System.Drawing.Size(120, 173);
+            this.lstNetworks.Size = new System.Drawing.Size(180, 173);
             this.lstNetworks.TabIndex = 3;
             this.lstNetworks.DisplayMember = "Name";
             this.lstNetworks.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -89,7 +89,7 @@
             this.tabNetwork.Controls.Add(this.tabPage1);
             this.tabNetwork.Controls.Add(this.tabPage2);
             this.tabNetwork.Controls.Add(this.tabPage3);
-            this.tabNetwork.Location = new System.Drawing.Point(162, 64);
+            this.tabNetwork.Location = new System.Drawing.Point(202, 64);
             this.tabNetwork.Name = "tabNetwork";
             this.tabNetwork.SelectedIndex = 0;
             this.tabNetwork.Size = new System.Drawing.Size(272, 117);
@@ -314,7 +314,7 @@
             // 
             // btnNetworkAdd
             // 
-            this.btnNetworkAdd.Location = new System.Drawing.Point(166, 197);
+            this.btnNetworkAdd.Location = new System.Drawing.Point(206, 197);
             this.btnNetworkAdd.Name = "btnNetworkAdd";
             this.btnNetworkAdd.Size = new System.Drawing.Size(121, 40);
             this.btnNetworkAdd.TabIndex = 5;
@@ -334,12 +334,12 @@
             // cmbCustomer
             // 
             this.cmbCustomer.Location = new System.Drawing.Point(60, 10);
-            this.cmbCustomer.Size = new System.Drawing.Size(370, 21);
+            this.cmbCustomer.Size = new System.Drawing.Size(410, 21);
             this.cmbCustomer.TabIndex = 1;
             // 
             // btnEnd
             // 
-            this.btnEnd.Location = new System.Drawing.Point(305, 197);
+            this.btnEnd.Location = new System.Drawing.Point(345, 197);
             this.btnEnd.Size = new System.Drawing.Size(129, 40);
             this.btnEnd.TabIndex = 6;
             // 
@@ -347,7 +347,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 253);
+            this.ClientSize = new System.Drawing.Size(481, 253);
             this.Controls.Add(this.btnNetworkAdd);
             this.Controls.Add(this.tabNetwork);
             this.Controls.Add(this.lstNetworks);
