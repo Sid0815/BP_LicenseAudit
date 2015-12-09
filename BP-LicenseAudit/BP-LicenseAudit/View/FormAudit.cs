@@ -87,6 +87,7 @@ namespace BP_LicenseAudit.View
         public void ClearAudit()
         {
             dgvResult.Rows.Clear();
+            dgvResult.BackgroundColor = System.Drawing.Color.White;
         }
 
         public void AddResult(string license, int count)
@@ -94,6 +95,18 @@ namespace BP_LicenseAudit.View
             int i = dgvResult.Rows.Add();
             dgvResult.Rows[i].Cells[0].Value = license;
             dgvResult.Rows[i].Cells[1].Value = count;
+            if (count < 0)
+            {
+                dgvResult.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Red;
+            }
+            else if (count > 0)
+            {
+                dgvResult.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.Yellow;
+            }
+            else
+            {
+                dgvResult.Rows[i].DefaultCellStyle.BackColor = System.Drawing.Color.LightGreen;
+            }
         }
     }
 }
