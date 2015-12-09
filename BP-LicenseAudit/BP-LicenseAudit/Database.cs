@@ -104,6 +104,27 @@ namespace BP_LicenseAudit
             }
         }
 
+        public void SaveLicense(License l)
+        {
+            //If File doesn't exist create it
+            checkFile(pathLicenses);
+            //write file
+            try
+            {
+                FileStream fs = new FileStream(pathLicenses, FileMode.Append);
+                StreamWriter sw = new StreamWriter(fs);
+                string towrite;
+                towrite = String.Format("{0};{1}", l.LicenseNumber, l.Name);
+                Console.WriteLine(towrite);
+                sw.WriteLine(towrite);
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing File: {0}", e.Message);
+            }
+        }
+
         public ArrayList GetLicenses()
         {
             //If File doesn't exist create it

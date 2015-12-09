@@ -24,7 +24,7 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_networks;
         private ArrayList list_networkInventories;
         private NetworkInventory currentNetworkInventory;
-        private ArrayList list_licenses;
+        private ArrayList list_allAvailableLicenses;
         private ArrayList list_licenseInventories;
         private LicenseInventory currentLicenseInventory;
         private ArrayList list_systems;
@@ -41,7 +41,7 @@ namespace BP_LicenseAudit.Controller
 
             list_networks = new ArrayList();
             list_networkInventories = new ArrayList();
-            list_licenses = new ArrayList();
+            list_allAvailableLicenses = new ArrayList();
             list_licenseInventories = new ArrayList();
             list_systems = new ArrayList();
             list_systemInventories = new ArrayList();
@@ -51,7 +51,7 @@ namespace BP_LicenseAudit.Controller
             list_customers = db.GetCustomers();
             list_networks =db.GetNetworks();
             list_networkInventories = db.GetNetworkInventories();
-            list_licenses = db.GetLicenses();
+            list_allAvailableLicenses = db.GetLicenses();
             list_licenseInventories = db.GetLicenseInventories();
             list_systems = db.GetClientSystems();
             list_systemInventories = db.GetSystemInventories();
@@ -72,10 +72,10 @@ namespace BP_LicenseAudit.Controller
             fSystemInventory.Visible = false;
 
             //Creating Controllers and connect data
-            cAudit = new ControllerAudit(this, fAudit, list_customers, list_licenseInventories, list_systemInventories, list_Audits, list_licenses);
-            cChanges = new ControllerChanges(this, fChanges, list_customers, list_networks, list_networkInventories, list_licenseInventories, list_licenses);
+            cAudit = new ControllerAudit(this, fAudit, list_customers, list_licenseInventories, list_systemInventories, list_Audits, list_allAvailableLicenses);
+            cChanges = new ControllerChanges(this, fChanges, list_customers, list_networks, list_networkInventories, list_licenseInventories, list_allAvailableLicenses);
             cCustomer = new ControllerCustomer(this, fCustomer, list_customers);
-            cLicense = new ControllerLicense(this, fLicense, list_customers, list_licenses, list_licenseInventories);
+            cLicense = new ControllerLicense(this, fLicense, list_customers, list_allAvailableLicenses, list_licenseInventories);
             cNetwork = new ControllerNetwork(this, fNetwork, list_customers, list_networks, list_networkInventories);
             cSystemInventory = new ControllerSystemInventory(this, fSystemInventory, list_customers, list_networks, 
                                                              list_networkInventories, list_systems, list_systemInventories);
@@ -168,7 +168,7 @@ namespace BP_LicenseAudit.Controller
                 {
                     int licensenumber = t.Item1;
                     int count = t.Item2;
-                    foreach (License l in list_licenses)
+                    foreach (License l in list_allAvailableLicenses)
                     {
                         if (l.LicenseNumber == licensenumber)
                         {

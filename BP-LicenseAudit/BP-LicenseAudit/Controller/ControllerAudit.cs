@@ -50,7 +50,8 @@ namespace BP_LicenseAudit.Controller
                 List<string> types = new List<string>();
                 foreach (ClientSystem c in currentSystemInventory.List_Systems)
                 {
-                    if ((!types.Contains(c.Type))&& (c.Type != null) && !(c.Type.Equals("")))
+                    //Add  only types of systems with detailed Information and types which aren't in the list already
+                    if ((!types.Contains(c.Type)) && (c.Type != null) && !(c.Type.Equals("")))
                     {
                         types.Add(c.Type);
                     }
@@ -62,10 +63,14 @@ namespace BP_LicenseAudit.Controller
                     count[i] = 0;
                     foreach (ClientSystem c in currentSystemInventory.List_Systems)
                     {
-                        if (c.Type.Equals(types[i]))
+                        //do this only for systems with detailed information
+                        if (c.Type != null && !(c.Type.Equals("")))
                         {
-                            count[i]++;
-                            Console.WriteLine("{0} occures {1} times", types[i], count[i]);
+                            if (c.Type.Equals(types[i]))
+                            {
+                                count[i]++;
+                                Console.WriteLine("{0} occures {1} times", types[i], count[i]);
+                            }
                         }
                     }
                 }
@@ -73,7 +78,7 @@ namespace BP_LicenseAudit.Controller
                 for (int i = 0; i < types.Count; i++)
                 {
                     int licenses = 0;
-                    //Get the licensenumber of the current type
+                    //Get the licensenumber of the current type (if licensetype is known)
                     int licensenumber = -1;
                     foreach (License l in list_allAvailableLicenses)
                     {
@@ -82,7 +87,15 @@ namespace BP_LicenseAudit.Controller
                             licensenumber = l.LicenseNumber;
                         }
                     }
-                    //Get the corresponding count of the licensinventory
+                    if(licensenumber == -1)
+                    {
+                        //licensetype unknown, learn it
+                        License newlicense = new License(list_allAvailableLicenses.Count, types[i]);
+                        list_allAvailableLicenses.Add(newlicense);
+                        db.SaveLicense(newlicense);
+                        licensenumber = newlicense.LicenseNumber;
+                    }
+                    //Get the corresponding count of the licensinventory, if the license isn't in the inventory the count is 0 (initialised)
                     for (int x = 0; x < currentLicenseInventory.Inventory.Count; x++)
                     {
                         Tuple<int, int> t = (Tuple<int, int>)currentLicenseInventory.Inventory[x];

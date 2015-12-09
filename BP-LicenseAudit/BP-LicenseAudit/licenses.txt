@@ -1,3 +1,8 @@
-0;Windows 8
+0;Microsoft Windows 8.1 Pro
 1;Microsoft Windows 7 Professional 
-2;Windows XP
+2;Microsoft Windows 7 Ultimate 3;Microsoft Windows Server 2008 R2 Standard 
+4;Microsoft(R) Windows(R) Server 2003 Standard Edition
+5;Microsoft Windows Server 2012 Standard
+6;Microsoft Windows Server 2012 R2 Standard
+7;Microsoft Windows 10 Pro
+8;Microsoft Windows 8 Pro
