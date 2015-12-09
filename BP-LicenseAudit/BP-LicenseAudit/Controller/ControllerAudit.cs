@@ -122,20 +122,7 @@ namespace BP_LicenseAudit.Controller
 
         }
 
-        public void UpdateViewResults()
-        {
 
-        }
-
-        public void SelectedInventoryChanged()
-        {
-
-        }
-
-        public void SortInventories()
-        {
-
-        }
 
         public void GetSystemInventoryFromDB()
         {
