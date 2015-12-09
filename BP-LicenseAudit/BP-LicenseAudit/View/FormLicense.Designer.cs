@@ -65,7 +65,7 @@
             this.cmbLicense.FormattingEnabled = true;
             this.cmbLicense.Location = new System.Drawing.Point(52, 273);
             this.cmbLicense.Name = "cmbLicense";
-            this.cmbLicense.Size = new System.Drawing.Size(210, 21);
+            this.cmbLicense.Size = new System.Drawing.Size(310, 21);
             this.cmbLicense.TabIndex = 7;
             // 
             // lblCount
@@ -79,16 +79,16 @@
             // 
             // numCount
             // 
-            this.numCount.Location = new System.Drawing.Point(54, 311);
+            this.numCount.Location = new System.Drawing.Point(52, 311);
             this.numCount.Name = "numCount";
-            this.numCount.Size = new System.Drawing.Size(208, 20);
+            this.numCount.Size = new System.Drawing.Size(310, 20);
             this.numCount.TabIndex = 9;
             // 
             // btnLicense
             // 
             this.btnLicense.Location = new System.Drawing.Point(9, 347);
             this.btnLicense.Name = "btnLicense";
-            this.btnLicense.Size = new System.Drawing.Size(120, 39);
+            this.btnLicense.Size = new System.Drawing.Size(170, 39);
             this.btnLicense.TabIndex = 10;
             this.btnLicense.Text = "Lizenzen hinzufügen";
             this.btnLicense.UseVisualStyleBackColor = true;
@@ -108,7 +108,7 @@
             this.dgvLicense.Name = "dgvLicense";
             this.dgvLicense.ReadOnly = true;
             this.dgvLicense.RowHeadersVisible = false;
-            this.dgvLicense.Size = new System.Drawing.Size(253, 200);
+            this.dgvLicense.Size = new System.Drawing.Size(353, 200);
             this.dgvLicense.TabIndex = 11;
             this.dgvLicense.SelectionChanged += new System.EventHandler(this.dgvLicense_SelectionChanged);
             // 
@@ -117,7 +117,7 @@
             this.clmLicense.HeaderText = "Lizenz";
             this.clmLicense.Name = "clmLicense";
             this.clmLicense.ReadOnly = true;
-            this.clmLicense.Width = 200;
+            this.clmLicense.Width = 300;
             // 
             // clmCount
             // 
@@ -132,7 +132,7 @@
             // cmbCustomer
             // 
             this.cmbCustomer.Location = new System.Drawing.Point(53, 9);
-            this.cmbCustomer.Size = new System.Drawing.Size(212, 21);
+            this.cmbCustomer.Size = new System.Drawing.Size(312, 21);
             this.cmbCustomer.TabIndex = 3;
             // 
             // lblCustomer
@@ -142,15 +142,15 @@
             this.lblCustomer.TabIndex = 2;
             // 
             // btnEnd
-            this.btnEnd.Location = new System.Drawing.Point(145, 347);
-            this.btnEnd.Size = new System.Drawing.Size(117, 39);
+            this.btnEnd.Location = new System.Drawing.Point(195, 347);
+            this.btnEnd.Size = new System.Drawing.Size(167, 39);
             this.btnEnd.TabIndex = 11;
             // 
             // FormLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(275, 398);
+            this.ClientSize = new System.Drawing.Size(375, 398);
             this.Controls.Add(this.dgvLicense);
             this.Controls.Add(this.btnLicense);
             this.Controls.Add(this.numCount);
