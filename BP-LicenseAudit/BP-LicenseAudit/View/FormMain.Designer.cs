@@ -54,14 +54,14 @@
             "(leer)"});
             this.lstCustomer.Location = new System.Drawing.Point(10, 23);
             this.lstCustomer.Name = "lstCustomer";
-            this.lstCustomer.Size = new System.Drawing.Size(250, 446);
+            this.lstCustomer.Size = new System.Drawing.Size(180, 446);
             this.lstCustomer.TabIndex = 0;
             this.lstCustomer.SelectedIndexChanged += new System.EventHandler(this.lstCustomer_SelectedIndexChanged);
             // 
             // lblNetworks
             // 
             this.lblNetworks.AutoSize = true;
-            this.lblNetworks.Location = new System.Drawing.Point(280, 7);
+            this.lblNetworks.Location = new System.Drawing.Point(210, 7);
             this.lblNetworks.Name = "lblNetworks";
             this.lblNetworks.Size = new System.Drawing.Size(61, 13);
             this.lblNetworks.TabIndex = 3;
@@ -73,16 +73,16 @@
             this.lstNetworks.FormattingEnabled = true;
             this.lstNetworks.Items.AddRange(new object[] {
             "(leer)"});
-            this.lstNetworks.Location = new System.Drawing.Point(280, 23);
+            this.lstNetworks.Location = new System.Drawing.Point(210, 23);
             this.lstNetworks.Name = "lstNetworks";
-            this.lstNetworks.Size = new System.Drawing.Size(250, 446);
+            this.lstNetworks.Size = new System.Drawing.Size(180, 446);
             this.lstNetworks.TabIndex = 2;
             this.lstNetworks.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
             // lblLicense
             // 
             this.lblLicense.AutoSize = true;
-            this.lblLicense.Location = new System.Drawing.Point(550, 7);
+            this.lblLicense.Location = new System.Drawing.Point(410, 7);
             this.lblLicense.Name = "lblLicense";
             this.lblLicense.Size = new System.Drawing.Size(52, 13);
             this.lblLicense.TabIndex = 5;
@@ -91,7 +91,7 @@
             // lblActions
             // 
             this.lblActions.AutoSize = true;
-            this.lblActions.Location = new System.Drawing.Point(820, 7);
+            this.lblActions.Location = new System.Drawing.Point(780, 7);
             this.lblActions.Name = "lblActions";
             this.lblActions.Size = new System.Drawing.Size(131, 13);
             this.lblActions.TabIndex = 7;
@@ -102,9 +102,9 @@
             this.lstActions.FormattingEnabled = true;
             this.lstActions.Items.AddRange(new object[] {
             "(leer)"});
-            this.lstActions.Location = new System.Drawing.Point(820, 23);
+            this.lstActions.Location = new System.Drawing.Point(780, 23);
             this.lstActions.Name = "lstActions";
-            this.lstActions.Size = new System.Drawing.Size(250, 446);
+            this.lstActions.Size = new System.Drawing.Size(180, 446);
             this.lstActions.TabIndex = 6;
             this.lstActions.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
@@ -112,7 +112,7 @@
             // 
             this.btnCustomer.Location = new System.Drawing.Point(10, 480);
             this.btnCustomer.Name = "btnCustomer";
-            this.btnCustomer.Size = new System.Drawing.Size(250, 35);
+            this.btnCustomer.Size = new System.Drawing.Size(180, 35);
             this.btnCustomer.TabIndex = 8;
             this.btnCustomer.Text = "Kunde hinzufügen";
             this.btnCustomer.UseVisualStyleBackColor = true;
@@ -120,9 +120,9 @@
             // 
             // btnNetwork
             // 
-            this.btnNetwork.Location = new System.Drawing.Point(280, 480);
+            this.btnNetwork.Location = new System.Drawing.Point(210, 480);
             this.btnNetwork.Name = "btnNetwork";
-            this.btnNetwork.Size = new System.Drawing.Size(250, 35);
+            this.btnNetwork.Size = new System.Drawing.Size(180, 35);
             this.btnNetwork.TabIndex = 9;
             this.btnNetwork.Text = "Netzwerk hinzufügen";
             this.btnNetwork.UseVisualStyleBackColor = true;
@@ -130,9 +130,9 @@
             // 
             // btnLicense
             // 
-            this.btnLicense.Location = new System.Drawing.Point(550, 480);
+            this.btnLicense.Location = new System.Drawing.Point(410, 480);
             this.btnLicense.Name = "btnLicense";
-            this.btnLicense.Size = new System.Drawing.Size(253, 35);
+            this.btnLicense.Size = new System.Drawing.Size(353, 35);
             this.btnLicense.TabIndex = 10;
             this.btnLicense.Text = "Lizenzen hinzufügen";
             this.btnLicense.UseVisualStyleBackColor = true;
@@ -140,9 +140,9 @@
             // 
             // btnInventory
             // 
-            this.btnInventory.Location = new System.Drawing.Point(820, 480);
+            this.btnInventory.Location = new System.Drawing.Point(780, 480);
             this.btnInventory.Name = "btnInventory";
-            this.btnInventory.Size = new System.Drawing.Size(250, 35);
+            this.btnInventory.Size = new System.Drawing.Size(180, 35);
             this.btnInventory.TabIndex = 11;
             this.btnInventory.Text = "Inventarisierung durchführen";
             this.btnInventory.UseVisualStyleBackColor = true;
@@ -150,9 +150,9 @@
             // 
             // btnAudit
             // 
-            this.btnAudit.Location = new System.Drawing.Point(820, 530);
+            this.btnAudit.Location = new System.Drawing.Point(780, 530);
             this.btnAudit.Name = "btnAudit";
-            this.btnAudit.Size = new System.Drawing.Size(250, 35);
+            this.btnAudit.Size = new System.Drawing.Size(180, 35);
             this.btnAudit.TabIndex = 12;
             this.btnAudit.Text = "Audit durchführen";
             this.btnAudit.UseVisualStyleBackColor = true;
@@ -160,9 +160,9 @@
             // 
             // btnChange
             // 
-            this.btnChange.Location = new System.Drawing.Point(1090, 23);
+            this.btnChange.Location = new System.Drawing.Point(980, 23);
             this.btnChange.Name = "btnChange";
-            this.btnChange.Size = new System.Drawing.Size(250, 35);
+            this.btnChange.Size = new System.Drawing.Size(180, 35);
             this.btnChange.TabIndex = 13;
             this.btnChange.Text = "Daten ändern";
             this.btnChange.UseVisualStyleBackColor = true;
@@ -171,9 +171,9 @@
             // dgvLicenses
             // 
             this.dgvLicenses.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLicenses.Location = new System.Drawing.Point(550, 23);
+            this.dgvLicenses.Location = new System.Drawing.Point(410, 23);
             this.dgvLicenses.Name = "dgvLicenses";
-            this.dgvLicenses.Size = new System.Drawing.Size(253, 446);
+            this.dgvLicenses.Size = new System.Drawing.Size(353, 446);
             this.dgvLicenses.TabIndex = 14;
             this.dgvLicenses.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmLicense,
@@ -191,7 +191,7 @@
             this.clmLicense.HeaderText = "Lizenz";
             this.clmLicense.Name = "clmLicense";
             this.clmLicense.ReadOnly = true;
-            this.clmLicense.Width = 200;
+            this.clmLicense.Width = 300;
             // 
             // clmCount
             // 
@@ -204,8 +204,8 @@
             //
             //btnEnde
             //
-            this.btnEnd.Location = new System.Drawing.Point(1090, 60);
-            this.btnEnd.Size = new System.Drawing.Size(250, 35);
+            this.btnEnd.Location = new System.Drawing.Point(980, 60);
+            this.btnEnd.Size = new System.Drawing.Size(180, 35);
             //
             //lblCustomer
             //
@@ -219,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1151, 576);
+            this.ClientSize = new System.Drawing.Size(1024, 576);
             this.Controls.Add(this.dgvLicenses);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.btnAudit);
