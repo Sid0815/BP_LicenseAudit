@@ -87,7 +87,7 @@ namespace BP_LicenseAudit.Controller
                             licensenumber = l.LicenseNumber;
                         }
                     }
-                    if(licensenumber == -1)
+                    if (licensenumber == -1)
                     {
                         //licensetype unknown, learn it
                         License newlicense = new License(list_allAvailableLicenses.Count, types[i]);
@@ -107,6 +107,26 @@ namespace BP_LicenseAudit.Controller
                     }
                     //Add result to Audit, Licensenumber and number of free licenses of this type
                     currentAudit.AddResult(licensenumber, licenses - count[i]);
+                }
+                //Add licenses of invetory which aren't already added
+                ArrayList helpList = new ArrayList();
+                foreach (Tuple<int, int> tuplelicense in currentLicenseInventory.Inventory)
+                {
+                    bool contains = false;
+                    Tuple<int, int> helpTuple = new Tuple<int, int>(-1, -1);
+                    foreach (Tuple<int, int> t in currentAudit.Results)
+                    {
+                        helpTuple = (Tuple<int, int>)t;
+                        if (helpTuple.Item1 == tuplelicense.Item1)
+                        {
+                            contains = true;
+                            break;
+                        }
+                    }
+                    if (!contains)
+                    {
+                      currentAudit.AddResult(tuplelicense.Item1, tuplelicense.Item2);
+                    }
                 }
                 list_audits.Add(currentAudit);
                 db.SaveAudit(currentAudit);
