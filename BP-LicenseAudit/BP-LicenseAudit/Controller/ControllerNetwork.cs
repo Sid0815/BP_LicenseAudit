@@ -55,13 +55,7 @@ namespace BP_LicenseAudit.Controller
             UInt32 convertedIP = 0;
             UInt32 networkip = 0;
             UInt32 broadcast = 0;
-            Byte[] bip = network.GetAddressBytes();
-            //Split IP into Bytes
-            UInt32 byte1 = Convert.ToUInt32(bip[0]);
-            UInt32 byte2 = Convert.ToUInt32(bip[1]);
-            UInt32 byte3 = Convert.ToUInt32(bip[2]);
-            UInt32 byte4 = Convert.ToUInt32(bip[3]);
-            convertedIP = (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4;
+            convertedIP = convertIPtoUInt32(network);
             //get subnetmask by shifting and building the complement
             if (cidr == 32)
             {
