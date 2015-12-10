@@ -27,6 +27,8 @@ namespace BP_LicenseAudit.Controller
         }
 
         //functions
+
+
         public static ArrayList calcAddressesSE(IPAddress start, IPAddress end)
         {
             ArrayList addresses = new ArrayList();
@@ -43,8 +45,6 @@ namespace BP_LicenseAudit.Controller
                 start = IPAddress.Parse(Convert.ToString(h));
                 addresses.Add(start);
             }
-
-
             return addresses;
         }
 
@@ -63,7 +63,11 @@ namespace BP_LicenseAudit.Controller
             UInt32 byte4 = Convert.ToUInt32(bip[3]);
             convertedIP = (byte1 << 24) | (byte2 << 16) | (byte3 << 8) | byte4;
             //get subnetmask by shifting and building the complement
-            if (cidr == 32) subnetmask = 0xffffffff;
+            if (cidr == 32)
+            {
+                addresses.Add(network);
+                return addresses;
+            }
             else subnetmask = ~(0xffffffff >> cidr);
             //calculate networkip
             networkip = convertedIP & subnetmask;
