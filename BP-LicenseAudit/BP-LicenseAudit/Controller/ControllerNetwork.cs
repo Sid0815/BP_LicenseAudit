@@ -56,12 +56,12 @@ namespace BP_LicenseAudit.Controller
             UInt32 networkip = 0;
             UInt32 broadcast = 0;
             convertedIP = convertIPtoUInt32(network);
-            //get subnetmask by shifting and building the complement
             if (cidr == 32)
             {
                 addresses.Add(network);
                 return addresses;
             }
+            //get subnetmask by shifting and building the complement
             else subnetmask = ~(0xffffffff >> cidr);
             //calculate networkip
             networkip = convertedIP & subnetmask;

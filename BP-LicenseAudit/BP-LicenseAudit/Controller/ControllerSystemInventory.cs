@@ -80,7 +80,7 @@ namespace BP_LicenseAudit.Controller
             foreach (Network n in selectedNetworks)
             {
                 //Clear old Systems of this network from list_systems
-                for(int i=0; i<list_systems.Count; i++)
+                for (int i = 0; i < list_systems.Count; i++)
                 {
                     ClientSystem c = (ClientSystem)list_systems[i];
                     if (c.Networknumber == n.NetworkNumber)
@@ -130,12 +130,9 @@ namespace BP_LicenseAudit.Controller
                 //Connect via WMI
                 string host = c.ClientIP.ToString();
                 Console.WriteLine("Connecting to {0}", host);
-                ConnectionOptions options =
-                new ConnectionOptions();
+                ConnectionOptions options = new ConnectionOptions();
                 options.Username = username;
                 options.Password = password;
-                //options.Authority = "ntdlmdomain:bpade.local";
-                //options.Authentication = AuthenticationLevel.PacketPrivacy;
                 ManagementScope scope;
                 //Localhost don't need credentials
                 if (localadrresses.Contains(host))
@@ -150,10 +147,8 @@ namespace BP_LicenseAudit.Controller
                 {
                     scope.Connect();
                     //Query Operating System Informations
-                    ObjectQuery query = new ObjectQuery(
-                   "SELECT * FROM Win32_OperatingSystem");
-                    ManagementObjectSearcher searcher =
-                        new ManagementObjectSearcher(scope, query);
+                    ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_OperatingSystem");
+                    ManagementObjectSearcher searcher = new ManagementObjectSearcher(scope, query);
                     ManagementObjectCollection queryCollection = searcher.Get();
                     foreach (ManagementObject m in queryCollection)
                     {
