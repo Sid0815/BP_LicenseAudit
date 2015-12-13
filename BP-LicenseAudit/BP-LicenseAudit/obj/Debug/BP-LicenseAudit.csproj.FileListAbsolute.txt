@@ -14,3 +14,4 @@ C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\o
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csproj.GenerateResource.Cache
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.exe
 C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.pdb
+C:\Users\User\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csprojResolveAssemblyReference.cache
