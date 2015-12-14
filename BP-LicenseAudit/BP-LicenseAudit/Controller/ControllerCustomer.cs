@@ -12,7 +12,7 @@ namespace BP_LicenseAudit.Controller
 
 
         //Constructor
-        public ControllerCustomer(ControllerParent calling, FormCustomer view, ArrayList list_customers):base(calling, list_customers)
+        public ControllerCustomer(ControllerParent calling, FormCustomer view, ArrayList list_customers) : base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
@@ -60,8 +60,8 @@ namespace BP_LicenseAudit.Controller
             string streetnr = view.GetCustomerStreetNr().Trim();
             string city = view.GetCustomerCity().Trim();
             string zip = view.GetCustomerZIP().Trim();
-            if(checkInput(name, street, streetnr, city, zip))
-            {                
+            if (checkInput(name, street, streetnr, city, zip))
+            {
                 AddCustomer(list_customers.Count, name, street, streetnr, city, zip);
                 UpdateView(true);
                 MessageBox.Show("Kunde erfolgreich hinzugefügt", "OK", MessageBoxButtons.OK);
@@ -128,7 +128,20 @@ namespace BP_LicenseAudit.Controller
                 MessageBox.Show("Fehler bei der Eingabe der Postleitzahl", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            else return true;
+            else
+            {
+                //check if zip contains only digits
+                foreach (Char c in zip)
+                {
+                    if (!Char.IsDigit(c))
+                    {
+                        MessageBox.Show("Fehler bei der Eingabe der Postleitzahl", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                return true;
+            }
+
         }
 
 
