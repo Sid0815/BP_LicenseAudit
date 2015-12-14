@@ -194,7 +194,7 @@ namespace BP_LicenseAudit.Controller
                 catch (FormatException e)
                 {
                     Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
-                    MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Fehler bei der Eingabe der Adressen.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 catch (OutOfMemoryException e)
@@ -210,6 +210,10 @@ namespace BP_LicenseAudit.Controller
                     Console.WriteLine("Allgemeiner Fehler: " + e.Message);
                     return;
                 }
+            }
+            else
+            {
+                MessageBox.Show("Kein Kunde ausgewählt. Bitte Kunde auswählen.", "Kein Kunde ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             UpdateView(false);
