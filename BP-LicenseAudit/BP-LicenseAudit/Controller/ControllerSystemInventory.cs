@@ -27,11 +27,10 @@ namespace BP_LicenseAudit.Controller
 
         //constructor
         public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view, ArrayList list_customers,
-                                         ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_systems, ArrayList list_systemInventories) : base(calling)
+                                         ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_systems, ArrayList list_systemInventories) : base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
-            this.list_customers = list_customers;
             this.list_networks = list_networks;
             this.list_networkinventories = list_networkinventories;
             this.list_systems = list_systems;

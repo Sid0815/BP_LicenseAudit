@@ -31,11 +31,10 @@ namespace BP_LicenseAudit.Controller
         }
 
         //constructor
-        public ControllerLicense(ControllerParent calling, FormLicense view, ArrayList list_customers, ArrayList list_licenses, ArrayList list_licenseInventories) : base(calling)
+        public ControllerLicense(ControllerParent calling, FormLicense view, ArrayList list_customers, ArrayList list_licenses, ArrayList list_licenseInventories) : base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
-            this.list_customers = list_customers;
             this.list_allAvailableLicenses = list_licenses;
             this.list_licenseInventories = list_licenseInventories;
 

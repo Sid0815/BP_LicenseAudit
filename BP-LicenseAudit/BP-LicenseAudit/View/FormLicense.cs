@@ -35,7 +35,7 @@ namespace BP_LicenseAudit.View
         {
             cmbLicense.Items.Add(l);
         }
-        
+
         public int CountLicenseTypes()
         {
             return cmbLicense.Items.Count;

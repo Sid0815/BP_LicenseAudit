@@ -24,11 +24,10 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_allAvailableLicenses;
 
         //constrctor
-        public ControllerChanges(ControllerParent calling, FormChange view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_licenseInventories, ArrayList list_allAvailableLicenses) : base(calling)
+        public ControllerChanges(ControllerParent calling, FormChange view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_licenseInventories, ArrayList list_allAvailableLicenses) : base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
-            this.list_customers = list_customers;
             this.list_networks = list_networks;
             this.list_networkInventories = list_networkinventories;
             this.list_licenseInventories = list_licenseInventories;

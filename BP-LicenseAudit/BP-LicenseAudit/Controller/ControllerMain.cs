@@ -34,7 +34,7 @@ namespace BP_LicenseAudit.Controller
         private Audit currentAudit;
 
         //constructor
-        public ControllerMain(FormMain view) : base(null)
+        public ControllerMain(FormMain view) : base(null, null)
         {
             //connect controller to its view
             this.view = view;

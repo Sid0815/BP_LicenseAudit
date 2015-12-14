@@ -17,11 +17,10 @@ namespace BP_LicenseAudit.Controller
         private int inputtype = 0;
 
         //constructor
-        public ControllerNetwork(ControllerParent calling, FormNetwork view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories) : base(calling)
+        public ControllerNetwork(ControllerParent calling, FormNetwork view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories) : base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
-            this.list_customers = list_customers;
             this.list_networks = list_networks;
             this.list_networkinventories = list_networkinventories;
         }

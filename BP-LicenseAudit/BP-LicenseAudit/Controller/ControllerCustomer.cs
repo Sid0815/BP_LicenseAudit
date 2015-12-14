@@ -12,11 +12,10 @@ namespace BP_LicenseAudit.Controller
 
 
         //Constructor
-        public ControllerCustomer(ControllerParent calling, FormCustomer view, ArrayList list_customers):base(calling)
+        public ControllerCustomer(ControllerParent calling, FormCustomer view, ArrayList list_customers):base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
-            this.list_customers = list_customers;
         }
 
         //Functions
