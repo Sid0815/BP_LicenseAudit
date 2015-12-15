@@ -76,21 +76,6 @@ namespace BP_LicenseAudit.Controller
             db.SaveLicenseInventories(list_licenseInventories);
         }
 
-        public void GetLicenseInventoryFromDB()
-        {
-
-        }
-
-        public void GetAllLicenseTypesFromDB()
-        {
-
-        }
-
-        public void SaveLicenseInventoryToDB()
-        {
-
-        }
-
         public override void UpdateView(bool customerUpdated)
         {
             //Customer

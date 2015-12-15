@@ -43,29 +43,36 @@ namespace BP_LicenseAudit.Controller
         //funtions
         public void Inventory(ListBox.SelectedObjectCollection selectedNetworks)
         {
-            //Add selected Networks to List
-            this.selectedNetworks.Clear();
-            //Get Admin credntials
-            username = null;
-            password = null;
-            GetCredenials();
-            if (username == null || password == null)
+            if (currentCustomer != null)
             {
-                MessageBox.Show("Keine Zugangsdaten übermittelt. Bitte Inventarisierung erneut starten.", "Keine Zugangsdaten", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                //Add selected Networks to List
+                this.selectedNetworks.Clear();
+                foreach (Network n in selectedNetworks)
+                {
+                    this.selectedNetworks.Add(n);
+                }
+                //Get Admin credntials
+                username = null;
+                password = null;
+                GetCredenials();
+                if (username == null || password == null)
+                {
+                    MessageBox.Show("Keine Zugangsdaten übermittelt. Bitte Inventarisierung erneut starten.", "Keine Zugangsdaten", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                scanNetwork();
+                scanDetails();
+                UpdateClients(selectedNetworks);
+                //Client Systems are passed by reference, no need to update list_systems
+                db.SaveClientSystems(list_systems);
+                db.SaveSystemInventories(list_systemInventories);
+                callingController.UpdateInformation();
+                MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            foreach (Network n in selectedNetworks)
+            else
             {
-                this.selectedNetworks.Add(n);
+                MessageBox.Show("Kein Kunde ausgewählt. Bitte Kunde auswählen.", "Kein Kunde ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            scanNetwork();
-            scanDetails();
-            UpdateClients(selectedNetworks);
-            //Client Systems are passed by reference, no need to update list_systems
-            db.SaveClientSystems(list_systems);
-            db.SaveSystemInventories(list_systemInventories);
-            callingController.UpdateInformation();
-            MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         //scan Network for Clients
@@ -240,6 +247,7 @@ namespace BP_LicenseAudit.Controller
 
         }
 
+        //Updates the Clientlist of the view
         private void UpdateClients(ListBox.SelectedObjectCollection selectedNetworks)
         {
             //Add for each selected network all matching ClientSystems from current SystemInventory

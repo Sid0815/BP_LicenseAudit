@@ -303,7 +303,3 @@ namespace BP_LicenseAudit.Controller
     }
 }
 
-public class CidrException : Exception
-{
-
-}
