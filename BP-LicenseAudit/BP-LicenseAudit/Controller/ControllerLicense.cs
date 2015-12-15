@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BP_LicenseAudit.Model;
 using BP_LicenseAudit.View;
 using System.Windows.Forms;
@@ -16,19 +13,6 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_allAvailableLicenses;
         private LicenseInventory currentLicenseInventory;
         private FormLicense view;
-
-        //properties
-        public ArrayList List_allAvailableLicenses
-        {
-            get
-            {
-                return list_allAvailableLicenses;
-            }
-            set
-            {
-                list_allAvailableLicenses = value;
-            }
-        }
 
         //constructor
         public ControllerLicense(ControllerParent calling, FormLicense view, ArrayList list_customers, ArrayList list_licenses, ArrayList list_licenseInventories) : base(calling, list_customers)

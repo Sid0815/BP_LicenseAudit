@@ -167,7 +167,7 @@ namespace BP_LicenseAudit.Controller
                                 b_cidraddress[2] = Convert.ToByte(str_cidraddress[2]);
                                 b_cidraddress[3] = Convert.ToByte(str_cidraddress[3]);
                                 cidr = Convert.ToByte(str_cidraddress[4]);
-                                if (cidr > 32) throw new Exception();
+                                if (cidr > 32) throw new ArgumentException("Cidr>32");
                                 //Creating and adding network
                                 IPAddress network = new IPAddress(b_cidraddress);
                                 currentNetwork = new Network(list_networks.Count,
@@ -194,6 +194,12 @@ namespace BP_LicenseAudit.Controller
                 {
                     Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
                     MessageBox.Show("Fehler bei der Eingabe der Adressen.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                catch (ArgumentException e)
+                {
+                    MessageBox.Show("Fehler bei der Eingabe des Suffixes.", "Suffix-Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("Suffix Fehler: " + e.Message);
                     return;
                 }
                 catch (OutOfMemoryException e)
@@ -295,4 +301,9 @@ namespace BP_LicenseAudit.Controller
 
 
     }
+}
+
+public class CidrException : Exception
+{
+
 }
