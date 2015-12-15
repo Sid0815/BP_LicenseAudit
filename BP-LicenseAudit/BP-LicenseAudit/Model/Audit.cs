@@ -7,6 +7,7 @@ namespace BP_LicenseAudit.Model
     {
         private int auditNumber;
         private int customerNumber;
+        private int systemInventoryNumber;
         private DateTime date;
         private ArrayList results;
         //propperties
@@ -31,6 +32,18 @@ namespace BP_LicenseAudit.Model
             set
             {
                 customerNumber = value;
+            }
+        }
+
+        public int SystemInventoryNumber
+        {
+            get
+            {
+                return systemInventoryNumber;
+            }
+            set
+            {
+                systemInventoryNumber = value;
             }
         }
 
@@ -59,10 +72,11 @@ namespace BP_LicenseAudit.Model
         }
 
         //constructor
-        public Audit(int auditNumber, int customerNumber)
+        public Audit(int auditNumber, int customerNumber, int systemInventoryNumber)
         {
             this.auditNumber = auditNumber;
             this.customerNumber = customerNumber;
+            this.systemInventoryNumber = systemInventoryNumber;
             this.date = DateTime.Now;
             this.results = new ArrayList();
         }

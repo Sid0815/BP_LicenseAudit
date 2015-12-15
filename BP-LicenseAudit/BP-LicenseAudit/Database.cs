@@ -474,12 +474,12 @@ namespace BP_LicenseAudit
             }
         }
 
-        public void SaveSystemInventories(ArrayList list_systeminventories)
+        public void SaveSystemInventoriesOverride(ArrayList list_systeminventories)
         {
             //If File doesn't exist create it
             checkFile(pathSystemInventory);
             //Save SystemInventory
-            Console.WriteLine("Database.SaveSystemInventory called");
+            Console.WriteLine("Database.SaveSystemInventoryOverride called");
             try
             {
                 FileStream fs = new FileStream(pathSystemInventory, FileMode.Create);
@@ -502,6 +502,39 @@ namespace BP_LicenseAudit
                         towrite = String.Format("{0}", c.ClientSystemNumber);
                         sw.WriteLine(towrite);
                     }
+                }
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing System Inventory: {0}", e.Message);
+            }
+        }
+        
+        public void SaveSystemInventory(SystemInventory si)
+        {
+            //If File doesn't exist create it
+            checkFile(pathSystemInventory);
+            //Save SystemInventory
+            Console.WriteLine("Database.SaveSystemInventory called");
+            try
+            {
+                FileStream fs = new FileStream(pathSystemInventory, FileMode.Append);
+                StreamWriter sw = new StreamWriter(fs);
+                string towrite;
+                //Customernumber;Systeminventorynumber;Number of ClientSystems in inventory, date
+                //Clientsystemnumber
+                //Clientsystemnumber
+                //...
+                towrite = String.Format("{0};{1};{2};{3}", si.Customernumber, si.SystemInventoryNumber, si.List_Systems.Count, si.Date);
+                Console.WriteLine(towrite);
+                sw.WriteLine(towrite);
+                //Write belonging Clientsystems
+                for (int i = 0; i < si.List_Systems.Count; i++)
+                {
+                    ClientSystem c = (ClientSystem)si.List_Systems[i];
+                    towrite = String.Format("{0}", c.ClientSystemNumber);
+                    sw.WriteLine(towrite);
                 }
                 sw.Close();
             }
@@ -583,11 +616,11 @@ namespace BP_LicenseAudit
                 FileStream fs = new FileStream(pathAudit, FileMode.Append);
                 StreamWriter sw = new StreamWriter(fs);
                 string towrite;
-                //Customernumber;Auditnumber;Number of results, date
+                //Customernumber;Auditnumber;Systeminventorynumber;Number of results, date
                 //resulttuple
                 //resulttuple
                 //...
-                towrite = String.Format("{0};{1};{2};{3}", a.CustomerNumber, a.AuditNumber, a.Results.Count, a.Date);
+                towrite = String.Format("{0};{1};{2};{3};{4}", a.AuditNumber, a.CustomerNumber, a.SystemInventoryNumber, a.Results.Count, a.Date);
                 Console.WriteLine(towrite);
                 sw.WriteLine(towrite);
                 //Write belonging Results
@@ -621,9 +654,9 @@ namespace BP_LicenseAudit
                 {
                     read = sr.ReadLine();
                     string[] input = read.Split(';');
-                    Audit a = new Audit(int.Parse(input[1]), int.Parse(input[0]));
-                    a.Date = DateTime.Parse(input[3]);
-                    int i = int.Parse(input[2]);
+                    Audit a = new Audit(int.Parse(input[0]), int.Parse(input[1]), int.Parse(input[2]));
+                    a.Date = DateTime.Parse(input[4]);
+                    int i = int.Parse(input[3]);
                     for (int x = 0; x < i; x++)
                     {
                         //add tuples to results

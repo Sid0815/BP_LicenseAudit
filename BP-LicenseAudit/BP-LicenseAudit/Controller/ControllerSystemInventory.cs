@@ -65,7 +65,7 @@ namespace BP_LicenseAudit.Controller
                 UpdateClients(selectedNetworks);
                 //Client Systems are passed by reference, no need to update list_systems
                 db.SaveClientSystems(list_systems);
-                db.SaveSystemInventories(list_systemInventories);
+                db.SaveSystemInventory(currentSystemInventory);
                 callingController.UpdateInformation();
                 MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -78,15 +78,27 @@ namespace BP_LicenseAudit.Controller
         //scan Network for Clients
         private void scanNetwork()
         {
-            currentSystemInventory.List_Systems.Clear();
+            //Create a new system Inventory
+            currentSystemInventory = CreateSystemInventroy(currentCustomer.Cnumber);
+            Console.WriteLine("New SystemInventory created");
             //Get the latest systemnumber
-            currentSystem = (ClientSystem)list_systems[list_systems.Count - 1];
-            int latestsystemnumber = currentSystem.ClientSystemNumber;
+            int latestsystemnumber;
+            //only if there is no data, set it manually
+            if (list_systems.Count <= 0)
+            {
+                latestsystemnumber = 0;
+            }
+            else
+            {
+                currentSystem = (ClientSystem)list_systems[list_systems.Count - 1];
+                latestsystemnumber = currentSystem.ClientSystemNumber;
+            }
             //scan Networks
             foreach (Network n in selectedNetworks)
             {
+                //DEPRECATED
                 //Clear old Systems of this network from list_systems
-                for (int i = 0; i < list_systems.Count; i++)
+                /*for (int i = 0; i < list_systems.Count; i++)
                 {
                     ClientSystem c = (ClientSystem)list_systems[i];
                     if (c.Networknumber == n.NetworkNumber)
@@ -94,7 +106,7 @@ namespace BP_LicenseAudit.Controller
                         list_systems.Remove(c);
                         i--;
                     }
-                }
+                }*/
                 // Ping each ip address of the network with timeout of 100ms
                 foreach (IPAddress ip in n.IpAddresses)
                 {
@@ -112,8 +124,6 @@ namespace BP_LicenseAudit.Controller
             }
 
         }
-
-
 
         //Scan all Clients in current System Inevntory for Details
         private void scanDetails()
@@ -195,26 +205,8 @@ namespace BP_LicenseAudit.Controller
         {
             currentSystemInventory = new SystemInventory(customerNumber, list_systemInventories.Count);
             list_systemInventories.Add(currentSystemInventory);
-            //db.SaveSystemkInventories(list_systemInventories);
             return currentSystemInventory;
         }
-
-
-        public void GetSystemInventoryFromDB()
-        {
-
-        }
-
-        public void GetNetworkInventoryFromDB()
-        {
-
-        }
-
-        public void SaveSystemInventoryToDB()
-        {
-
-        }
-
 
         public override void UpdateInformation()
         {//Updates all neccesary properties of the controller (could be caled by a controller who self was caled by this)
@@ -314,19 +306,36 @@ namespace BP_LicenseAudit.Controller
                 Console.WriteLine("No Networkinventory found");
                 MessageBox.Show("Kein Netzwerkinventar gefunden, bitte ein Netzwerkinventar für den Kunden erstellen", "Kein Netzwerkinventar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //Get Systeminventory of the customer
+            //Get latest Systeminventory of the customer
             foreach (SystemInventory si in list_systemInventories)
             {
                 if (si.Customernumber == currentCustomer.Cnumber)
                 {
-                    currentSystemInventory = si;
-                    Console.WriteLine("Systeminventory for customer {0} found", currentCustomer.Name);
+                    if (currentSystemInventory == null)
+                    {
+                        currentSystemInventory = si;
+                        Console.WriteLine("Systeminventory for customer {0} found", currentCustomer.Name);
+                    }
+                    //if a systeminventory is newer than the current take this instead
+                    else if (DateTime.Compare(si.Date, currentSystemInventory.Date) > 0)
+                    {
+                        currentSystemInventory = si;
+                        Console.WriteLine("Newer Systeminventory for customer {0} found", currentCustomer.Name);
+                    }
                 }
             }
+            //no systeminventory found, create one
             if (currentSystemInventory == null)
             {
                 currentSystemInventory = CreateSystemInventroy(currentCustomer.Cnumber);
                 Console.WriteLine("New SystemInventory created");
+            }
+            else
+            { //Inform the customer and select all networks to show all Clientsystems of the latest Systeminventory
+                MessageBox.Show(String.Format("Es wird das aktuellste Systeminventar vom {0} dargestellt.", currentSystemInventory.Date), "Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UpdateView(false);
+                view.SetChkAll(true);
+                return;
             }
             UpdateView(false);
         }
