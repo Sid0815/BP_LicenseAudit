@@ -6,6 +6,7 @@ using System.Collections;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Management;
+using System.Collections.Generic;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -94,35 +95,34 @@ namespace BP_LicenseAudit.Controller
                 latestsystemnumber = currentSystem.ClientSystemNumber;
             }
             //scan Networks
+            Dictionary<String, IPAddress> unique = new Dictionary<string, IPAddress>();
             foreach (Network n in selectedNetworks)
             {
-                //DEPRECATED
-                //Clear old Systems of this network from list_systems
-                /*for (int i = 0; i < list_systems.Count; i++)
-                {
-                    ClientSystem c = (ClientSystem)list_systems[i];
-                    if (c.Networknumber == n.NetworkNumber)
-                    {
-                        list_systems.Remove(c);
-                        i--;
-                    }
-                }*/
                 // Ping each ip address of the network with timeout of 100ms
                 foreach (IPAddress ip in n.IpAddresses)
                 {
-                    Ping pingSender = new Ping();
-                    PingReply reply = pingSender.Send(ip, 100);
-                    Console.WriteLine("Ping: {0}", ip.ToString());
-                    if (reply.Status == IPStatus.Success)
+                    try
                     {
-                        currentSystem = new ClientSystem(++latestsystemnumber, ip, n.NetworkNumber);
-                        list_systems.Add(currentSystem);
-                        currentSystemInventory.AddSystemToInventory(currentSystem);
-                        Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
+                        unique.Add(ip.ToString(), ip);
+                        Ping pingSender = new Ping();
+                        PingReply reply = pingSender.Send(ip, 100);
+                        Console.WriteLine("Ping: {0}", ip.ToString());
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            currentSystem = new ClientSystem(++latestsystemnumber, ip, n.NetworkNumber);
+                            list_systems.Add(currentSystem);
+                            currentSystemInventory.AddSystemToInventory(currentSystem);
+                            Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
+                        }
+                    }
+                    //If dictionary contains key already
+                    catch (ArgumentException e)
+                    {
+                        Console.WriteLine("IP-Addresse already in list: {0}", ip.ToString());
+                        Console.WriteLine(e.Message);
                     }
                 }
             }
-
         }
 
         //Scan all Clients in current System Inevntory for Details
@@ -140,7 +140,6 @@ namespace BP_LicenseAudit.Controller
                     Console.WriteLine("Local Adresses: {0}", ip.ToString());
                 }
             }
-
             foreach (ClientSystem c in currentSystemInventory.List_Systems)
             {
                 //Connect via WMI
@@ -198,6 +197,7 @@ namespace BP_LicenseAudit.Controller
                 }
 
             }
+            //Remove doubled systems from list
 
         }
 
