@@ -245,16 +245,20 @@ namespace BP_LicenseAudit.Controller
             //Add for each selected network all matching ClientSystems from current SystemInventory
             view.ClearClientSystems();
             view.ClearClientDetails();
-            foreach (Network n in selectedNetworks)
+            if (currentSystemInventory != null)
             {
-                foreach (ClientSystem c in currentSystemInventory.List_Systems)
+                foreach (Network n in selectedNetworks)
                 {
-                    if (c.Networknumber == n.NetworkNumber && (c.Type != null && !(c.Type.Equals(""))))
+                    foreach (ClientSystem c in currentSystemInventory.List_Systems)
                     {
-                        view.AddClientSystem(c);
+                        if (c.Networknumber == n.NetworkNumber && (c.Type != null && !(c.Type.Equals(""))))
+                        {
+                            view.AddClientSystem(c);
+                        }
                     }
                 }
             }
+
         }
 
         public override void UpdateView(bool customerUpdated)
@@ -324,14 +328,9 @@ namespace BP_LicenseAudit.Controller
                     }
                 }
             }
-            //no systeminventory found, create one
-            if (currentSystemInventory == null)
+            //Inform the customer and select all networks to show all Clientsystems of the latest Systeminventory
+            if (currentSystemInventory != null)
             {
-                currentSystemInventory = CreateSystemInventroy(currentCustomer.Cnumber);
-                Console.WriteLine("New SystemInventory created");
-            }
-            else
-            { //Inform the customer and select all networks to show all Clientsystems of the latest Systeminventory
                 MessageBox.Show(String.Format("Es wird das aktuellste Systeminventar vom {0} dargestellt.", currentSystemInventory.Date), "Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 UpdateView(false);
                 view.SetChkAll(true);

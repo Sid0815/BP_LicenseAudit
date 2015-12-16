@@ -616,7 +616,7 @@ namespace BP_LicenseAudit
                 FileStream fs = new FileStream(pathAudit, FileMode.Append);
                 StreamWriter sw = new StreamWriter(fs);
                 string towrite;
-                //Customernumber;Auditnumber;Systeminventorynumber;Number of results, date
+                //Auditnumber;Customernumber;Systeminventorynumber;Number of results, date
                 //resulttuple
                 //resulttuple
                 //...

@@ -47,13 +47,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvResult)).BeginInit();
             this.SuspendLayout();
             // 
-            // cmbInventary
+            // cmbInventory
             // 
             this.cmbInventory.FormattingEnabled = true;
             this.cmbInventory.Location = new System.Drawing.Point(51, 33);
             this.cmbInventory.Name = "cmbInventary";
             this.cmbInventory.Size = new System.Drawing.Size(311, 21);
             this.cmbInventory.TabIndex = 9;
+            this.cmbInventory.SelectedIndexChanged += new System.EventHandler(this.cmbInventory_SelectedIndexChanged);
             // 
             // lblInventary
             // 

@@ -20,6 +20,7 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_systemInventories;
         private ArrayList list_audits;
         private ArrayList list_allAvailableLicenses;
+        bool cmbInventorySelectedIndex = false;
 
         //constructor
         public ControllerAudit(ControllerParent calling, FormAudit view, ArrayList list_customers, ArrayList list_licenseinventories, ArrayList list_systeminventories, ArrayList list_audits, ArrayList list_licenses) : base(calling, list_customers)
@@ -265,6 +266,7 @@ namespace BP_LicenseAudit.Controller
 
             }
             //SystemInventory
+            cmbInventorySelectedIndex = true; //disables selected index changed
             view.ClearSystemInventory();
             if (currentSystemInventory != null)
             {
@@ -276,8 +278,24 @@ namespace BP_LicenseAudit.Controller
                         view.AddClientSystem(c);
                     }
                 }
-                //TODO: if there is a newer SI add it to the list (only the latest)
+                //if there is a newer SI add it to the list (only the latest)
+                SystemInventory help = null;
+                foreach (SystemInventory si in list_systemInventories)
+                {
+                    if (DateTime.Compare(si.Date, currentSystemInventory.Date) > 0)
+                    {
+                        help = si;
+                    }
+                }
+                if (help != null)
+                {
+                    view.AddSystemInventory(string.Format("Inventarisierung {0}", help.Date));
+
+                }
+                //select the current Inventory
+                view.SetCmbInventorySelected(string.Format("Inventarisierung {0}", currentSystemInventory.Date));
             }
+            cmbInventorySelectedIndex = false;
             //Audit
             view.ClearAudit();
             if (currentAudit != null)
@@ -324,17 +342,26 @@ namespace BP_LicenseAudit.Controller
                 MessageBox.Show("Kein Lizenzinventar für diesen Kunden gefunden. Bitte erstellen Sie zuerst ein Lizenzinventar.", "Kein Lizenzinventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 view.DisableAudit();
             }
-            //Get Audit
+            //Get latest Audit
             foreach (Audit a in list_audits)
             {
                 if (a.CustomerNumber == currentCustomer.Cnumber)
                 {
-                    currentAudit = a;
+                    if (currentAudit == null)
+                    {
+                        currentAudit = a;
+                        Console.WriteLine("Audit for customer {0} found", currentCustomer.Name);
+                    }
+                    else if (DateTime.Compare(a.Date, currentAudit.Date) > 0)
+                    {
+                        currentAudit = a;
+                        Console.WriteLine("Newer Audit for customer {0} found", currentCustomer.Name);
+                    }
+
                 }
             }
             if (currentAudit != null)
             {
-                Console.WriteLine("Audit for customer {0} found", currentCustomer.Name);
                 //Get belonging SystemInventory of the current Audit
                 foreach (SystemInventory si in list_systemInventories)
                 {
@@ -343,26 +370,57 @@ namespace BP_LicenseAudit.Controller
                         currentSystemInventory = si;
                         Console.WriteLine("Belonging Systeminventory for current Audit found.");
                         view.EnableAudit();
-                        MessageBox.Show(String.Format("Audit für diesen Kunden gefunden. Audit vom {0} für Systeminventar von {1} wird dargestellt.\nBitte beachten Sie, dass sich das Lizenzinventar des Kunden seitdem geändert haben kann und das aktuell dargestellte Lizenzinventar nicht mit dem Ergebnis des Audits in Verbindung steht.",
+                        MessageBox.Show(String.Format("Audit für diesen Kunden gefunden. Audit vom {0} für Systeminventar vom {1} wird dargestellt.\nBitte beachten Sie, dass sich das Lizenzinventar des Kunden seitdem geändert haben kann und das aktuell dargestellte Lizenzinventar nicht mit dem Ergebnis des Audits in Verbindung steht.",
                             currentAudit.Date, currentSystemInventory.Date), "Audit vorhanden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        break;
                     }
                 }
-                //Get Systeminventory of the customer or Display Message in case no audit with belonging systeminventory was found
+            }
+            //Get Systeminventory of the customer or Display Message in case no audit with belonging systeminventory was found
+            if (currentSystemInventory == null)
+            {
+                foreach (SystemInventory si in list_systemInventories)
+                {
+                    if (si.Customernumber == currentCustomer.Cnumber)
+                    {
+                        currentSystemInventory = si;
+                        Console.WriteLine("Systeminventory for customer {0} found", currentCustomer.Name);
+                        view.EnableAudit();
+                    }
+                }
                 if (currentSystemInventory == null)
                 {
-                    foreach (SystemInventory si in list_systemInventories)
+                    MessageBox.Show("Kein Systeminventar für diesen Kunden gefunden. Bitte führen Sie zuerst ein Netzwerkinventarisierung durch.", "Kein Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    view.DisableAudit();
+                }
+            }
+            UpdateView(false);
+        }
+
+        public void cmbInventory_SelectedIndexChanged(Object inventory)
+        {
+            if (!cmbInventorySelectedIndex)
+            {
+                //extract Date from cmbInventory
+                string input = (string)inventory;
+                string[] splitted_input = input.Split();
+                input = splitted_input[1] + " " + splitted_input[2];
+                DateTime inventoryDate = DateTime.Parse(input);
+                //get new System Inventory
+                foreach (SystemInventory si in list_systemInventories)
+                {
+                    if (si.Date.Equals(inventoryDate))
                     {
-                        if (si.Customernumber == currentCustomer.Cnumber)
-                        {
-                            currentSystemInventory = si;
-                            Console.WriteLine("Systeminventory for customer {0} found", currentCustomer.Name);
-                            view.EnableAudit();
-                        }
+                        currentSystemInventory = si;
                     }
-                    if (currentSystemInventory == null)
+                }
+                //get auidt belonging system inventory if it exists
+                currentAudit = null;
+                foreach (Audit a in list_audits)
+                {
+                    if (a.CustomerNumber == currentCustomer.Cnumber && a.SystemInventoryNumber == currentSystemInventory.SystemInventoryNumber)
                     {
-                        MessageBox.Show("Kein Systeminventar für diesen Kunden gefunden. Bitte führen Sie zuerst ein Netzwerkinventarisierung durch.", "Kein Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        view.DisableAudit();
+                        currentAudit = a;
                     }
                 }
                 UpdateView(false);

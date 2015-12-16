@@ -69,6 +69,17 @@ namespace BP_LicenseAudit.View
             cmbInventory.SelectedItem = inventory;
         }
 
+        private void cmbInventory_SelectedIndexChanged(Object sender, EventArgs e)
+        {
+            currentcontroller.cmbInventory_SelectedIndexChanged(cmbInventory.SelectedItem);
+        }
+
+        public void SetCmbInventorySelected(string inventory)
+        {
+            cmbInventory.SelectedItem= inventory;
+        }
+
+
         public void AddClientSystem(ClientSystem c)
         {
             lstClients.Items.Add(c);
