@@ -141,9 +141,11 @@ namespace BP_LicenseAudit.Controller
 
         public void PrintResults()
         {
+            string filename = String.Format("..\\..\\audit{0}.xml",DateTime.Now.ToString("yyyyMMddHHmmss"));
+            Console.WriteLine(filename);
             if (currentAudit != null)
             {
-                XmlTextWriter writer = new XmlTextWriter("..\\..\\audit.xml", new UnicodeEncoding());
+                XmlTextWriter writer = new XmlTextWriter(filename, new UnicodeEncoding());
                 writer.WriteStartDocument();
                 writer.WriteStartElement("Audit");
                 writer.WriteAttributeString("Datum", currentAudit.Date.ToString());
@@ -232,6 +234,7 @@ namespace BP_LicenseAudit.Controller
                 writer.WriteEndElement();//END Auditresults
                 writer.WriteEndDocument();
                 writer.Close();
+                MessageBox.Show(String.Format("Audit unter {0} gespeichert.", filename),"Audit gespeichert", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -410,7 +413,7 @@ namespace BP_LicenseAudit.Controller
                 //get new System Inventory
                 foreach (SystemInventory si in list_systemInventories)
                 {
-                    if (si.Date.Equals(inventoryDate))
+                    if (DateTime.Compare(si.Date, inventoryDate)==0)
                     {
                         currentSystemInventory = si;
                         Console.WriteLine("Belonging SystemInventory found: {0}", currentSystemInventory.SystemInventoryNumber);
