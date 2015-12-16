@@ -403,6 +403,7 @@ namespace BP_LicenseAudit.Controller
             {
                 //extract Date from cmbInventory
                 string input = (string)inventory;
+                Console.WriteLine("Inventory changed successfully: New Inventory: {0}", input);
                 string[] splitted_input = input.Split();
                 input = splitted_input[1] + " " + splitted_input[2];
                 DateTime inventoryDate = DateTime.Parse(input);
@@ -412,6 +413,7 @@ namespace BP_LicenseAudit.Controller
                     if (si.Date.Equals(inventoryDate))
                     {
                         currentSystemInventory = si;
+                        Console.WriteLine("Belonging SystemInventory found: {0}", currentSystemInventory.SystemInventoryNumber);
                     }
                 }
                 //get auidt belonging system inventory if it exists
@@ -421,6 +423,7 @@ namespace BP_LicenseAudit.Controller
                     if (a.CustomerNumber == currentCustomer.Cnumber && a.SystemInventoryNumber == currentSystemInventory.SystemInventoryNumber)
                     {
                         currentAudit = a;
+                        Console.WriteLine("Belonging Audit found: {0}", currentAudit.AuditNumber);
                     }
                 }
                 UpdateView(false);
