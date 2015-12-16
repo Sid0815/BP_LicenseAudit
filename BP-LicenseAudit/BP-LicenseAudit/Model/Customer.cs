@@ -3,8 +3,13 @@ namespace BP_LicenseAudit.Model
 {
     public class Customer
     {
-        //properties
         private int cnumber;
+        private string name;
+        private string street;
+        private string streetnumber;
+        private string city;
+        private string zip;
+        //properties
         public int Cnumber
         {
             get
@@ -17,7 +22,6 @@ namespace BP_LicenseAudit.Model
                 cnumber = value;
             }
         }
-        private string name;
         public string Name
         {
             get
@@ -29,8 +33,6 @@ namespace BP_LicenseAudit.Model
                 name = value;
             }
         }
-
-        private string street;
         public string Street
         {
             get
@@ -43,8 +45,6 @@ namespace BP_LicenseAudit.Model
                 street = value;
             }
         }
-
-        private string city;
         public string City
         {
             get
@@ -56,8 +56,6 @@ namespace BP_LicenseAudit.Model
                 city = value;
             }
         }
-
-        private string zip;
         public string Zip
         {
             get
@@ -69,8 +67,6 @@ namespace BP_LicenseAudit.Model
                 zip = value;
             }
         }
-
-        private string streetnumber;
         public string Streetnumber
         {
             get
@@ -84,7 +80,7 @@ namespace BP_LicenseAudit.Model
         }
 
         //Constructor
-        public Customer (int cnumber, string name, string street, string streetnr, string city, string zip)
+        public Customer(int cnumber, string name, string street, string streetnr, string city, string zip)
         {
             this.cnumber = cnumber;
             this.name = name;

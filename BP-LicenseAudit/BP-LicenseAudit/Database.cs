@@ -3,6 +3,8 @@ using System.IO;
 using System;
 using System.Collections;
 using System.Net;
+using System.Data.SQLite;
+using System.Windows.Forms;
 
 namespace BP_LicenseAudit
 {
@@ -16,6 +18,36 @@ namespace BP_LicenseAudit
         private string pathClientSystems = "..\\..\\clientsystems.txt";
         private string pathSystemInventory = "..\\..\\SI.txt";
         private string pathAudit = "..\\..\\Audit.txt";
+        private string dbpath = "..\\..\\BPLicenseAudit.sqlite";
+        private SQLiteConnection connection;
+        private SQLiteCommand command;
+
+        public Database()
+        {
+            if (!File.Exists(dbpath))
+            {
+                SQLiteConnection.CreateFile(dbpath);
+            }
+            try
+            {
+            connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+            connection.Open();
+            Console.WriteLine("Database opend");
+            command = new SQLiteCommand(connection);
+            command.CommandText = "CREATE TABLE IF NOT EXISTS customer ( customerNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(200) NOT NULL, street VARCHAR(200) NOT NULL, streetnumber VARCHAR(10) NOT NULL, city VARCHAR(100) NOT NULL, zip VARCHAR(10) NOT NULL);";
+            command.ExecuteNonQuery();
+            Console.WriteLine("Table customer created");
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error SQL Creation","", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
+            }
+
+            connection.Close();
+            Console.WriteLine("Database closed");
+
+        }
 
         private void checkFile(string path)
         {
@@ -510,7 +542,7 @@ namespace BP_LicenseAudit
                 Console.WriteLine("Error writing System Inventory: {0}", e.Message);
             }
         }
-        
+
         public void SaveSystemInventory(SystemInventory si)
         {
             //If File doesn't exist create it

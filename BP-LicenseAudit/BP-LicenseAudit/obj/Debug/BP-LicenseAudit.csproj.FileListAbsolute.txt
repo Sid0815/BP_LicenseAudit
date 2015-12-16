@@ -49,3 +49,5 @@ C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseA
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\obj\Debug\BP-LicenseAudit.csproj.GenerateResource.Cache
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.exe
 C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\BP-LicenseAudit.pdb
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\System.Data.SQLite.dll
+C:\Users\henkelmann\Documents\GitHub\BP_LicenseAudit\BP-LicenseAudit\BP-LicenseAudit\bin\Debug\System.Data.SQLite.xml
