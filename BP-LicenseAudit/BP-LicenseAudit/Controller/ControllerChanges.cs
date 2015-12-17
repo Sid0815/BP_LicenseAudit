@@ -377,7 +377,7 @@ namespace BP_LicenseAudit.Controller
                         currentCustomer.Zip = zip;
                         UpdateView(true);
                         UpdateCustomerView();
-                        db.SaveCustomerOverride(list_customers);
+                        db.UpdateCustomer(currentCustomer);
                     }
                 }
             }

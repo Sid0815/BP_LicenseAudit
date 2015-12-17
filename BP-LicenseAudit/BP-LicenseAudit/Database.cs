@@ -83,7 +83,6 @@ namespace BP_LicenseAudit
                 MessageBox.Show("Error SQL Creation", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(e.Message);
             }
-
             connection.Close();
             Console.WriteLine("Database closed");
 
@@ -101,79 +100,75 @@ namespace BP_LicenseAudit
 
         public void SaveCustomer(Customer c)
         {
-            //If File doesn't exist create it
-            checkFile(pathCustomer);
-            //write file
             try
             {
-                FileStream fs = new FileStream(pathCustomer, FileMode.Append);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                towrite = String.Format("{0};{1};{2};{3};{4};{5}", c.Cnumber, c.Name, c.Street, c.Streetnumber, c.City, c.Zip);
-                Console.WriteLine(towrite);
-                sw.WriteLine(towrite);
-                sw.Close();
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO customer (customerNumber, name, street, streetnumber, city, zip) VALUES(@customerNumber, @name, @street, @streetnumber, @city, @zip);";
+                command.Parameters.AddWithValue("@customerNumber", c.Cnumber);
+                command.Parameters.AddWithValue("@name", c.Name);
+                command.Parameters.AddWithValue("@street", c.Street);
+                command.Parameters.AddWithValue("@streetnumber", c.Streetnumber);
+                command.Parameters.AddWithValue("@city", c.City);
+                command.Parameters.AddWithValue("@zip", c.Zip);
+                int affectedRows = command.ExecuteNonQuery();
+                Console.WriteLine(command.ToString());
+                Console.WriteLine("Affected Rows: {0}", affectedRows);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing File: {0}", e.Message);
+                MessageBox.Show("Error SQL Write Customer", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
         }
 
-        public void SaveCustomerOverride(ArrayList list_customers)
+        public void UpdateCustomer(Customer c)
         {
-            //If File doesn't exist create it
-            checkFile(pathCustomer);
-            //write file
             try
             {
-                FileStream fs = new FileStream(pathCustomer, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                foreach (Customer c in list_customers)
-                {
-                    towrite = String.Format("{0};{1};{2};{3};{4};{5}", c.Cnumber, c.Name, c.Street, c.Streetnumber, c.City, c.Zip);
-                    Console.WriteLine(towrite);
-                    sw.WriteLine(towrite);
-                }
-                sw.Close();
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "UPDATE customer SET name=@name, street=@street, streetnumber=@streetnumber, city=@city, zip=@zip WHERE customerNumber=@cnr ;";
+                command.Parameters.AddWithValue("@cnr", c.Cnumber);
+                command.Parameters.AddWithValue("@name", c.Name);
+                command.Parameters.AddWithValue("@street", c.Street);
+                command.Parameters.AddWithValue("@streetnumber", c.Streetnumber);
+                command.Parameters.AddWithValue("@city", c.City);
+                command.Parameters.AddWithValue("@zip", c.Zip);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing File: {0}", e.Message);
+                MessageBox.Show("Error SQL Change Customer", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
         }
 
         public ArrayList GetCustomers()
         {
-            //If File doesn't exist create it
-            checkFile(pathCustomer);
-            //GetCustomers
-            Console.WriteLine("Database.GetCustomers called");
+            ArrayList list_customers = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathCustomer, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_customers = new ArrayList();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM customer;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input;
-                    input = read.Split(';');
-                    Customer c = new Customer(int.Parse(input[0]), input[1], input[2], input[3], input[4], input[5]);
-                    list_customers.Add(c);
-                    Console.WriteLine("Customer {0} added to list", c.Cnumber);
+                    list_customers.Add(new Customer(r.GetInt32(0), (string)r["name"], (string)r["street"], (string)r["streetnumber"], (string)r["city"], (string)r["zip"]));
                 }
-                sr.Close();
-                return list_customers;
-
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading File: {0}", e.Message);
-                return new ArrayList();
+                MessageBox.Show("Error SQL Reading Customers", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+            return list_customers;
         }
 
         public void SaveLicense(License l)

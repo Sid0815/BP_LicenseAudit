@@ -38,7 +38,7 @@ namespace BP_LicenseAudit.Controller
         {
             //connect controller to its view
             this.view = view;
-
+            list_customers = new ArrayList();
             list_networks = new ArrayList();
             list_networkInventories = new ArrayList();
             list_allAvailableLicenses = new ArrayList();
@@ -49,13 +49,13 @@ namespace BP_LicenseAudit.Controller
 
             //initialising by database
             list_customers = db.GetCustomers();
-            list_networks =db.GetNetworks();
+            /* list_networks =db.GetNetworks();
             list_networkInventories = db.GetNetworkInventories();
             list_allAvailableLicenses = db.GetLicenses();
             list_licenseInventories = db.GetLicenseInventories();
             list_systems = db.GetClientSystems();
             list_systemInventories = db.GetSystemInventories();
-            list_Audits = db.GetAudits();
+            list_Audits = db.GetAudits();*/
 
             //Creating Forms
             fAudit = new FormAudit();
@@ -77,7 +77,7 @@ namespace BP_LicenseAudit.Controller
             cCustomer = new ControllerCustomer(this, fCustomer, list_customers);
             cLicense = new ControllerLicense(this, fLicense, list_customers, list_allAvailableLicenses, list_licenseInventories);
             cNetwork = new ControllerNetwork(this, fNetwork, list_customers, list_networks, list_networkInventories);
-            cSystemInventory = new ControllerSystemInventory(this, fSystemInventory, list_customers, list_networks, 
+            cSystemInventory = new ControllerSystemInventory(this, fSystemInventory, list_customers, list_networks,
                                                              list_networkInventories, list_systems, list_systemInventories);
 
             //Connect Controller to View
