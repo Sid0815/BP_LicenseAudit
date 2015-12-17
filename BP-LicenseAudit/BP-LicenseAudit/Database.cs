@@ -30,17 +30,57 @@ namespace BP_LicenseAudit
             }
             try
             {
-            connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
-            connection.Open();
-            Console.WriteLine("Database opend");
-            command = new SQLiteCommand(connection);
-            command.CommandText = "CREATE TABLE IF NOT EXISTS customer ( customerNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(200) NOT NULL, street VARCHAR(200) NOT NULL, streetnumber VARCHAR(10) NOT NULL, city VARCHAR(100) NOT NULL, zip VARCHAR(10) NOT NULL);";
-            command.ExecuteNonQuery();
-            Console.WriteLine("Table customer created");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                Console.WriteLine("Database opend");
+                command = new SQLiteCommand(connection);
+                //Create Table Customer if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS customer ( customerNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(200) NOT NULL, street VARCHAR(200) NOT NULL, streetnumber VARCHAR(10) NOT NULL, city VARCHAR(100) NOT NULL, zip VARCHAR(10) NOT NULL);";
+                command.ExecuteNonQuery();
+                //Create Table License if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS license ( licenseNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(200) NOT NULL);";
+                command.ExecuteNonQuery();
+                //Create Table Network if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS network ( networkNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(40) NOT NULL, networkInventoryNumber INTEGER NOT NULL, FOREIGN KEY(networkInventoryNumber) REFERENCES networkinventory(networkInventoryNumber));";
+                command.ExecuteNonQuery();
+                //Create Table IPaddress if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS ipaddresses ( ipaddress VARCHAR(20) NOT NULL PRIMARY KEY);";
+                command.ExecuteNonQuery();
+                //Create Table NetworkIPaddress if it does not exist (n:m network:ipaddress)
+                command.CommandText = "CREATE TABLE IF NOT EXISTS networkipadress ( networkNumber INTEGER, ipaddress VARCHAR(20) NOT NULL, PRIMARY KEY (networkNumber, ipaddress), FOREIGN KEY(networkNumber) REFERENCES network(networkNumber), FOREIGN KEY(ipaddress) REFERENCES ipaddresses(ipaddress));";
+                command.ExecuteNonQuery();
+                //Create Table ClientSystem if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS clientsystem ( clientSystemNumber INTEGER NOT NULL PRIMARY KEY, networknumber INTEGER  NOT NULL, computername VARCHAR(200) NOT NULL, type VARCHAR(200) NOT NULL, serial VARCHAR(200) NOT NULL, clientIP VARCHAR(20) NOT NULL, FOREIGN KEY(networknumber) REFERENCES network(networkNumber), FOREIGN KEY(clientIP) REFERENCES ipaddresses(ipaddress)); ";
+                command.ExecuteNonQuery();
+                //Create Table ClientSystem if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS clientsystem ( clientSystemNumber INTEGER NOT NULL PRIMARY KEY, networknumber INTEGER  NOT NULL, computername VARCHAR(200) NOT NULL, type VARCHAR(200) NOT NULL, serial VARCHAR(200) NOT NULL, clientIP VARCHAR(20) NOT NULL, FOREIGN KEY(networknumber) REFERENCES network(networkNumber), FOREIGN KEY(clientIP) REFERENCES ipaddresses(ipaddress)); ";
+                command.ExecuteNonQuery();
+                //Create Table LicenseInventory if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS licenseinventory ( licenseInventoryNumber INTEGER NOT NULL PRIMARY KEY, customerNumber INTEGER NOT NULL, FOREIGN KEY(customerNumber) REFERENCES customer(customerNumber)); ";
+                command.ExecuteNonQuery();
+                //Create Table containsLicense if it does not exist(n:m licenseinventory:license)
+                command.CommandText = "CREATE TABLE IF NOT EXISTS containsLicense ( licenseInventoryNumber INTEGER NOT NULL, licenseNumber INTEGER NOT NULL, count INTEGER NOT NULL, PRIMARY KEY (licenseInventoryNumber, licenseNumber), FOREIGN KEY(licenseInventoryNumber) REFERENCES licenseinventory(licenseInventoryNumber), FOREIGN KEY(licenseNumber) REFERENCES license(licenseNumber)); ";
+                command.ExecuteNonQuery();
+                //Create Table NetworkInventory if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS networkinventory ( networkInventoryNumber INTEGER NOT NULL PRIMARY KEY, customerNumber INTEGER NOT NULL, FOREIGN KEY(customerNumber) REFERENCES customer(customerNumber)); ";
+                command.ExecuteNonQuery();
+                //Create Table SystemInventory if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS systeminventory ( systemInventoryNumber INTEGER NOT NULL PRIMARY KEY, customerNumber INTEGER NOT NULL, date DATETIME NOT NULL, FOREIGN KEY(customerNumber) REFERENCES customer(customerNumber)); ";
+                command.ExecuteNonQuery();
+                //Create Table containsSystem if it does not exist(n:m systeminventory:clientsystem)
+                command.CommandText = "CREATE TABLE IF NOT EXISTS containsSystem ( systemInventoryNumber INTEGER NOT NULL, clientSystemNumber INTEGER NOT NULL, PRIMARY KEY (systemInventoryNumber, clientSystemNumber), FOREIGN KEY(systemInventoryNumber) REFERENCES systeminventory(systemInventoryNumber), FOREIGN KEY(clientSystemNumber) REFERENCES clientsystem(clientSystemNumber)); ";
+                command.ExecuteNonQuery();
+                //Create Table Audit if it does not exist
+                command.CommandText = "CREATE TABLE IF NOT EXISTS audit ( auditNumber INTEGER NOT NULL PRIMARY KEY, customerNumber INTEGER NOT NULL, systemInventoryNumber INTEGER NOT NULL, date DATETIME NOT NULL, FOREIGN KEY(customerNumber) REFERENCES customer(customerNumber), FOREIGN KEY(systemInventoryNumber) REFERENCES systeminventory(systemInventoryNumber)); ";
+                command.ExecuteNonQuery();
+                //Create Table Results if it does not exist(n:m audit:license)
+                command.CommandText = "CREATE TABLE IF NOT EXISTS results ( auditNumber INTEGER NOT NULL, licenseNumber INTEGER NOT NULL, result INTEGER NOT NULL, PRIMARY KEY (auditNumber, licenseNumber), FOREIGN KEY(auditNumber) REFERENCES audit(auditNumber), FOREIGN KEY(licenseNumber) REFERENCES license(licenseNumber)); ";
+                command.ExecuteNonQuery();
+                Console.WriteLine("Tables checked or created");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                MessageBox.Show("Error SQL Creation","", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error SQL Creation", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(e.Message);
             }
 
