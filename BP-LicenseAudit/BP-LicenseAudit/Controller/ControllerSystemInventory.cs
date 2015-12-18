@@ -65,7 +65,6 @@ namespace BP_LicenseAudit.Controller
                 scanDetails();
                 UpdateClients(selectedNetworks);
                 //Client Systems are passed by reference, no need to update list_systems
-                db.SaveClientSystems(list_systems);
                 db.SaveSystemInventory(currentSystemInventory);
                 callingController.UpdateInformation();
                 MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -111,6 +110,7 @@ namespace BP_LicenseAudit.Controller
                         {
                             currentSystem = new ClientSystem(++latestsystemnumber, ip, n.NetworkNumber);
                             list_systems.Add(currentSystem);
+                            db.SaveClientSystem(currentSystem);
                             currentSystemInventory.AddSystemToInventory(currentSystem);
                             Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
                         }
@@ -178,6 +178,7 @@ namespace BP_LicenseAudit.Controller
                         Console.WriteLine("SerialNumber : {0}", m["SerialNumber"]);
                         c.Serial = (string)m["SerialNumber"];
                     }
+
                 }
                 catch (System.Runtime.InteropServices.COMException e)
                 {
@@ -195,10 +196,11 @@ namespace BP_LicenseAudit.Controller
                 {
                     Console.WriteLine("AllgemeinerFehler bei der WMI Abfrage: {0}", e.Message);
                 }
-
+                if (c.Type != null)
+                {
+                    db.UpdateClientSystem(c);
+                }
             }
-            //Remove doubled systems from list
-
         }
 
         public SystemInventory CreateSystemInventroy(int customerNumber)

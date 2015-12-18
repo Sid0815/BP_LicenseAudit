@@ -73,7 +73,7 @@ namespace BP_LicenseAudit.Controller
             }
             UpdateView(false);
             callingController.UpdateInformation();
-            db.SaveLicenseInventories(list_licenseInventories);
+            db.UpdateLicenseInventory(currentLicenseInventory, l, (int)count);
         }
 
         public override void UpdateView(bool customerUpdated)
@@ -152,7 +152,7 @@ namespace BP_LicenseAudit.Controller
         {
             currentLicenseInventory = new LicenseInventory(customerNumber, list_licenseInventories.Count);
             list_licenseInventories.Add(currentLicenseInventory);
-            db.SaveLicenseInventories(list_licenseInventories);
+            db.SaveLicenseInventory(currentLicenseInventory);
             return currentLicenseInventory;
         }
 

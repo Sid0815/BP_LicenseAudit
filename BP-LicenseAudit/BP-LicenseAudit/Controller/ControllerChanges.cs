@@ -101,7 +101,7 @@ namespace BP_LicenseAudit.Controller
                     currentLicenseInventory.RemoveLicenseFromInventory(l.LicenseNumber);
                     currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
                     callingController.UpdateInformation();
-                    db.SaveLicenseInventories(list_licenseInventories);
+                    db.UpdateLicenseInventory(currentLicenseInventory, l, (int)count);
                     UpdateView(false);
                 }
                 else if (dr == DialogResult.No && (x == -1))
@@ -320,7 +320,7 @@ namespace BP_LicenseAudit.Controller
                                 newname = "";
                                 break;
                         }
-                        db.SaveNetworkOverride(list_networks);
+                        db.UpdateNetwork(this.selectedNetwork);
                         callingController.UpdateInformation();
                         UpdateView(false);
                     }
@@ -403,7 +403,8 @@ namespace BP_LicenseAudit.Controller
                         i = currentNetworkInventory.List_networks.Count;
                     }
                 }
-                db.SaveNetworkInventories(list_networkInventories);
+                //TODO: UPDATE NI
+                db.RemoveNetwork(this.selectedNetwork);
                 callingController.UpdateInformation();
                 UpdateView(false);
                 MessageBox.Show(String.Format("Das Netzwerk {0} wurde unwiderruflich gelöscht.", this.selectedNetwork.Name), "Netzwerk gelöscht", MessageBoxButtons.OK, MessageBoxIcon.Information);

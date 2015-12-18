@@ -77,7 +77,7 @@ namespace BP_LicenseAudit.Controller
         {
             currentNetworkInventory = new NetworkInventory(customerNumber, list_networkinventories.Count, new ArrayList());
             list_networkinventories.Add(currentNetworkInventory);
-            db.SaveNetworkInventories(list_networkinventories);
+            db.SaveNetworkInventory(currentNetworkInventory);
             return currentNetworkInventory;
         }
 
@@ -186,8 +186,7 @@ namespace BP_LicenseAudit.Controller
                     list_networks.Add(currentNetwork);
                     view.AddNetwork(currentNetwork);
                     currentNetworkInventory.AddNetwork(currentNetwork);
-                    db.SaveNetwork(currentNetwork);
-                    db.SaveNetworkInventories(list_networkinventories);
+                    db.SaveNetwork(currentNetwork, currentNetworkInventory);
                     callingController.UpdateInformation();
                 }
                 catch (FormatException e)

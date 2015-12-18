@@ -32,7 +32,7 @@ namespace BP_LicenseAudit
             {
                 connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
                 connection.Open();
-                Console.WriteLine("Database opend");
+                //Console.WriteLine("Database opend");
                 command = new SQLiteCommand(connection);
                 //Create Table Customer if it does not exist
                 command.CommandText = "CREATE TABLE IF NOT EXISTS customer ( customerNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(200) NOT NULL, street VARCHAR(200) NOT NULL, streetnumber VARCHAR(10) NOT NULL, city VARCHAR(100) NOT NULL, zip VARCHAR(10) NOT NULL);";
@@ -41,7 +41,7 @@ namespace BP_LicenseAudit
                 command.CommandText = "CREATE TABLE IF NOT EXISTS license ( licenseNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(200) NOT NULL);";
                 command.ExecuteNonQuery();
                 //Create Table Network if it does not exist
-                command.CommandText = "CREATE TABLE IF NOT EXISTS network ( networkNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(40) NOT NULL, networkInventoryNumber INTEGER NOT NULL, FOREIGN KEY(networkInventoryNumber) REFERENCES networkinventory(networkInventoryNumber));";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS network ( networkNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(40) NOT NULL, inputtype INTEGER NOT NULL, networkInventoryNumber INTEGER NOT NULL, FOREIGN KEY(networkInventoryNumber) REFERENCES networkinventory(networkInventoryNumber));";
                 command.ExecuteNonQuery();
                 //Create Table IPaddress if it does not exist
                 command.CommandText = "CREATE TABLE IF NOT EXISTS ipaddresses ( ipaddress VARCHAR(20) NOT NULL PRIMARY KEY);";
@@ -50,10 +50,7 @@ namespace BP_LicenseAudit
                 command.CommandText = "CREATE TABLE IF NOT EXISTS networkipadress ( networkNumber INTEGER, ipaddress VARCHAR(20) NOT NULL, PRIMARY KEY (networkNumber, ipaddress), FOREIGN KEY(networkNumber) REFERENCES network(networkNumber), FOREIGN KEY(ipaddress) REFERENCES ipaddresses(ipaddress));";
                 command.ExecuteNonQuery();
                 //Create Table ClientSystem if it does not exist
-                command.CommandText = "CREATE TABLE IF NOT EXISTS clientsystem ( clientSystemNumber INTEGER NOT NULL PRIMARY KEY, networknumber INTEGER  NOT NULL, computername VARCHAR(200) NOT NULL, type VARCHAR(200) NOT NULL, serial VARCHAR(200) NOT NULL, clientIP VARCHAR(20) NOT NULL, FOREIGN KEY(networknumber) REFERENCES network(networkNumber), FOREIGN KEY(clientIP) REFERENCES ipaddresses(ipaddress)); ";
-                command.ExecuteNonQuery();
-                //Create Table ClientSystem if it does not exist
-                command.CommandText = "CREATE TABLE IF NOT EXISTS clientsystem ( clientSystemNumber INTEGER NOT NULL PRIMARY KEY, networknumber INTEGER  NOT NULL, computername VARCHAR(200) NOT NULL, type VARCHAR(200) NOT NULL, serial VARCHAR(200) NOT NULL, clientIP VARCHAR(20) NOT NULL, FOREIGN KEY(networknumber) REFERENCES network(networkNumber), FOREIGN KEY(clientIP) REFERENCES ipaddresses(ipaddress)); ";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS clientsystem ( clientSystemNumber INTEGER NOT NULL PRIMARY KEY, networknumber INTEGER  NOT NULL, computername VARCHAR(200), type VARCHAR(200), serial VARCHAR(200), clientIP VARCHAR(20) NOT NULL, FOREIGN KEY(networknumber) REFERENCES network(networkNumber), FOREIGN KEY(clientIP) REFERENCES ipaddresses(ipaddress)); ";
                 command.ExecuteNonQuery();
                 //Create Table LicenseInventory if it does not exist
                 command.CommandText = "CREATE TABLE IF NOT EXISTS licenseinventory ( licenseInventoryNumber INTEGER NOT NULL PRIMARY KEY, customerNumber INTEGER NOT NULL, FOREIGN KEY(customerNumber) REFERENCES customer(customerNumber)); ";
@@ -76,7 +73,7 @@ namespace BP_LicenseAudit
                 //Create Table Results if it does not exist(n:m audit:license)
                 command.CommandText = "CREATE TABLE IF NOT EXISTS results ( auditNumber INTEGER NOT NULL, licenseNumber INTEGER NOT NULL, result INTEGER NOT NULL, PRIMARY KEY (auditNumber, licenseNumber), FOREIGN KEY(auditNumber) REFERENCES audit(auditNumber), FOREIGN KEY(licenseNumber) REFERENCES license(licenseNumber)); ";
                 command.ExecuteNonQuery();
-                Console.WriteLine("Tables checked or created");
+                //Console.WriteLine("Tables checked or created");
             }
             catch (Exception e)
             {
@@ -84,7 +81,7 @@ namespace BP_LicenseAudit
                 Console.WriteLine(e.Message);
             }
             connection.Close();
-            Console.WriteLine("Database closed");
+            //Console.WriteLine("Database closed");
 
         }
 
@@ -138,6 +135,7 @@ namespace BP_LicenseAudit
                 command.Parameters.AddWithValue("@streetnumber", c.Streetnumber);
                 command.Parameters.AddWithValue("@city", c.City);
                 command.Parameters.AddWithValue("@zip", c.Zip);
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
@@ -173,372 +171,461 @@ namespace BP_LicenseAudit
 
         public void SaveLicense(License l)
         {
-            //If File doesn't exist create it
-            checkFile(pathLicenses);
-            //write file
             try
             {
-                FileStream fs = new FileStream(pathLicenses, FileMode.Append);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                towrite = String.Format("{0};{1}", l.LicenseNumber, l.Name);
-                Console.WriteLine(towrite);
-                sw.WriteLine(towrite);
-                sw.Close();
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO license (licenseNumber, name) VALUES(@licenseNumber, @name);";
+                command.Parameters.AddWithValue("@customerNumber", l.LicenseNumber);
+                command.Parameters.AddWithValue("@name", l.Name);
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing File: {0}", e.Message);
+                MessageBox.Show("Error SQL Write License", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
         }
 
         public ArrayList GetLicenses()
         {
-            //If File doesn't exist create it
-            checkFile(pathLicenses);
-            Console.WriteLine("Database.GetLicenseTypes called");
+            ArrayList list_licenses = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathLicenses, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_licenses = new ArrayList();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM license;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input = read.Split(';');
-                    License l = new License(int.Parse(input[0]), input[1]);
-                    list_licenses.Add(l);
-                    Console.WriteLine("License {0}, {1} added to list", l.LicenseNumber, l.Name);
+                    list_licenses.Add(new License(r.GetInt32(0), (string)r["name"]));
                 }
-                sr.Close();
-                return list_licenses;
-
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading File: {0}", e.Message);
-                return new ArrayList();
+                MessageBox.Show("Error SQL Reading LicenseTypes", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+            return list_licenses;
         }
 
-        public void SaveNetwork(Network n)
+        public void SaveNetwork(Network n, NetworkInventory ni)
         {
-            //If File doesn't exist create it
-            checkFile(pathNetwork);
-            //Save networks
-            Console.WriteLine("Database.SaveNetworks called");
             try
             {
-                FileStream fs = new FileStream(pathNetwork, FileMode.Append);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                towrite = String.Format("{0};{1};{2};{3}", n.NetworkNumber, n.Name, n.InputType, n.IpAddresses.Count);
-                Console.WriteLine(towrite);
-                sw.WriteLine(towrite);
-                for (int i = 0; i < n.IpAddresses.Count; i++)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO network (networkNumber, name, inputtype, networkInventoryNumber) VALUES(@networkNumber, @name, @inputtype, @networkInventoryNumber);";
+                command.Parameters.AddWithValue("@networkNumber", n.NetworkNumber);
+                command.Parameters.AddWithValue("@name", n.Name);
+                command.Parameters.AddWithValue("@inputtype", n.InputType);
+                command.Parameters.AddWithValue("@networkInventoryNumber", ni.NetworkInventoryNumber);
+                command.ExecuteNonQuery();
+                SQLiteTransaction transaction = connection.BeginTransaction();
+                foreach (IPAddress ip in n.IpAddresses)
                 {
-                    towrite = String.Format("{0}", n.IpAddresses[i]);
-                    sw.WriteLine(towrite);
-                }
-                sw.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error writing File: {0}", e.Message);
-            }
-        }
-
-        public void SaveNetworkOverride(ArrayList networks)
-        {
-            //If File doesn't exist create it
-            checkFile(pathNetwork);
-            //Save networks
-            Console.WriteLine("Database.SaveNetworks called");
-            try
-            {
-                FileStream fs = new FileStream(pathNetwork, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                foreach (Network n in networks)
-                {
-                    towrite = String.Format("{0};{1};{2};{3}", n.NetworkNumber, n.Name, n.InputType, n.IpAddresses.Count);
-                    Console.WriteLine(towrite);
-                    sw.WriteLine(towrite);
-                    for (int i = 0; i < n.IpAddresses.Count; i++)
+                    try
+                    {//Write IP to table, if it is already there, throw exception
+                        command.CommandText = "INSERT INTO ipaddresses (ipaddress) VALUES(@ipaddress);";
+                        command.Parameters.AddWithValue("@ipaddress", ip.ToString());
+                        command.ExecuteNonQuery();
+                        //Console.WriteLine("IPAddress {0} saved to database", ip.ToString());
+                    }
+                    catch (Exception e)
                     {
-                        towrite = String.Format("{0}", n.IpAddresses[i]);
-                        sw.WriteLine(towrite);
+                        Console.WriteLine("Error writing IP to DB: " + e.Message);
+                    }
+                    try
+                    {//Connect ip to netwok in database
+                        command.CommandText = "INSERT INTO networkipadress (networkNumber, ipaddress) VALUES(@networkNumber, @ipaddress);";
+                        command.Parameters.AddWithValue("@networkNumber", n.NetworkNumber);
+                        command.Parameters.AddWithValue("@ipaddress", ip.ToString());
+                        command.ExecuteNonQuery();
+                        //Console.WriteLine("IPaddress {0} connected to network {1} in database.", ip.ToString(), n.Name);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error writing IP/NW to DB: " + e.Message);
                     }
                 }
-                sw.Close();
+                transaction.Commit();
+                Console.WriteLine("Network {0} saved to database.", n.Name);
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing File: {0}", e.Message);
+                MessageBox.Show("Error SQL Write Network", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+        }
+
+        public void UpdateNetwork(Network n)
+        {
+            try
+            {
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "UPDATE network SET name=@name, inputtype=@inputtype WHERE networkNumber=@nnr ;";
+                command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
+                command.Parameters.AddWithValue("@name", n.Name);
+                command.Parameters.AddWithValue("@inputtype", n.InputType);
+                command.ExecuteNonQuery();
+                //drop old ip address connection to this network
+                command.CommandText = "DELETE FROM networkipadress WHERE networkNumber=@nnr ;";
+                command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
+                //Add new ip-Addresses
+                SQLiteTransaction transaction = connection.BeginTransaction();
+                foreach (IPAddress ip in n.IpAddresses)
+                {
+                    try
+                    {//Write IP to table, if it is already there, throw exception
+                        command.CommandText = "INSERT INTO ipaddresses (ipaddress) VALUES(@ipaddress);";
+                        command.Parameters.AddWithValue("@ipaddress", ip.ToString());
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error writing IP to DB: " + e.Message);
+                    }
+                    try
+                    {//Connect ip to netwok in database
+                        command.CommandText = "INSERT INTO networkipadress (networkNumber, ipaddress) VALUES(@networkNumber, @ipaddress);";
+                        command.Parameters.AddWithValue("@networkNumber", n.NetworkNumber);
+                        command.Parameters.AddWithValue("@ipaddress", ip.ToString());
+                        command.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error writing IP/NW to DB: " + e.Message);
+                    }
+                }
+                transaction.Commit();
+                Console.WriteLine("Network {0} changed in database.", n.Name);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error SQL Write Network", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
+            }
+            connection.Close();
+        }
+
+        public void RemoveNetwork(Network n)
+        {
+            try
+            {
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                //Delete Network
+                command.CommandText = "DELETE FROM network WHERE networkNumber=@nnr ;";
+                command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
+                command.ExecuteNonQuery();
+                //drop old ip addresses
+                command.CommandText = "DELETE FROM networkipadress WHERE networkNumber=@nnr ;";
+                command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
+                command.ExecuteNonQuery();
+                Console.WriteLine("Network {0} deleted in database.", n.Name);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error SQL Write Network", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
+            }
+            connection.Close();
         }
 
         public ArrayList GetNetworks()
         {
-            //If File doesn't exist create it
-            checkFile(pathNetwork);
-            //Get networks
-            Console.WriteLine("Database.GetNetworks called");
+            ArrayList list_networks = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathNetwork, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_networks = new ArrayList();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM network;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input = read.Split(';');
-                    Network n = new Network(int.Parse(input[0]), input[1], int.Parse(input[2]), new ArrayList());
-                    int i = int.Parse(input[3]);
-                    for (int x = 0; x < i; x++)
+                    int networkNumber = r.GetInt32(0);
+                    string networkName = (string)r["name"];
+                    int inputtype = r.GetInt32(2);
+                    ArrayList addresses = new ArrayList();
+                    //Get the beloning IP-Addresses of the network
+                    SQLiteCommand command2 = new SQLiteCommand(connection);
+                    command2.CommandText = "SELECT ipaddress FROM networkipadress WHERE networkNumber=@networkNumber;";
+                    command2.Parameters.AddWithValue("@networkNumber", networkNumber);
+                    SQLiteDataReader r_inner = command2.ExecuteReader();
+                    while (r_inner.Read())
                     {
-                        read = sr.ReadLine();
-                        n.IpAddresses.Add(IPAddress.Parse(read));
-                        //Console.WriteLine("IPAdresse hinzugefügt: {0}", IPAddress.Parse(read).ToString());
+                        addresses.Add(IPAddress.Parse((string)r_inner["ipaddress"]));
                     }
-                    list_networks.Add(n);
-                    Console.WriteLine("Network {0} added to list", n.NetworkNumber);
+                    list_networks.Add(new Network(networkNumber, networkName, inputtype, addresses));
                 }
-                sr.Close();
-                return list_networks;
-
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading File: {0}", e.Message);
-                return null;
+                MessageBox.Show("Error SQL Reading Networks", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+            return list_networks;
         }
 
-        public void SaveNetworkInventories(ArrayList list_networkinventories)
+        public void SaveNetworkInventory(NetworkInventory ni)
         {
-            //If File doesn't exist create it
-            checkFile(pathNetworkInventory);
-            //Save NetworkInventory
-            Console.WriteLine("Database.SaveNetworkInventory called");
             try
             {
-                FileStream fs = new FileStream(pathNetworkInventory, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs);
-                //to avoid inconsistency write all inventories each time
-                foreach (NetworkInventory ni in list_networkinventories)
-                {
-                    string towrite;
-                    //Customernumber;Networkinventorynumber;Number of Networks
-                    //Networknumber
-                    //Networknumber
-                    //...
-                    towrite = String.Format("{0};{1};{2}", ni.Customernumber, ni.NetworkInventoryNumber, ni.List_networks.Count);
-                    Console.WriteLine(towrite);
-                    sw.WriteLine(towrite);
-                    //Write belonging Network Numbers
-                    for (int i = 0; i < ni.List_networks.Count; i++)
-                    {
-                        Network n = (Network)ni.List_networks[i];
-                        towrite = String.Format("{0}", n.NetworkNumber);
-                        sw.WriteLine(towrite);
-                    }
-                }
-
-                sw.Close();
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO networkinventory (networkInventoryNumber, customerNumber) VALUES(@networkInventoryNumber, @customerNumber);";
+                command.Parameters.AddWithValue("@networkInventoryNumber", ni.NetworkInventoryNumber);
+                command.Parameters.AddWithValue("@customerNumber", ni.Customernumber);
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing File: {0}", e.Message);
+                MessageBox.Show("Error SQL Write NetworkInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
         }
 
         public ArrayList GetNetworkInventories()
         {
-            //If File doesn't exist create it
-            checkFile(pathNetworkInventory);
-            //Get networks
-            Console.WriteLine("Database.GetNetworkInventories called");
+            ArrayList list_networkinventories = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathNetworkInventory, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_networkinventories = new ArrayList();
-                ArrayList list_networks = GetNetworks();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM networkinventory;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input = read.Split(';');
-                    NetworkInventory ni = new NetworkInventory(int.Parse(input[0]), int.Parse(input[1]), new ArrayList());
-                    int i = int.Parse(input[2]);
-                    for (int x = 0; x < i; x++)
+                    int niNumber = r.GetInt32(0);
+                    int cNumber = r.GetInt32(1);
+                    ArrayList networks = new ArrayList();
+                    //Get the beloning networks of the networkinventory
+                    SQLiteCommand command2 = new SQLiteCommand(connection);
+                    command2.CommandText = "SELECT * FROM network WHERE networkInventoryNumber=@niNumber;";
+                    command2.Parameters.AddWithValue("@niNumber", niNumber);
+                    SQLiteDataReader r_inner = command2.ExecuteReader();
+                    while (r_inner.Read())
                     {
-                        read = sr.ReadLine();
-                        //find networks to add them to the Networkinventory's List of networks
-                        foreach (Network n in list_networks)
+                        int networkNumber = r_inner.GetInt32(0);
+                        string networkName = (string)r_inner["name"];
+                        int inputtype = r_inner.GetInt32(2);
+                        ArrayList addresses = new ArrayList();
+                        //Get the beloning IP-Addresses of the network
+                        SQLiteCommand command3 = new SQLiteCommand(connection);
+                        command3.CommandText = "SELECT ipaddress FROM networkipadress WHERE networkNumber=@networkNumber;";
+                        command3.Parameters.AddWithValue("@networkNumber", networkNumber);
+                        SQLiteDataReader r_inner_inner = command3.ExecuteReader();
+                        while (r_inner_inner.Read())
                         {
-                            if (n.NetworkNumber == int.Parse(read))
-                            {
-                                ni.AddNetwork(n);
-                                Console.WriteLine("Netzwerk {0} zu NetzwerkInventory {1} hinzugefügt.", n.NetworkNumber, ni.NetworkInventoryNumber);
-                            }
-                        }
-
-                    }
-                    list_networkinventories.Add(ni);
-                    Console.WriteLine("NetworkInventory {0} added to list", ni.NetworkInventoryNumber);
-                }
-                sr.Close();
-                return list_networkinventories;
-
+                            addresses.Add(IPAddress.Parse((string)r_inner_inner["ipaddress"]));
+                        }//END IP
+                        networks.Add(new Network(networkNumber, networkName, inputtype, addresses));
+                    }//END N
+                    list_networkinventories.Add(new NetworkInventory(cNumber, niNumber, networks));
+                }//END NI
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading Network Inventories: {0}", e.Message);
-                return null;
+                MessageBox.Show("Error SQL Reading NetworkInventories", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+            return list_networkinventories;
+
         }
 
-        public void SaveLicenseInventories(ArrayList list_licenseinventories)
+        public void SaveLicenseInventory(LicenseInventory li)
         {
-            //If File doesn't exist create it
-            checkFile(pathLicenseInventory);
-            //Save NetworkInventory
-            Console.WriteLine("Database.SaveLicenseInventory called");
             try
             {
-                FileStream fs = new FileStream(pathLicenseInventory, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs);
-                //to avoid inconsistency write all inventories each time
-                foreach (LicenseInventory li in list_licenseinventories)
-                {
-                    string towrite;
-                    //Customernumber;Licenseinventorynumber;Number of tuples in inventory
-                    //Licensenumber;Count
-                    //Licensenumber;Count
-                    //...
-                    towrite = String.Format("{0};{1};{2}", li.Customernumber, li.LicenseInventoryNumber, li.Inventory.Count);
-                    Console.WriteLine(towrite);
-                    sw.WriteLine(towrite);
-                    //Write belonging tuples
-                    for (int i = 0; i < li.Inventory.Count; i++)
-                    {
-                        Tuple<int, int> t = (Tuple<int, int>)li.Inventory[i];
-                        towrite = String.Format("{0};{1}", t.Item1, t.Item2);
-                        sw.WriteLine(towrite);
-                    }
-                }
-
-                sw.Close();
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO licenseinventory (licenseInventoryNumber, customerNumber) VALUES(@licenseInventoryNumber, @customerNumber);";
+                command.Parameters.AddWithValue("@licenseInventoryNumber", li.LicenseInventoryNumber);
+                command.Parameters.AddWithValue("@customerNumber", li.Customernumber);
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing License Inventory: {0}", e.Message);
+                MessageBox.Show("Error SQL Update LicenseInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+        }
+
+        public void UpdateLicenseInventory(LicenseInventory li, License l, int count)
+        {
+            bool update = false;
+            try
+            {
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                try
+                {
+                    command.CommandText = "INSERT INTO containsLicense (licenseInventoryNumber, licenseNumber, count) VALUES(@licenseInventoryNumber, @licenseNumber, @count);";
+                    command.Parameters.AddWithValue("@licenseInventoryNumber", li.LicenseInventoryNumber);
+                    command.Parameters.AddWithValue("@licenseNumber", l.LicenseNumber);
+                    command.Parameters.AddWithValue("@count", count);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Lizenz war noch nicht im Inventory");
+                }
+                catch (SQLiteException e)
+                {
+                    //Tuple alreeady in table
+                    update = true;
+                    Console.WriteLine("License already in invnetory, update it");
+                }
+                if (update)
+                {
+                    command.CommandText = "UPDATE containsLicense SET count=@count WHERE licenseInventoryNumber=@licenseInventoryNumber AND  licenseNumber=@licenseNumber ;";
+                    command.Parameters.AddWithValue("@licenseInventoryNumber", li.LicenseInventoryNumber);
+                    command.Parameters.AddWithValue("@licenseNumber", l.LicenseNumber);
+                    command.Parameters.AddWithValue("@count", count);
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Lizenz aktualisiert");
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error SQL Update LicenseInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
+            }
+            connection.Close();
         }
 
         public ArrayList GetLicenseInventories()
         {
-            //If File doesn't exist create it
-            checkFile(pathLicenseInventory);
-            //Get License Inventories
-            Console.WriteLine("Database.GetLicenseInventories called");
+            ArrayList list_licenseinventories = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathLicenseInventory, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_licenseinventories = new ArrayList();
-                ArrayList list_licenses = GetLicenses();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM licenseinventory;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input = read.Split(';');
-                    LicenseInventory li = new LicenseInventory(int.Parse(input[0]), int.Parse(input[1]));
-                    int i = int.Parse(input[2]);
-                    for (int x = 0; x < i; x++)
+                    LicenseInventory currentLicensInvnetory = new LicenseInventory(r.GetInt32(1), r.GetInt32(0));
+                    //Get Licenses of the inventory
+                    SQLiteCommand command2 = new SQLiteCommand(connection);
+                    command2.CommandText = "SELECT * FROM containslicense WHERE licenseInventoryNumber=@licenseInventoryNumber;";
+                    command2.Parameters.AddWithValue("@licenseInventoryNumber", currentLicensInvnetory.LicenseInventoryNumber);
+                    SQLiteDataReader r_inner = command2.ExecuteReader();
+                    while (r_inner.Read())
                     {
-                        //add tuples to license Inventory
-                        read = sr.ReadLine();
-                        input = read.Split(';');
-                        Tuple<int, int> t = new Tuple<int, int>(int.Parse(input[0]), int.Parse(input[1]));
-                        li.Inventory.Add(t);
-                        Console.WriteLine("Lizenz {0} zu LizenzInventory {1} hinzugefügt.", t.Item1, li.LicenseInventoryNumber);
+                        currentLicensInvnetory.AddLicenseToInventory(r_inner.GetInt32(1), r_inner.GetInt32(2));
                     }
-                    list_licenseinventories.Add(li);
-                    Console.WriteLine("LicenseInventory {0} added to list", li.LicenseInventoryNumber);
+                    list_licenseinventories.Add(currentLicensInvnetory);
                 }
-                sr.Close();
-                return list_licenseinventories;
-
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading Network Inventories: {0}", e.Message);
-                return null;
+                MessageBox.Show("Error SQL Reading LicenseInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            return list_licenseinventories;
         }
 
-        public void SaveClientSystems(ArrayList clientsystems)
+        public void SaveClientSystem(ClientSystem c)
         {
-            //If File doesn't exist create it
-            checkFile(pathClientSystems);
-            //Save ClientSystems
-            Console.WriteLine("Database.SaveClientSystems called");
             try
             {
-                FileStream fs = new FileStream(pathClientSystems, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                foreach (ClientSystem sys in clientsystems)
-                {
-                    towrite = String.Format("{0};{1};{2};{3};{4};{5}", sys.ClientSystemNumber, sys.Networknumber, sys.Computername, sys.Type, sys.Serial, sys.ClientIP.ToString());
-                    Console.WriteLine(towrite);
-                    sw.WriteLine(towrite);
-                }
-                sw.Close();
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO clientsystem (clientSystemNumber, networknumber, computername, type, serial, clientIP) VALUES(@clientSystemNumber, @networknumber, @computername, @type, @serial, @clientIP);";
+                command.Parameters.AddWithValue("@clientSystemNumber", c.ClientSystemNumber);
+                command.Parameters.AddWithValue("@networknumber", c.Networknumber);
+                command.Parameters.AddWithValue("@computername", c.Computername);
+                command.Parameters.AddWithValue("@type", c.Type);
+                command.Parameters.AddWithValue("@serial", c.Serial);
+                command.Parameters.AddWithValue("@clientIP", c.ClientIP.ToString());
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing File ClientSystems: {0}", e.Message);
+                MessageBox.Show("Error SQL Write Clientsystem", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+        }
+
+        public void UpdateClientSystem(ClientSystem c)
+        {
+            try
+            {
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "UPDATE clientsystem SET computername=@computername, computername=@computername, type=@type, serial=@serial WHERE clientSystemNumber=@clientSystemNumber ;";
+                command.Parameters.AddWithValue("@clientSystemNumber", c.ClientSystemNumber);
+                command.Parameters.AddWithValue("@computername", c.Computername);
+                command.Parameters.AddWithValue("@type", c.Type);
+                command.Parameters.AddWithValue("@serial", c.Serial);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error SQL Update ClientSystem", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
+            }
+            connection.Close();
         }
 
         public ArrayList GetClientSystems()
         {
-            //If File doesn't exist create it
-            checkFile(pathClientSystems);
-            //Get networks
-            Console.WriteLine("Database.GetClientSystems called");
+            ArrayList list_ClientSystems = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathClientSystems, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_ClientSystems = new ArrayList();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM clientsystem;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input = read.Split(';');
-                    ClientSystem c = new ClientSystem(int.Parse(input[0]), IPAddress.Parse(input[5]), int.Parse(input[1]));
-                    c.Computername = input[2];
-                    c.Type = input[3];
-                    c.Serial = input[4];
+                    ClientSystem c = new ClientSystem(r.GetInt32(0), IPAddress.Parse((string)r["clientIP"]), r.GetInt32(1));
+                    string type = (string)r["type"];
+                    if (type != null && !(type.Equals("")))
+                    {
+                        c.Type = type;
+                        c.Computername= (string)r["computername"];
+                        c.Serial = (string)r["serial"];
+                    }
+                    else
+                    {
+                        c.Type = null;
+                        c.Computername = null;
+                        c.Serial = null;
+                    }
                     list_ClientSystems.Add(c);
-                    Console.WriteLine("ClientSystem {0} added to list", c.ClientSystemNumber);
                 }
-                sr.Close();
-                return list_ClientSystems;
-
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading File Client Systems: {0}", e.Message);
-                return null;
+                MessageBox.Show("Error SQL Reading Customers", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+            return list_ClientSystems;
+
+
         }
 
         public void SaveSystemInventoriesOverride(ArrayList list_systeminventories)
