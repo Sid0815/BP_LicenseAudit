@@ -81,7 +81,7 @@ namespace BP_LicenseAudit.Model
             this.results = new ArrayList();
         }
 
-        //result is the number of free licenses
+        //result equals the number of free licenses
         public void AddResult(int licensenumber, int result)
         {
             Tuple<int, int> t = new Tuple<int, int>(licensenumber, result);

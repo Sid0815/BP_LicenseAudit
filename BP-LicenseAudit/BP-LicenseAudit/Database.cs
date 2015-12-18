@@ -514,7 +514,7 @@ namespace BP_LicenseAudit
             ArrayList list_licenseinventories = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM licenseinventory;";
@@ -542,8 +542,8 @@ namespace BP_LicenseAudit
             return list_licenseinventories;
         }
 
-        public void SaveClientSystem(ClientSystem c)
-        {
+        public void SaveClientSystem(ClientSystem c, SystemInventory si)
+        {//Mehtod is onlyused to initial save the system
             try
             {
                 connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
@@ -556,6 +556,11 @@ namespace BP_LicenseAudit
                 command.Parameters.AddWithValue("@type", c.Type);
                 command.Parameters.AddWithValue("@serial", c.Serial);
                 command.Parameters.AddWithValue("@clientIP", c.ClientIP.ToString());
+                command.ExecuteNonQuery();
+                //Connect clientsystem to systeminventory in database
+                command.CommandText = "INSERT INTO containsSystem (systemInventoryNumber, clientSystemNumber) VALUES(@systemInventoryNumber, @clientSystemNumber);";
+                command.Parameters.AddWithValue("@clientSystemNumber", c.ClientSystemNumber);
+                command.Parameters.AddWithValue("@systemInventoryNumber", si.SystemInventoryNumber);
                 command.ExecuteNonQuery();
             }
             catch (Exception e)
@@ -593,7 +598,7 @@ namespace BP_LicenseAudit
             ArrayList list_ClientSystems = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM clientsystem;";
@@ -605,7 +610,7 @@ namespace BP_LicenseAudit
                     if (type != null && !(type.Equals("")))
                     {
                         c.Type = type;
-                        c.Computername= (string)r["computername"];
+                        c.Computername = (string)r["computername"];
                         c.Serial = (string)r["serial"];
                     }
                     else
@@ -624,213 +629,153 @@ namespace BP_LicenseAudit
             }
             connection.Close();
             return list_ClientSystems;
-
-
-        }
-
-        public void SaveSystemInventoriesOverride(ArrayList list_systeminventories)
-        {
-            //If File doesn't exist create it
-            checkFile(pathSystemInventory);
-            //Save SystemInventory
-            Console.WriteLine("Database.SaveSystemInventoryOverride called");
-            try
-            {
-                FileStream fs = new FileStream(pathSystemInventory, FileMode.Create);
-                StreamWriter sw = new StreamWriter(fs);
-                //to avoid inconsistency write all inventories each time
-                foreach (SystemInventory si in list_systeminventories)
-                {
-                    string towrite;
-                    //Customernumber;Systeminventorynumber;Number of ClientSystems in inventory, date
-                    //Clientsystemnumber
-                    //Clientsystemnumber
-                    //...
-                    towrite = String.Format("{0};{1};{2};{3}", si.Customernumber, si.SystemInventoryNumber, si.List_Systems.Count, si.Date);
-                    Console.WriteLine(towrite);
-                    sw.WriteLine(towrite);
-                    //Write belonging Clientsystems
-                    for (int i = 0; i < si.List_Systems.Count; i++)
-                    {
-                        ClientSystem c = (ClientSystem)si.List_Systems[i];
-                        towrite = String.Format("{0}", c.ClientSystemNumber);
-                        sw.WriteLine(towrite);
-                    }
-                }
-                sw.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error writing System Inventory: {0}", e.Message);
-            }
         }
 
         public void SaveSystemInventory(SystemInventory si)
         {
-            //If File doesn't exist create it
-            checkFile(pathSystemInventory);
-            //Save SystemInventory
-            Console.WriteLine("Database.SaveSystemInventory called");
             try
             {
-                FileStream fs = new FileStream(pathSystemInventory, FileMode.Append);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                //Customernumber;Systeminventorynumber;Number of ClientSystems in inventory, date
-                //Clientsystemnumber
-                //Clientsystemnumber
-                //...
-                towrite = String.Format("{0};{1};{2};{3}", si.Customernumber, si.SystemInventoryNumber, si.List_Systems.Count, si.Date);
-                Console.WriteLine(towrite);
-                sw.WriteLine(towrite);
-                //Write belonging Clientsystems
-                for (int i = 0; i < si.List_Systems.Count; i++)
-                {
-                    ClientSystem c = (ClientSystem)si.List_Systems[i];
-                    towrite = String.Format("{0}", c.ClientSystemNumber);
-                    sw.WriteLine(towrite);
-                }
-                sw.Close();
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO systeminventory (systemInventoryNumber, customerNumber, date) VALUES(@systemInventoryNumber, @customerNumber, @date);";
+                command.Parameters.AddWithValue("@systemInventoryNumber", si.SystemInventoryNumber);
+                command.Parameters.AddWithValue("@customerNumber", si.Customernumber);
+                command.Parameters.AddWithValue("@date", si.Date);
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing System Inventory: {0}", e.Message);
+                MessageBox.Show("Error SQL Write SystemInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
         }
 
         public ArrayList GetSystemInventories()
         {
-            //If File doesn't exist create it
-            checkFile(pathSystemInventory);
-            //Get System Inventories
-            Console.WriteLine("Database.GetSystemInventories called");
+            ArrayList list_systeminventories = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathSystemInventory, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_systeminventories = new ArrayList();
-                ArrayList list_clientsystems = GetClientSystems();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM systeminventory;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input = read.Split(';');
-                    SystemInventory si = new SystemInventory(int.Parse(input[0]), int.Parse(input[1]));
-                    si.Date = DateTime.Parse(input[3]);
-                    int i = int.Parse(input[2]);
-                    for (int x = 0; x < i; x++)
+                    SystemInventory currentSystemInventory = new SystemInventory(r.GetInt32(1), r.GetInt32(0));
+                    currentSystemInventory.Date = (DateTime)r.GetDateTime(2);
+                    //Get the beloning clientsystems of the systeminventory
+                    SQLiteCommand command2 = new SQLiteCommand(connection);
+                    command2.CommandText = "SELECT clientSystemNumber FROM containsSystem WHERE systemInventoryNumber=@siNumber;";
+                    command2.Parameters.AddWithValue("@siNumber", currentSystemInventory.SystemInventoryNumber);
+                    SQLiteDataReader r_inner = command2.ExecuteReader();
+                    while (r_inner.Read())
                     {
-                        //add ClientSystems to System Inventory
-                        read = sr.ReadLine();
-                        int clientsystemnumber = int.Parse(read);
-                        //Console.WriteLine(clientsystemnumber);
-                        ClientSystem currentsystem = null;
-                        foreach (ClientSystem c in list_clientsystems)
+                        int clientsystemkNumber = r_inner.GetInt32(0);
+                        //Get the beloning Clientsystem
+                        SQLiteCommand command3 = new SQLiteCommand(connection);
+                        command3.CommandText = "SELECT * FROM clientsystem WHERE clientSystemNumber=@clientSystemNumber;";
+                        command3.Parameters.AddWithValue("@clientSystemNumber", clientsystemkNumber);
+                        SQLiteDataReader r_inner_inner = command3.ExecuteReader();
+                        while (r_inner_inner.Read())
                         {
-                            //Console.WriteLine("Comparing ClientSystem {0} against clientsystemnumber", c.ClientSystemNumber);
-                            if (c.ClientSystemNumber == clientsystemnumber)
+                            ClientSystem c = new ClientSystem(r_inner_inner.GetInt32(0), IPAddress.Parse((string)r_inner_inner["clientIP"]), r_inner_inner.GetInt32(1));
+                            string type = (string)r_inner_inner["type"];
+                            if (type != null && !(type.Equals("")))
                             {
-                                currentsystem = c;
-                                Console.WriteLine("Clientsystem {0} found.", currentsystem.ClientSystemNumber);
-                                break;
+                                c.Type = type;
+                                c.Computername = (string)r_inner_inner["computername"];
+                                c.Serial = (string)r_inner_inner["serial"];
                             }
                             else
                             {
-                                currentsystem = null;
+                                c.Type = null;
+                                c.Computername = null;
+                                c.Serial = null;
                             }
-                        }
-                        if (currentsystem != null)
-                        {
-                            si.List_Systems.Add(currentsystem);
-                        }
-                        Console.WriteLine("ClientSystem {0} zu SystemInventory {1} hinzugefügt.", currentsystem.ClientSystemNumber, si.SystemInventoryNumber);
-                    }
-                    list_systeminventories.Add(si);
-                    Console.WriteLine("SystemInventory {0} added to list", si.SystemInventoryNumber);
-                }
-                sr.Close();
-                return list_systeminventories;
-
+                            currentSystemInventory.AddSystemToInventory(c);
+                        }//END ClientSystem
+                    }//END containsSystem
+                    list_systeminventories.Add(currentSystemInventory);
+                }//END SI
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading System Inventories: {0}", e.Message);
-                return null;
+                MessageBox.Show("Error SQL Reading NetworkInventories", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+
+
+            return list_systeminventories;
         }
 
         public void SaveAudit(Audit a)
         {
-            //If File doesn't exist create it
-            checkFile(pathAudit);
-            //Save Audit
-            Console.WriteLine("Database.SaveAudit called");
             try
             {
-                FileStream fs = new FileStream(pathAudit, FileMode.Append);
-                StreamWriter sw = new StreamWriter(fs);
-                string towrite;
-                //Auditnumber;Customernumber;Systeminventorynumber;Number of results, date
-                //resulttuple
-                //resulttuple
-                //...
-                towrite = String.Format("{0};{1};{2};{3};{4}", a.AuditNumber, a.CustomerNumber, a.SystemInventoryNumber, a.Results.Count, a.Date);
-                Console.WriteLine(towrite);
-                sw.WriteLine(towrite);
-                //Write belonging Results
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "INSERT INTO audit (auditNumber, customerNumber, systemInventoryNumber, date) VALUES(@auditNumber, @customerNumber, @systemInventoryNumber, @date);";
+                command.Parameters.AddWithValue("@auditNumber", a.AuditNumber);
+                command.Parameters.AddWithValue("@customerNumber", a.CustomerNumber);
+                command.Parameters.AddWithValue("@systemInventoryNumber", a.SystemInventoryNumber);
+                command.Parameters.AddWithValue("@date", a.Date);
+                command.ExecuteNonQuery();
+                //Write Results
                 for (int i = 0; i < a.Results.Count; i++)
                 {
                     Tuple<int, int> t = (Tuple<int, int>)a.Results[i];
-                    towrite = String.Format("{0};{1}", t.Item1, t.Item2);
-                    sw.WriteLine(towrite);
+                    command.CommandText = "INSERT INTO results (auditNumber, licenseNumber, result) VALUES(@auditNumber, @licenseNumber, @result);";
+                    command.Parameters.AddWithValue("@auditNumber", a.AuditNumber);
+                    command.Parameters.AddWithValue("@licenseNumber", t.Item1);
+                    command.Parameters.AddWithValue("@result", t.Item2);
+                    command.ExecuteNonQuery();
                 }
-                sw.Close();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error writing Audit: {0}", e.Message);
+                MessageBox.Show("Error SQL Write Audit", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
         }
 
         public ArrayList GetAudits()
         {
-            //If File doesn't exist create it
-            checkFile(pathAudit);
-            //Get Audits
-            Console.WriteLine("Database.GetAudits called");
+            ArrayList list_audits = new ArrayList();
             try
             {
-                FileStream fs = new FileStream(pathAudit, FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string read;
-                ArrayList list_audits = new ArrayList();
-                while (sr.Peek() != -1)
+                connection = new SQLiteConnection("Data Source=" + dbpath + "; Version=3; MultipleActiveResultSets=True;");
+                connection.Open();
+                command = new SQLiteCommand(connection);
+                command.CommandText = "SELECT * FROM audit;";
+                SQLiteDataReader r = command.ExecuteReader();
+                while (r.Read())
                 {
-                    read = sr.ReadLine();
-                    string[] input = read.Split(';');
-                    Audit a = new Audit(int.Parse(input[0]), int.Parse(input[1]), int.Parse(input[2]));
-                    a.Date = DateTime.Parse(input[4]);
-                    int i = int.Parse(input[3]);
-                    for (int x = 0; x < i; x++)
+                    Audit a = new Audit(r.GetInt32(0), r.GetInt32(1), r.GetInt32(2));
+                    a.Date = r.GetDateTime(3);
+                    SQLiteCommand command2 = new SQLiteCommand(connection);
+                    command2.CommandText = "SELECT * FROM results WHERE auditNumber=@auditNumber;";
+                    command2.Parameters.AddWithValue("@auditNumber", a.AuditNumber);
+                    SQLiteDataReader r_inner = command2.ExecuteReader();
+                    while (r_inner.Read())
                     {
-                        //add tuples to results
-                        read = sr.ReadLine();
-                        input = read.Split(';');
-                        Tuple<int, int> t = new Tuple<int, int>(int.Parse(input[0]), int.Parse(input[1]));
-                        a.Results.Add(t);
+                        a.AddResult(r_inner.GetInt32(1), r_inner.GetInt32(2));
                     }
                     list_audits.Add(a);
-                    Console.WriteLine("Audit {0} added to list", a.AuditNumber);
                 }
-                sr.Close();
-                return list_audits;
-
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error reading Network Inventories: {0}", e.Message);
-                return null;
+                MessageBox.Show("Error SQL Reading Audits", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine(e.Message);
             }
+            connection.Close();
+            return list_audits;
         }
     }
 }

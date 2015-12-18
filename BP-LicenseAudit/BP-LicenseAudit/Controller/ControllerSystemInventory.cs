@@ -110,7 +110,7 @@ namespace BP_LicenseAudit.Controller
                         {
                             currentSystem = new ClientSystem(++latestsystemnumber, ip, n.NetworkNumber);
                             list_systems.Add(currentSystem);
-                            db.SaveClientSystem(currentSystem);
+                            db.SaveClientSystem(currentSystem, currentSystemInventory);
                             currentSystemInventory.AddSystemToInventory(currentSystem);
                             Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
                         }
