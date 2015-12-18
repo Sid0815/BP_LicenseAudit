@@ -10,14 +10,6 @@ namespace BP_LicenseAudit
 {
     public class Database
     {
-        private string pathCustomer = "..\\..\\customers.txt";
-        private string pathNetwork = "..\\..\\networks.txt";
-        private string pathNetworkInventory = "..\\..\\NI.txt";
-        private string pathLicenses = "..\\..\\licenses.txt";
-        private string pathLicenseInventory = "..\\..\\LI.txt";
-        private string pathClientSystems = "..\\..\\clientsystems.txt";
-        private string pathSystemInventory = "..\\..\\SI.txt";
-        private string pathAudit = "..\\..\\Audit.txt";
         private string dbpath = "..\\..\\BPLicenseAudit.sqlite";
         private SQLiteConnection connection;
         private SQLiteCommand command;
@@ -83,16 +75,6 @@ namespace BP_LicenseAudit
             connection.Close();
             //Console.WriteLine("Database closed");
 
-        }
-
-        private void checkFile(string path)
-        {
-            //If File doesn't exist create it
-            if (!File.Exists(path))
-            {
-                Console.WriteLine("File {0} not found, creating it", path);
-                File.Create(path).Close();
-            }
         }
 
         public void SaveCustomer(Customer c)
@@ -606,10 +588,10 @@ namespace BP_LicenseAudit
                 while (r.Read())
                 {
                     ClientSystem c = new ClientSystem(r.GetInt32(0), IPAddress.Parse((string)r["clientIP"]), r.GetInt32(1));
-                    string type = (string)r["type"];
-                    if (type != null && !(type.Equals("")))
+                    object test = r["type"];
+                    if (test != DBNull.Value)
                     {
-                        c.Type = type;
+                        c.Type = (string)r["type"];
                         c.Computername = (string)r["computername"];
                         c.Serial = (string)r["serial"];
                     }
@@ -624,7 +606,7 @@ namespace BP_LicenseAudit
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error SQL Reading Customers", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error SQL Reading ClientSystems", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(e.Message);
             }
             connection.Close();
@@ -682,10 +664,10 @@ namespace BP_LicenseAudit
                         while (r_inner_inner.Read())
                         {
                             ClientSystem c = new ClientSystem(r_inner_inner.GetInt32(0), IPAddress.Parse((string)r_inner_inner["clientIP"]), r_inner_inner.GetInt32(1));
-                            string type = (string)r_inner_inner["type"];
-                            if (type != null && !(type.Equals("")))
+                            object test = r_inner_inner["type"];
+                            if (test != DBNull.Value)
                             {
-                                c.Type = type;
+                                c.Type = (string)r_inner_inner["type"];
                                 c.Computername = (string)r_inner_inner["computername"];
                                 c.Serial = (string)r_inner_inner["serial"];
                             }
@@ -703,7 +685,7 @@ namespace BP_LicenseAudit
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error SQL Reading NetworkInventories", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error SQL Reading SystemInventories", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine(e.Message);
             }
             connection.Close();

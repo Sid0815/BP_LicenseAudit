@@ -1,6 +1,0 @@
-0;Hans;Feldweg;12;Bad Vilbel;06123
-1;Paul;Dorfstrasse;324;Bad Vilbel;06123
-2;BlackPoint;Friedberger Strasse;105b;Bad Vilbel;12345
-3;TestKunde;TestStrasse;123456;Test;Test
-4;TestKunde2;fddsf;klkl;klkl;klk
-5;TestKunde3;kjhh;jkhk;hjjhkjh;06110
