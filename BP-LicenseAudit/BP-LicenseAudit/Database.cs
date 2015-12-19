@@ -91,9 +91,7 @@ namespace BP_LicenseAudit
                 command.Parameters.AddWithValue("@streetnumber", c.Streetnumber);
                 command.Parameters.AddWithValue("@city", c.City);
                 command.Parameters.AddWithValue("@zip", c.Zip);
-                int affectedRows = command.ExecuteNonQuery();
-                Console.WriteLine(command.ToString());
-                Console.WriteLine("Affected Rows: {0}", affectedRows);
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
