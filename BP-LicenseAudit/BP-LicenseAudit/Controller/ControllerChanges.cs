@@ -383,18 +383,13 @@ namespace BP_LicenseAudit.Controller
             }
         }
 
-        public void RemoveLicense()
-        {
-
-        }
-
         public void RemoveNetwork(Object selectednetwork)
         {
             this.selectedNetwork = (Network)selectedNetwork;
             DialogResult dr = MessageBox.Show(String.Format("Soll das Netzwerk {0} unwiderruflich gelöscht werden?", this.selectedNetwork.Name), "Netzwerk löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-                for(int i=0; i< currentNetworkInventory.List_networks.Count; i++)
+                for (int i = 0; i < currentNetworkInventory.List_networks.Count; i++)
                 {
                     Network n = (Network)currentNetworkInventory.List_networks[i];
                     if (n.NetworkNumber == this.selectedNetwork.NetworkNumber)
@@ -448,9 +443,7 @@ namespace BP_LicenseAudit.Controller
                             view.AddLicense(l.Name, count);
                         }
                     }
-
                 }
-
             }
             //Networks
             view.ClearNetworks();
@@ -461,8 +454,6 @@ namespace BP_LicenseAudit.Controller
                     view.AddNetwork(n);
                 }
             }
-
-
         }
 
         public override void UpdateInformation()
@@ -478,21 +469,6 @@ namespace BP_LicenseAudit.Controller
             {
                 view.UpdateCustomer(currentCustomer.Name, currentCustomer.City, currentCustomer.Zip, currentCustomer.Street, currentCustomer.Streetnumber);
             }
-        }
-
-        public void GetLicenseInventoryFromDB()
-        {
-
-        }
-
-        public void GetAllLicenseTypesFromDB()
-        {
-
-        }
-
-        public void GetNetworkInventoryFromDB()
-        {
-
         }
 
         public override void SelectedCustomerChanged(Object customer)
@@ -527,8 +503,6 @@ namespace BP_LicenseAudit.Controller
             {
                 MessageBox.Show("Kein Netzwerkinventar für diesen Kunden gefunden.", "Kein Netzwerkinventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-
             UpdateView(false);
         }
     }

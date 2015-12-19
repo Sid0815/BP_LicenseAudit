@@ -110,7 +110,7 @@ namespace BP_LicenseAudit.Controller
                     //Add result to Audit, Licensenumber and number of free licenses of this type
                     currentAudit.AddResult(licensenumber, licenses - count[i]);
                 }
-                //Add licenses of invetory which aren't already added
+                //Add licenses of invetory to results which aren't already added
                 ArrayList helpList = new ArrayList();
                 foreach (Tuple<int, int> tuplelicense in currentLicenseInventory.Inventory)
                 {
