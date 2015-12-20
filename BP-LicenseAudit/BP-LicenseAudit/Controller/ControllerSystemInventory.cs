@@ -65,7 +65,6 @@ namespace BP_LicenseAudit.Controller
                 scanDetails();
                 UpdateClients(selectedNetworks);
                 //Client Systems are passed by reference, no need to update list_systems
-                db.SaveSystemInventory(currentSystemInventory);
                 callingController.UpdateInformation();
                 MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -206,6 +205,7 @@ namespace BP_LicenseAudit.Controller
         public SystemInventory CreateSystemInventroy(int customerNumber)
         {
             currentSystemInventory = new SystemInventory(customerNumber, list_systemInventories.Count);
+            db.SaveSystemInventory(currentSystemInventory);
             list_systemInventories.Add(currentSystemInventory);
             return currentSystemInventory;
         }

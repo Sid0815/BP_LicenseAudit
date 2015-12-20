@@ -386,24 +386,28 @@ namespace BP_LicenseAudit.Controller
         public void RemoveNetwork(Object selectednetwork)
         {
             this.selectedNetwork = (Network)selectedNetwork;
-            DialogResult dr = MessageBox.Show(String.Format("Soll das Netzwerk {0} unwiderruflich gelöscht werden?", this.selectedNetwork.Name), "Netzwerk löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dr == DialogResult.Yes)
+            if (this.selectedNetwork != null)
             {
-                for (int i = 0; i < currentNetworkInventory.List_networks.Count; i++)
+                DialogResult dr = MessageBox.Show(String.Format("Soll das Netzwerk {0} unwiderruflich gelöscht werden?", this.selectedNetwork.Name), "Netzwerk löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dr == DialogResult.Yes)
                 {
-                    Network n = (Network)currentNetworkInventory.List_networks[i];
-                    if (n.NetworkNumber == this.selectedNetwork.NetworkNumber)
+                    for (int i = 0; i < currentNetworkInventory.List_networks.Count; i++)
                     {
-                        currentNetworkInventory.List_networks.Remove(n);
-                        i = currentNetworkInventory.List_networks.Count;
+                        Network n = (Network)currentNetworkInventory.List_networks[i];
+                        if (n.NetworkNumber == this.selectedNetwork.NetworkNumber)
+                        {
+                            currentNetworkInventory.List_networks.Remove(n);
+                            i = currentNetworkInventory.List_networks.Count;
+                        }
                     }
+                    //TODO: UPDATE NI
+                    db.RemoveNetwork(this.selectedNetwork);
+                    callingController.UpdateInformation();
+                    UpdateView(false);
+                    MessageBox.Show(String.Format("Das Netzwerk {0} wurde unwiderruflich gelöscht.", this.selectedNetwork.Name), "Netzwerk gelöscht", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                //TODO: UPDATE NI
-                db.RemoveNetwork(this.selectedNetwork);
-                callingController.UpdateInformation();
-                UpdateView(false);
-                MessageBox.Show(String.Format("Das Netzwerk {0} wurde unwiderruflich gelöscht.", this.selectedNetwork.Name), "Netzwerk gelöscht", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
         }
 
         public override void UpdateView(bool customerUpdated)

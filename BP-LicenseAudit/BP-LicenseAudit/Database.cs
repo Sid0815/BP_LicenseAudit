@@ -22,7 +22,7 @@ namespace BP_LicenseAudit
             }
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 //Console.WriteLine("Database opend");
                 command = new SQLiteCommand(connection);
@@ -39,10 +39,10 @@ namespace BP_LicenseAudit
                 command.CommandText = "CREATE TABLE IF NOT EXISTS ipaddresses ( ipaddress VARCHAR(20) NOT NULL PRIMARY KEY);";
                 command.ExecuteNonQuery();
                 //Create Table NetworkIPaddress if it does not exist (n:m network:ipaddress)
-                command.CommandText = "CREATE TABLE IF NOT EXISTS networkipadress ( networkNumber INTEGER, ipaddress VARCHAR(20) NOT NULL, PRIMARY KEY (networkNumber, ipaddress), FOREIGN KEY(networkNumber) REFERENCES network(networkNumber), FOREIGN KEY(ipaddress) REFERENCES ipaddresses(ipaddress));";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS networkipadress ( networkNumber INTEGER NOT NULL, ipaddress VARCHAR(20) NOT NULL, PRIMARY KEY (networkNumber, ipaddress), FOREIGN KEY(networkNumber) REFERENCES network(networkNumber) on delete cascade, FOREIGN KEY(ipaddress) REFERENCES ipaddresses(ipaddress));";
                 command.ExecuteNonQuery();
                 //Create Table ClientSystem if it does not exist
-                command.CommandText = "CREATE TABLE IF NOT EXISTS clientsystem ( clientSystemNumber INTEGER NOT NULL PRIMARY KEY, networknumber INTEGER  NOT NULL, computername VARCHAR(200), type VARCHAR(200), serial VARCHAR(200), clientIP VARCHAR(20) NOT NULL, FOREIGN KEY(networknumber) REFERENCES network(networkNumber), FOREIGN KEY(clientIP) REFERENCES ipaddresses(ipaddress)); ";
+                command.CommandText = "CREATE TABLE IF NOT EXISTS clientsystem ( clientSystemNumber INTEGER NOT NULL PRIMARY KEY, networknumber INTEGER, computername VARCHAR(200), type VARCHAR(200), serial VARCHAR(200), clientIP VARCHAR(20) NOT NULL, FOREIGN KEY(networknumber) REFERENCES network(networkNumber) on delete set null, FOREIGN KEY(clientIP) REFERENCES ipaddresses(ipaddress)); ";
                 command.ExecuteNonQuery();
                 //Create Table LicenseInventory if it does not exist
                 command.CommandText = "CREATE TABLE IF NOT EXISTS licenseinventory ( licenseInventoryNumber INTEGER NOT NULL PRIMARY KEY, customerNumber INTEGER NOT NULL, FOREIGN KEY(customerNumber) REFERENCES customer(customerNumber)); ";
@@ -81,7 +81,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO customer (customerNumber, name, street, streetnumber, city, zip) VALUES(@customerNumber, @name, @street, @streetnumber, @city, @zip);";
@@ -105,7 +105,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "UPDATE customer SET name=@name, street=@street, streetnumber=@streetnumber, city=@city, zip=@zip WHERE customerNumber=@cnr ;";
@@ -130,7 +130,7 @@ namespace BP_LicenseAudit
             ArrayList list_customers = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM customer;";
@@ -153,7 +153,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO license (licenseNumber, name) VALUES(@licenseNumber, @name);";
@@ -174,7 +174,7 @@ namespace BP_LicenseAudit
             ArrayList list_licenses = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM license;";
@@ -197,7 +197,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO network (networkNumber, name, inputtype, networkInventoryNumber) VALUES(@networkNumber, @name, @inputtype, @networkInventoryNumber);";
@@ -248,7 +248,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "UPDATE network SET name=@name, inputtype=@inputtype WHERE networkNumber=@nnr ;";
@@ -300,7 +300,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 //Delete Network
@@ -308,9 +308,9 @@ namespace BP_LicenseAudit
                 command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
                 command.ExecuteNonQuery();
                 //drop old ip addresses
-                command.CommandText = "DELETE FROM networkipadress WHERE networkNumber=@nnr ;";
+                /*command.CommandText = "DELETE FROM networkipadress WHERE networkNumber=@nnr ;";
                 command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
-                command.ExecuteNonQuery();
+                command.ExecuteNonQuery();*/
                 Console.WriteLine("Network {0} deleted in database.", n.Name);
             }
             catch (Exception e)
@@ -326,7 +326,7 @@ namespace BP_LicenseAudit
             ArrayList list_networks = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM network;";
@@ -362,7 +362,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO networkinventory (networkInventoryNumber, customerNumber) VALUES(@networkInventoryNumber, @customerNumber);";
@@ -383,7 +383,7 @@ namespace BP_LicenseAudit
             ArrayList list_networkinventories = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM networkinventory;";
@@ -432,7 +432,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO licenseinventory (licenseInventoryNumber, customerNumber) VALUES(@licenseInventoryNumber, @customerNumber);";
@@ -453,7 +453,7 @@ namespace BP_LicenseAudit
             bool update = false;
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 try
@@ -494,7 +494,7 @@ namespace BP_LicenseAudit
             ArrayList list_licenseinventories = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM licenseinventory;";
@@ -526,7 +526,7 @@ namespace BP_LicenseAudit
         {//Mehtod is onlyused to initial save the system
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO clientsystem (clientSystemNumber, networknumber, computername, type, serial, clientIP) VALUES(@clientSystemNumber, @networknumber, @computername, @type, @serial, @clientIP);";
@@ -555,7 +555,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "UPDATE clientsystem SET computername=@computername, computername=@computername, type=@type, serial=@serial WHERE clientSystemNumber=@clientSystemNumber ;";
@@ -578,15 +578,24 @@ namespace BP_LicenseAudit
             ArrayList list_ClientSystems = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM clientsystem;";
                 SQLiteDataReader r = command.ExecuteReader();
                 while (r.Read())
                 {
-                    ClientSystem c = new ClientSystem(r.GetInt32(0), IPAddress.Parse((string)r["clientIP"]), r.GetInt32(1));
-                    object test = r["type"];
+                    ClientSystem c;
+                    object test = r["networknumber"];
+                    if (test != DBNull.Value)
+                    {
+                        c = new ClientSystem(r.GetInt32(0), IPAddress.Parse((string)r["clientIP"]), r.GetInt32(1));
+                    }
+                    else
+                    {
+                        c = new ClientSystem(r.GetInt32(0), IPAddress.Parse((string)r["clientIP"]), -1);
+                    }
+                    test = r["type"];
                     if (test != DBNull.Value)
                     {
                         c.Type = (string)r["type"];
@@ -615,7 +624,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;MultipleActiveResultSets=True; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO systeminventory (systemInventoryNumber, customerNumber, date) VALUES(@systemInventoryNumber, @customerNumber, @date);";
@@ -637,7 +646,7 @@ namespace BP_LicenseAudit
             ArrayList list_systeminventories = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; MultipleActiveResultSets=True; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM systeminventory;";
@@ -696,7 +705,7 @@ namespace BP_LicenseAudit
         {
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO audit (auditNumber, customerNumber, systemInventoryNumber, date) VALUES(@auditNumber, @customerNumber, @systemInventoryNumber, @date);";
@@ -729,7 +738,7 @@ namespace BP_LicenseAudit
             ArrayList list_audits = new ArrayList();
             try
             {
-                connection = new SQLiteConnection("Data Source=" + dbpath + "; Version=3; MultipleActiveResultSets=True;");
+                connection = new SQLiteConnection("Data Source=" + dbpath + "; Version=3; MultipleActiveResultSets=True; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "SELECT * FROM audit;";
