@@ -333,7 +333,25 @@ namespace BP_LicenseAudit.Controller
             //Inform the customer and select all networks to show all Clientsystems of the latest Systeminventory
             if (currentSystemInventory != null)
             {
-                MessageBox.Show(String.Format("Es wird das aktuellste Systeminventar vom {0} dargestellt.", currentSystemInventory.Date), "Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // check if all belonging networks still exist
+                bool deletednetworks = false;
+                foreach (ClientSystem c in currentSystemInventory.List_Systems)
+                {
+                    if (c.Networknumber == -1)
+                    {
+                        deletednetworks = true;
+                        break;
+                    }
+                }
+                if (!deletednetworks)
+                {
+                    MessageBox.Show(String.Format("Es wird das aktuellste Systeminventar vom {0} dargestellt.", currentSystemInventory.Date), "Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(String.Format("Es wird das aktuellste Systeminventar vom {0} dargestellt. Dies enthält jedoch bereits gelöschte Netzwerke. Daher werden nicht mehr alle Clientsysteme dieses Inventars angezeigt. Es wird empfohlen eine erneute Inventarisierung für diesen Kunden durchzufürhen.",
+                        currentSystemInventory.Date), "Systeminventar gefunden", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 UpdateView(false);
                 view.SetChkAll(true);
                 return;

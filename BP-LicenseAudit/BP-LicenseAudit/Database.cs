@@ -670,8 +670,17 @@ namespace BP_LicenseAudit
                         SQLiteDataReader r_inner_inner = command3.ExecuteReader();
                         while (r_inner_inner.Read())
                         {
-                            ClientSystem c = new ClientSystem(r_inner_inner.GetInt32(0), IPAddress.Parse((string)r_inner_inner["clientIP"]), r_inner_inner.GetInt32(1));
-                            object test = r_inner_inner["type"];
+                            ClientSystem c;
+                            object test = r_inner_inner["networknumber"];
+                            if (test != DBNull.Value)
+                            {
+                                c = new ClientSystem(r_inner_inner.GetInt32(0), IPAddress.Parse((string)r_inner_inner["clientIP"]), r_inner_inner.GetInt32(1));
+                            }
+                            else
+                            {
+                                c = new ClientSystem(r_inner_inner.GetInt32(0), IPAddress.Parse((string)r_inner_inner["clientIP"]), -1);
+                            }
+                            test = r_inner_inner["type"];
                             if (test != DBNull.Value)
                             {
                                 c.Type = (string)r_inner_inner["type"];
