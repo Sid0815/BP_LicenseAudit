@@ -267,7 +267,7 @@ namespace BP_LicenseAudit.Controller
                                     }
                                     this.selectedNetwork.Name = String.Format("{0} - {1}", start.ToString(), end.ToString());
                                     this.selectedNetwork.InputType = view.GetNetworkInputtype();
-                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesSE(start, end);
+                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesSE(start, end, null);
                                     view.ClearStartEndInput();
                                     break;
                                 }
@@ -312,7 +312,7 @@ namespace BP_LicenseAudit.Controller
                                     this.selectedNetwork.Name = String.Format("{0} / {1}", network.ToString(), cidr.ToString());
                                     Console.WriteLine("NetworktabTest:" + view.GetNetworkInputtype());
                                     this.selectedNetwork.InputType = view.GetNetworkInputtype();
-                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesCidr(network, cidr);
+                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesCidr(network, cidr, null);
                                     view.ClearCidrInput();
                                     break;
                                 }

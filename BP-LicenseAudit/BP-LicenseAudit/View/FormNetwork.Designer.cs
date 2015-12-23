@@ -57,6 +57,7 @@
             this.txtNetwokCidrByte1 = new System.Windows.Forms.TextBox();
             this.lblNetworkTabCidr = new System.Windows.Forms.Label();
             this.btnNetworkAdd = new System.Windows.Forms.Button();
+            this.progressBarNetwork = new System.Windows.Forms.ProgressBar();
             this.tabNetwork.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -322,6 +323,15 @@
             this.btnNetworkAdd.UseVisualStyleBackColor = true;
             this.btnNetworkAdd.Click += new System.EventHandler(this.btnNetworkAdd_Click);
             //
+            // progressBarNetwork
+            // 
+            this.progressBarNetwork.Location = new System.Drawing.Point(13, 247);
+            this.progressBarNetwork.Name = "progressBar1";
+            this.progressBarNetwork.Size = new System.Drawing.Size(461, 23);
+            this.progressBarNetwork.TabIndex = 6;
+            this.progressBarNetwork.Step = 1;
+            this.progressBarNetwork.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            //
             //inherited Elements
             //
             // 
@@ -347,7 +357,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(481, 253);
+            this.ClientSize = new System.Drawing.Size(481, 282);
+            this.Controls.Add(this.progressBarNetwork);
             this.Controls.Add(this.btnNetworkAdd);
             this.Controls.Add(this.tabNetwork);
             this.Controls.Add(this.lstNetworks);
@@ -358,6 +369,7 @@
             this.Controls.SetChildIndex(this.lstNetworks, 0);
             this.Controls.SetChildIndex(this.tabNetwork, 0);
             this.Controls.SetChildIndex(this.btnNetworkAdd, 0);
+            this.Controls.SetChildIndex(this.progressBarNetwork, 0);
             this.tabNetwork.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -400,5 +412,6 @@
         private System.Windows.Forms.TextBox txtNetwokCidrByte1;
         private System.Windows.Forms.Label lblNetworkTabCidr;
         private System.Windows.Forms.Button btnNetworkAdd;
+        private System.Windows.Forms.ProgressBar progressBarNetwork;
     }
 }

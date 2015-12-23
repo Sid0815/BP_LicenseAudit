@@ -1,4 +1,5 @@
 ﻿using BP_LicenseAudit.Model;
+using BP_LicenseAudit.View;
 using System.IO;
 using System;
 using System.Collections;
@@ -197,6 +198,9 @@ namespace BP_LicenseAudit
         {
             try
             {
+                //Create Progress Form
+                FormProgress fp = new FormProgress();
+                //Create Query
                 connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
@@ -207,6 +211,9 @@ namespace BP_LicenseAudit
                 command.Parameters.AddWithValue("@networkInventoryNumber", ni.NetworkInventoryNumber);
                 command.ExecuteNonQuery();
                 SQLiteTransaction transaction = connection.BeginTransaction();
+                //Initialize Progress Form
+                fp.SetMax(n.IpAddresses.Count);
+                fp.Show();
                 foreach (IPAddress ip in n.IpAddresses)
                 {
                     try
@@ -232,9 +239,11 @@ namespace BP_LicenseAudit
                     {
                         Console.WriteLine("Error writing IP/NW to DB: " + e.Message);
                     }
+                    fp.Progress();
                 }
                 transaction.Commit();
                 Console.WriteLine("Network {0} saved to database.", n.Name);
+                fp.Close();
             }
             catch (Exception e)
             {
@@ -248,6 +257,9 @@ namespace BP_LicenseAudit
         {
             try
             {
+                //Create Progress Form
+                FormProgress fp = new FormProgress();
+                //Create Query
                 connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
                 command = new SQLiteCommand(connection);
@@ -259,6 +271,9 @@ namespace BP_LicenseAudit
                 //drop old ip address connection to this network
                 command.CommandText = "DELETE FROM networkipadress WHERE networkNumber=@nnr ;";
                 command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
+                //initialize Progress Form
+                fp.SetMax(n.IpAddresses.Count);
+                fp.Show();
                 //Add new ip-Addresses
                 SQLiteTransaction transaction = connection.BeginTransaction();
                 foreach (IPAddress ip in n.IpAddresses)
@@ -284,9 +299,11 @@ namespace BP_LicenseAudit
                     {
                         Console.WriteLine("Error writing IP/NW to DB: " + e.Message);
                     }
+                    fp.Progress();
                 }
                 transaction.Commit();
                 Console.WriteLine("Network {0} changed in database.", n.Name);
+                fp.Close();
             }
             catch (Exception e)
             {

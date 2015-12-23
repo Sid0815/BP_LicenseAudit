@@ -28,7 +28,7 @@ namespace BP_LicenseAudit.Controller
         //functions
 
 
-        public static ArrayList calcAddressesSE(IPAddress start, IPAddress end)
+        public static ArrayList calcAddressesSE(IPAddress start, IPAddress end, ProgressBar progress)
         {
             ArrayList addresses = new ArrayList();
             addresses.Add(start);
@@ -37,17 +37,24 @@ namespace BP_LicenseAudit.Controller
                 return addresses;
             }
             UInt32 h = 0;
+            if (progress != null)
+            {
+                progress.Refresh();
+                progress.Maximum = (int)(convertIPtoUInt32(end) - convertIPtoUInt32(start));
+                Console.WriteLine("Progressbar Maximum: " + progress.Maximum);
+            }
             while (!(start.Equals(end)))
             {
                 h = convertIPtoUInt32(start);
                 h++;
+                if (progress != null) progress.PerformStep();
                 start = IPAddress.Parse(Convert.ToString(h));
                 addresses.Add(start);
             }
             return addresses;
         }
 
-        public static ArrayList calcAddressesCidr(IPAddress network, byte cidr)
+        public static ArrayList calcAddressesCidr(IPAddress network, byte cidr, ProgressBar progress)
         {
             ArrayList addresses = new ArrayList();
             UInt32 subnetmask;
@@ -69,7 +76,7 @@ namespace BP_LicenseAudit.Controller
             broadcast = (networkip & subnetmask) | ~subnetmask;
             IPAddress ipEndAddress = IPAddress.Parse(Convert.ToString(broadcast));
             //calculate Addresses of the range
-            addresses = calcAddressesSE(ipStartAddress, ipEndAddress);
+            addresses = calcAddressesSE(ipStartAddress, ipEndAddress, progress);
             return addresses;
         }
 
@@ -120,11 +127,19 @@ namespace BP_LicenseAudit.Controller
                                     end = helper;
                                     MessageBox.Show("Addressen gedreht.", "Inputfehler korregiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
+                                if ((int)(convertIPtoUInt32(end) - convertIPtoUInt32(start)) > 10000)
+                                {
+                                    DialogResult dr = MessageBox.Show("Achtung: Die Berechnung dieses Netzwerks kann unter Umständen länger dauern. Wollen Sie fortfahren?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                    if (dr == DialogResult.No)
+                                    {
+                                        return;
+                                    }
+                                }
                                 //Creating and adding network
                                 currentNetwork = new Network(list_networks.Count,
                                                                 String.Format("{0} - {1}", start.ToString(), end.ToString()),
                                                                 inputtype,
-                                                                calcAddressesSE(start, end));
+                                                                calcAddressesSE(start, end, view.GetProgressBar()));
                                 view.ClearStartEndInput();
                                 break;
                             }
@@ -168,12 +183,20 @@ namespace BP_LicenseAudit.Controller
                                 b_cidraddress[3] = Convert.ToByte(str_cidraddress[3]);
                                 cidr = Convert.ToByte(str_cidraddress[4]);
                                 if (cidr > 32) throw new ArgumentException("Cidr>32");
+                                if (cidr < 19)
+                                {
+                                    DialogResult dr = MessageBox.Show("Achtung: Die Berechnung dieses Netzwerks kann unter Umständen länger dauern. Wollen Sie fortfahren?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                    if (dr == DialogResult.No)
+                                    {
+                                        return;
+                                    }
+                                }
                                 //Creating and adding network
                                 IPAddress network = new IPAddress(b_cidraddress);
                                 currentNetwork = new Network(list_networks.Count,
                                                                 String.Format("{0} / {1}", network.ToString(), cidr.ToString()),
                                                                 inputtype,
-                                                                calcAddressesCidr(network, cidr));
+                                                                calcAddressesCidr(network, cidr, view.GetProgressBar()));
                                 view.ClearCidrInput();
                                 break;
                             }
