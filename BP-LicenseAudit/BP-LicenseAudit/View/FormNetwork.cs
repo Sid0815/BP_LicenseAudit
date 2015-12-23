@@ -131,17 +131,6 @@ namespace BP_LicenseAudit.View
             txtNetwokCidrCidr.Clear();
         }
 
-        public void Progress()
-        {
-            this.progressBarNetwork.PerformStep();
-        }
-
-        public void SetProgressBorder(int min, int max)
-        {
-            this.progressBarNetwork.Minimum = min;
-            this.progressBarNetwork.Maximum = max;
-        }
-
         public System.Windows.Forms.ProgressBar GetProgressBar()
         {
             return this.progressBarNetwork;

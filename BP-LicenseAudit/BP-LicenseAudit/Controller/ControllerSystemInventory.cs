@@ -86,7 +86,7 @@ namespace BP_LicenseAudit.Controller
         {
             //Create a new system Inventory
             currentSystemInventory = CreateSystemInventroy(currentCustomer.Cnumber);
-            Console.WriteLine("New SystemInventory created");
+            Log.WriteLog("New SystemInventory created");
             //Get the latest systemnumber
             int latestsystemnumber;
             //only if there is no data, set it manually
@@ -111,21 +111,21 @@ namespace BP_LicenseAudit.Controller
                         unique.Add(ip.ToString(), ip);
                         Ping pingSender = new Ping();
                         PingReply reply = pingSender.Send(ip, 100);
-                        Console.WriteLine("Ping: {0}", ip.ToString());
+                        Log.WriteLog(string.Format("Ping: {0}", ip.ToString()));
                         if (reply.Status == IPStatus.Success)
                         {
                             currentSystem = new ClientSystem(++latestsystemnumber, ip, n.NetworkNumber);
                             list_systems.Add(currentSystem);
                             db.SaveClientSystem(currentSystem, currentSystemInventory);
                             currentSystemInventory.AddSystemToInventory(currentSystem);
-                            Console.WriteLine("System {0} added to Systeminventory", currentSystem.ClientIP.ToString());
+                            Log.WriteLog(string.Format("System {0} added to Systeminventory", currentSystem.ClientIP.ToString()));
                         }
                     }
                     //If dictionary contains key already
                     catch (ArgumentException e)
                     {
-                        Console.WriteLine("IP-Addresse already in list: {0}", ip.ToString());
-                        Console.WriteLine(e.Message);
+                        Log.WriteLog(string.Format("IP-Addresse already in list: {0}", ip.ToString()));
+                        Log.WriteLog(e.Message);
                     }
                 }
             }
@@ -143,7 +143,7 @@ namespace BP_LicenseAudit.Controller
                     licenses.Add(l.Name, l.LicenseNumber);
                 }
             }
-            Console.WriteLine("Scanning Details");
+            Log.WriteLog("Scanning Details");
             //Get IP of local Host because the wmi conection differs
             IPAddress[] localhost = Dns.GetHostAddresses("");
             ArrayList localadrresses = new ArrayList();
@@ -152,14 +152,14 @@ namespace BP_LicenseAudit.Controller
                 if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                 {
                     localadrresses.Add(ip.ToString());
-                    Console.WriteLine("Local Adresses: {0}", ip.ToString());
+                    Log.WriteLog(string.Format("Local Adresses: {0}", ip.ToString()));
                 }
             }
             foreach (ClientSystem c in currentSystemInventory.List_Systems)
             {
                 //Connect via WMI
                 string host = c.ClientIP.ToString();
-                Console.WriteLine("Connecting to {0}", host);
+                Log.WriteLog(string.Format("Connecting to {0}", host));
                 ConnectionOptions options = new ConnectionOptions();
                 options.Username = username;
                 options.Password = password;
@@ -183,14 +183,13 @@ namespace BP_LicenseAudit.Controller
                     foreach (ManagementObject m in queryCollection)
                     {
                         //Computername
-                        Console.WriteLine("Computer Name : {0}",
-                            m["csname"]);
+                        Log.WriteLog(string.Format("Computer Name : {0}", m["csname"]));
                         c.Computername = (string)m["csname"];
                         //Operatingsystem
-                        Console.WriteLine("Operating System: {0}", m["Caption"]);
+                        Log.WriteLog(string.Format("Operating System: {0}", m["Caption"]));
                         c.Type = (string)m["Caption"];
                         //OperatingSystemSerial
-                        Console.WriteLine("SerialNumber : {0}", m["SerialNumber"]);
+                        Log.WriteLog(string.Format("SerialNumber : {0}", m["SerialNumber"]));
                         c.Serial = (string)m["SerialNumber"];
                     }
                     //Check if it is an unknow license type
@@ -201,24 +200,24 @@ namespace BP_LicenseAudit.Controller
                         list_allAvailableLicenses.Add(newlicense);
                         db.SaveLicense(newlicense);
                         licenses.Add(newlicense.Name, newlicense.LicenseNumber);
-                        Console.WriteLine("Neue Lizenz gelernt: " + newlicense.Name);
+                        Log.WriteLog("Neue Lizenz gelernt: " + newlicense.Name);
                     }
                 }
                 catch (System.Runtime.InteropServices.COMException e)
                 {
                     //Der RPC-Server ist nicht verfügbar. (Ausnahme von HRESULT: 0x800706BA)
-                    Console.WriteLine("COM-Fehler bei der WMI Abfrage: {0}", e.Message);
+                    Log.WriteLog(string.Format("COM-Fehler bei der WMI Abfrage: {0}", e.Message));
                     //TODO: Add to ClientSystem Com Exception
                 }
                 catch (ManagementException e)
                 {
                     //Fehler beim der WMI Abfrage: Zugriff verweigert. 
-                    Console.WriteLine("Zugriffs-Fehler bei der WMI Abfrage: {0}", e.Message);
+                    Log.WriteLog(string.Format("Zugriffs-Fehler bei der WMI Abfrage: {0}", e.Message));
                     //TODO: Add to ClientSystem Management Exception
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("AllgemeinerFehler bei der WMI Abfrage: {0}", e.Message);
+                    Log.WriteLog(string.Format("AllgemeinerFehler bei der WMI Abfrage: {0}", e.Message));
                 }
                 if (c.Type != null)
                 {
@@ -247,19 +246,19 @@ namespace BP_LicenseAudit.Controller
             if (chkall)
             {
                 UpdateClients(selectedNetworks);
-                //Console.WriteLine("Networks Selected ignored");
+                //Log.WriteLog("Networks Selected ignored");
                 return;
             }
             //activate checkbox if all networks are selected manually
             else if ((selectedNetworks.Count == currentNetworkInventory.List_networks.Count) && (state == false))
             {
-                //Console.WriteLine("All networks selected manually");
+                //Log.WriteLog("All networks selected manually");
                 view.SetChkAll(true);
             }
             //diable checkbox if not all networks are selected manually
             else if (state && (selectedNetworks.Count != currentNetworkInventory.List_networks.Count))
             {
-                //Console.WriteLine("Not all networks selected manually");
+                //Log.WriteLog("Not all networks selected manually");
                 view.SetChkAll(false);
             }
             UpdateClients(selectedNetworks);
@@ -322,19 +321,19 @@ namespace BP_LicenseAudit.Controller
             base.SelectedCustomerChanged(customer);
             currentNetworkInventory = null;
             currentSystemInventory = null;
-            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            Log.WriteLog(string.Format("Customer changed successfully: New Customer: {0}", currentCustomer.Name));
             //Get Networkinventory of the customer
             foreach (NetworkInventory n in list_networkinventories)
             {
                 if (n.Customernumber == currentCustomer.Cnumber)
                 {
                     currentNetworkInventory = n;
-                    Console.WriteLine("Networkinventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("Networkinventory for customer {0} found", currentCustomer.Name));
                 }
             }
             if (currentNetworkInventory == null)
             {
-                Console.WriteLine("No Networkinventory found");
+                Log.WriteLog("No Networkinventory found");
                 MessageBox.Show("Kein Netzwerkinventar gefunden, bitte ein Netzwerkinventar für den Kunden erstellen", "Kein Netzwerkinventar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             //Get latest Systeminventory of the customer
@@ -345,13 +344,13 @@ namespace BP_LicenseAudit.Controller
                     if (currentSystemInventory == null)
                     {
                         currentSystemInventory = si;
-                        Console.WriteLine("Systeminventory for customer {0} found", currentCustomer.Name);
+                        Log.WriteLog(string.Format("Systeminventory for customer {0} found", currentCustomer.Name));
                     }
                     //if a systeminventory is newer than the current take this instead
                     else if (DateTime.Compare(si.Date, currentSystemInventory.Date) > 0)
                     {
                         currentSystemInventory = si;
-                        Console.WriteLine("Newer Systeminventory for customer {0} found", currentCustomer.Name);
+                        Log.WriteLog(string.Format("Newer Systeminventory for customer {0} found", currentCustomer.Name));
                     }
                 }
             }
@@ -387,7 +386,7 @@ namespace BP_LicenseAudit.Controller
         //manage the checkbox to select or diselect all networks
         public void chkAll_Changed()
         {
-            //Console.WriteLine("chkAll_Changed called");
+            //Log.WriteLog("chkAll_Changed called");
             if (view.chkAll_State())
             {
                 //set chkall to true to disable lstNetworksSelected (avoid loop)

@@ -41,7 +41,7 @@ namespace BP_LicenseAudit.Controller
             {
                 progress.Refresh();
                 progress.Maximum = (int)(convertIPtoUInt32(end) - convertIPtoUInt32(start));
-                Console.WriteLine("Progressbar Maximum: " + progress.Maximum);
+                Log.WriteLog("Progressbar Maximum: " + progress.Maximum);
             }
             while (!(start.Equals(end)))
             {
@@ -201,7 +201,7 @@ namespace BP_LicenseAudit.Controller
                                 break;
                             }
                         default:
-                            Console.WriteLine("Unknown Inputtype");
+                            Log.WriteLog("Unknown Inputtype");
                             break;
                     }
 
@@ -214,27 +214,27 @@ namespace BP_LicenseAudit.Controller
                 }
                 catch (FormatException e)
                 {
-                    Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
+                    Log.WriteLog("Error while parsing IPAddress String to Byte: " + e.Message);
                     MessageBox.Show("Fehler bei der Eingabe der Adressen.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 catch (ArgumentException e)
                 {
                     MessageBox.Show("Fehler bei der Eingabe des Suffixes.", "Suffix-Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine("Suffix Fehler: " + e.Message);
+                    Log.WriteLog("Suffix Fehler: " + e.Message);
                     return;
                 }
                 catch (OutOfMemoryException e)
                 {
                     MessageBox.Show("Maximal zulässige Anzahl an Adressen überschritten. Das Netzwerk wurde nicht hinzugefügt. Bitte Netzwerk korregieren.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine("Speicherüberlauf: " + e.Message);
+                    Log.WriteLog("Speicherüberlauf: " + e.Message);
                     GC.Collect();
                     return;
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show("Allgemeiner Fehler.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine("Allgemeiner Fehler: " + e.Message);
+                    Log.WriteLog("Allgemeiner Fehler: " + e.Message);
                     return;
                 }
             }
@@ -303,20 +303,20 @@ namespace BP_LicenseAudit.Controller
         {
             base.SelectedCustomerChanged(customer);
             currentNetworkInventory = null;
-            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            Log.WriteLog(string.Format("Customer changed successfully: New Customer: {0}", currentCustomer.Name));
             //Get Networkinventor of the customer or create a new one
             foreach (NetworkInventory n in list_networkinventories)
             {
                 if (n.Customernumber == currentCustomer.Cnumber)
                 {
                     currentNetworkInventory = n;
-                    Console.WriteLine("Inventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("Inventory for customer {0} found", currentCustomer.Name));
                 }
             }
             if (currentNetworkInventory == null)
             {
                 currentNetworkInventory = CreateNetworkInventory(currentCustomer.Cnumber);
-                Console.WriteLine("new NetworkInventory created");
+                Log.WriteLog(string.Format("new NetworkInventory created"));
             }
             UpdateView(false);
         }

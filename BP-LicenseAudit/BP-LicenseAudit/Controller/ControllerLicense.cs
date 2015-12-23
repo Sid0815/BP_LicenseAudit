@@ -90,7 +90,7 @@ namespace BP_LicenseAudit.Controller
             //License Types (only updated if a the number of diplayed types and the number of types is different)
             if (!(list_allAvailableLicenses.Count == view.CountLicenseTypes()))
             {
-                Console.WriteLine("ViewUpdate Licensetypes");
+                Log.WriteLog("ViewUpdate Licensetypes");
                 view.ClearLicenseTypes();
                 foreach (License l in list_allAvailableLicenses)
                 {
@@ -129,20 +129,20 @@ namespace BP_LicenseAudit.Controller
         {
             base.SelectedCustomerChanged(customer);
             currentLicenseInventory = null;
-            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            Log.WriteLog(string.Format("Customer changed successfully: New Customer: {0}", currentCustomer.Name));
             //Get Licenseinventory of the customer or create a new one
             foreach (LicenseInventory li in list_licenseInventories)
             {
                 if (li.Customernumber == currentCustomer.Cnumber)
                 {
                     currentLicenseInventory = li;
-                    Console.WriteLine("Licenseinventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("Licenseinventory for customer {0} found", currentCustomer.Name));
                 }
             }
             if (currentLicenseInventory == null)
             {
                 currentLicenseInventory = CreateLicenseInventory(currentCustomer.Cnumber);
-                Console.WriteLine("new inventory created");
+                Log.WriteLog("new inventory created");
             }
             UpdateView(false);
         }

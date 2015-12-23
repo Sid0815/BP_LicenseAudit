@@ -25,7 +25,7 @@ namespace BP_LicenseAudit
             {
                 connection = new SQLiteConnection("Data Source=" + dbpath + ";Version=3; foreign keys=true;");
                 connection.Open();
-                //Console.WriteLine("Database opend");
+                //Log.WriteLog("Database opend");
                 command = new SQLiteCommand(connection);
                 //Create Table Customer if it does not exist
                 command.CommandText = "CREATE TABLE IF NOT EXISTS customer ( customerNumber INTEGER NOT NULL PRIMARY KEY, name VARCHAR(200) NOT NULL, street VARCHAR(200) NOT NULL, streetnumber VARCHAR(10) NOT NULL, city VARCHAR(100) NOT NULL, zip VARCHAR(10) NOT NULL);";
@@ -66,15 +66,15 @@ namespace BP_LicenseAudit
                 //Create Table Results if it does not exist(n:m audit:license)
                 command.CommandText = "CREATE TABLE IF NOT EXISTS results ( auditNumber INTEGER NOT NULL, licenseNumber INTEGER NOT NULL, result INTEGER NOT NULL, PRIMARY KEY (auditNumber, licenseNumber), FOREIGN KEY(auditNumber) REFERENCES audit(auditNumber), FOREIGN KEY(licenseNumber) REFERENCES license(licenseNumber)); ";
                 command.ExecuteNonQuery();
-                //Console.WriteLine("Tables checked or created");
+                //Log.WriteLog("Tables checked or created");
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Creation", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
-            //Console.WriteLine("Database closed");
+            //Log.WriteLog("Database closed");
 
         }
 
@@ -97,7 +97,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write Customer", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -121,7 +121,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Change Customer", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -144,7 +144,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading Customers", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
             return list_customers;
@@ -165,7 +165,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write License", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -188,7 +188,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading LicenseTypes", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
             return list_licenses;
@@ -221,11 +221,11 @@ namespace BP_LicenseAudit
                         command.CommandText = "INSERT INTO ipaddresses (ipaddress) VALUES(@ipaddress);";
                         command.Parameters.AddWithValue("@ipaddress", ip.ToString());
                         command.ExecuteNonQuery();
-                        //Console.WriteLine("IPAddress {0} saved to database", ip.ToString());
+                        //Log.WriteLog("IPAddress {0} saved to database", ip.ToString());
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Error writing IP to DB: " + e.Message);
+                        Log.WriteLog("Error writing IP to DB: " + e.Message);
                     }
                     try
                     {//Connect ip to netwok in database
@@ -233,22 +233,22 @@ namespace BP_LicenseAudit
                         command.Parameters.AddWithValue("@networkNumber", n.NetworkNumber);
                         command.Parameters.AddWithValue("@ipaddress", ip.ToString());
                         command.ExecuteNonQuery();
-                        //Console.WriteLine("IPaddress {0} connected to network {1} in database.", ip.ToString(), n.Name);
+                        //Log.WriteLog("IPaddress {0} connected to network {1} in database.", ip.ToString(), n.Name);
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Error writing IP/NW to DB: " + e.Message);
+                        Log.WriteLog("Error writing IP/NW to DB: " + e.Message);
                     }
                     fp.Progress();
                 }
                 transaction.Commit();
-                Console.WriteLine("Network {0} saved to database.", n.Name);
+                Log.WriteLog(string.Format("Network {0} saved to database.", n.Name));
                 fp.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write Network", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -286,7 +286,7 @@ namespace BP_LicenseAudit
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Error writing IP to DB: " + e.Message);
+                        Log.WriteLog("Error writing IP to DB: " + e.Message);
                     }
                     try
                     {//Connect ip to netwok in database
@@ -297,18 +297,18 @@ namespace BP_LicenseAudit
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("Error writing IP/NW to DB: " + e.Message);
+                        Log.WriteLog("Error writing IP/NW to DB: " + e.Message);
                     }
                     fp.Progress();
                 }
                 transaction.Commit();
-                Console.WriteLine("Network {0} changed in database.", n.Name);
+                Log.WriteLog(string.Format("Network {0} changed in database.", n.Name));
                 fp.Close();
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write Network", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -328,12 +328,12 @@ namespace BP_LicenseAudit
                 /*command.CommandText = "DELETE FROM networkipadress WHERE networkNumber=@nnr ;";
                 command.Parameters.AddWithValue("@nnr", n.NetworkNumber);
                 command.ExecuteNonQuery();*/
-                Console.WriteLine("Network {0} deleted in database.", n.Name);
+                Log.WriteLog(string.Format("Network {0} deleted in database.", n.Name));
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write Network", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -369,7 +369,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading Networks", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
             return list_networks;
@@ -390,7 +390,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write NetworkInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -438,7 +438,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading NetworkInventories", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
             return list_networkinventories;
@@ -460,7 +460,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Update LicenseInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -480,13 +480,13 @@ namespace BP_LicenseAudit
                     command.Parameters.AddWithValue("@licenseNumber", l.LicenseNumber);
                     command.Parameters.AddWithValue("@count", count);
                     command.ExecuteNonQuery();
-                    Console.WriteLine("Lizenz war noch nicht im Inventory");
+                    Log.WriteLog("Lizenz war noch nicht im Inventory");
                 }
                 catch (SQLiteException e)
                 {
                     //Tuple alreeady in table
                     update = true;
-                    Console.WriteLine("License already in invnetory, update it");
+                    Log.WriteLog("License already in invnetory, update it");
                 }
                 if (update)
                 {
@@ -495,13 +495,13 @@ namespace BP_LicenseAudit
                     command.Parameters.AddWithValue("@licenseNumber", l.LicenseNumber);
                     command.Parameters.AddWithValue("@count", count);
                     command.ExecuteNonQuery();
-                    Console.WriteLine("Lizenz aktualisiert");
+                    Log.WriteLog("Lizenz aktualisiert");
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Update LicenseInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -534,7 +534,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading LicenseInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             return list_licenseinventories;
         }
@@ -563,7 +563,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write Clientsystem", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -585,7 +585,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Update ClientSystem", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -631,7 +631,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading ClientSystems", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
             return list_ClientSystems;
@@ -653,7 +653,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write SystemInventory", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -719,7 +719,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading SystemInventories", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
 
@@ -754,7 +754,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Write Audit", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
         }
@@ -787,7 +787,7 @@ namespace BP_LicenseAudit
             catch (Exception e)
             {
                 MessageBox.Show("Error SQL Reading Audits", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(e.Message);
+                Log.WriteLog(e.Message);
             }
             connection.Close();
             return list_audits;

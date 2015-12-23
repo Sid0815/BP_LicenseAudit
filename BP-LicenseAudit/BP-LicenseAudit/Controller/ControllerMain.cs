@@ -134,7 +134,7 @@ namespace BP_LicenseAudit.Controller
                     fSystemInventory.ShowDialog();
                     break;
                 default:
-                    Console.WriteLine("No proper Formsubmitted");
+                    Log.WriteLog("No proper Formsubmitted");
                     break;
             }
         }
@@ -202,7 +202,7 @@ namespace BP_LicenseAudit.Controller
         public override void SelectedCustomerChanged(Object customer)
         {
             base.SelectedCustomerChanged(customer);
-            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            Log.WriteLog(string.Format("Customer changed successfully: New Customer: {0}", currentCustomer.Name));
 
             //Get Networkinventory of the customer
             currentNetworkInventory = null;
@@ -211,7 +211,7 @@ namespace BP_LicenseAudit.Controller
                 if (n.Customernumber == currentCustomer.Cnumber)
                 {
                     currentNetworkInventory = n;
-                    Console.WriteLine("NetworkInventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("NetworkInventory for customer {0} found", currentCustomer.Name));
                 }
             }
 
@@ -222,7 +222,7 @@ namespace BP_LicenseAudit.Controller
                 if (li.Customernumber == currentCustomer.Cnumber)
                 {
                     currentLicenseInventory = li;
-                    Console.WriteLine("LicenseInventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("LicenseInventory for customer {0} found", currentCustomer.Name));
                 }
             }
 
@@ -233,7 +233,7 @@ namespace BP_LicenseAudit.Controller
                 if (si.Customernumber == currentCustomer.Cnumber)
                 {
                     currentSystemInventory = si;
-                    Console.WriteLine("SystemInventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("SystemInventory for customer {0} found", currentCustomer.Name));
                 }
             }
 
@@ -244,7 +244,7 @@ namespace BP_LicenseAudit.Controller
                 if (a.CustomerNumber == currentCustomer.Cnumber)
                 {
                     currentAudit = a;
-                    Console.WriteLine("Audit for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("Audit for customer {0} found", currentCustomer.Name));
                 }
             }
             UpdateView(false);

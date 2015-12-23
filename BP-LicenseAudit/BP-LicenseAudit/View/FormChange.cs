@@ -40,7 +40,7 @@ namespace BP_LicenseAudit.View
             if (row.Count > 0 && (row[0].Cells[0].Value != null) && (row[0].Cells[1].Value != null))
             {
                 currentcontroller.SelectedLicenseChanged(row[0].Cells[0].Value.ToString(), row[0].Cells[1].Value.ToString());
-                Console.WriteLine("License Selected: {0}, {1}", row[0].Cells[0].Value.ToString(), row[0].Cells[1].Value.ToString());
+                Log.WriteLog(string.Format("License Selected: {0}, {1}", row[0].Cells[0].Value.ToString(), row[0].Cells[1].Value.ToString()));
             }
 
         }
@@ -256,6 +256,11 @@ namespace BP_LicenseAudit.View
         private void btnNetworkRemove_Click(object sender, EventArgs e)
         {
             currentcontroller.RemoveNetwork(lstNetwork.SelectedItem);
+        }
+
+        public System.Windows.Forms.ProgressBar GetProgressBar()
+        {
+            return this.progressBarNetwork;
         }
 
 

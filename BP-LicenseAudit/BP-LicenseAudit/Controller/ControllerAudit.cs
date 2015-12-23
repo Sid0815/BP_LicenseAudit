@@ -71,7 +71,7 @@ namespace BP_LicenseAudit.Controller
                             if (c.Type.Equals(types[i]))
                             {
                                 count[i]++;
-                                Console.WriteLine("{0} occures {1} times", types[i], count[i]);
+                                Log.WriteLog(String.Format("{0} occures {1} times", types[i], count[i]));
                             }
                         }
                     }
@@ -142,7 +142,7 @@ namespace BP_LicenseAudit.Controller
         public void PrintResults()
         {
             string filename = String.Format("..\\..\\audit{0}.xml",DateTime.Now.ToString("yyyyMMddHHmmss"));
-            Console.WriteLine(filename);
+            Log.WriteLog(filename);
             if (currentAudit != null)
             {
                 XmlTextWriter writer = new XmlTextWriter(filename, new UnicodeEncoding());
@@ -235,6 +235,10 @@ namespace BP_LicenseAudit.Controller
                 writer.WriteEndDocument();
                 writer.Close();
                 MessageBox.Show(String.Format("Audit unter {0} gespeichert.", filename),"Audit gespeichert", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Kein Audit zum erstellen des Ergebnisses gefunden. Bitte prüfen Sie ob ein Audit verfügbar ist.", "Kein Audit gefunden", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -329,14 +333,14 @@ namespace BP_LicenseAudit.Controller
             currentLicenseInventory = null;
             currentSystemInventory = null;
             currentAudit = null;
-            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            Log.WriteLog(string.Format("Customer changed successfully: New Customer: {0}", currentCustomer.Name));
             //Get Licenseinventory of the customer or Display Message
             foreach (LicenseInventory li in list_licenseInventories)
             {
                 if (li.Customernumber == currentCustomer.Cnumber)
                 {
                     currentLicenseInventory = li;
-                    Console.WriteLine("Licenseinventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("Licenseinventory for customer {0} found", currentCustomer.Name));
                     view.EnableAudit();
                 }
             }
@@ -353,12 +357,12 @@ namespace BP_LicenseAudit.Controller
                     if (currentAudit == null)
                     {
                         currentAudit = a;
-                        Console.WriteLine("Audit for customer {0} found", currentCustomer.Name);
+                        Log.WriteLog(string.Format("Audit for customer {0} found", currentCustomer.Name));
                     }
                     else if (DateTime.Compare(a.Date, currentAudit.Date) > 0)
                     {
                         currentAudit = a;
-                        Console.WriteLine("Newer Audit for customer {0} found", currentCustomer.Name);
+                        Log.WriteLog(string.Format("Newer Audit for customer {0} found", currentCustomer.Name));
                     }
 
                 }
@@ -371,7 +375,7 @@ namespace BP_LicenseAudit.Controller
                     if (si.SystemInventoryNumber == currentAudit.SystemInventoryNumber)
                     {
                         currentSystemInventory = si;
-                        Console.WriteLine("Belonging Systeminventory for current Audit found.");
+                        Log.WriteLog("Belonging Systeminventory for current Audit found.");
                         view.EnableAudit();
                         MessageBox.Show(String.Format("Audit für diesen Kunden gefunden. Audit vom {0} für Systeminventar vom {1} wird dargestellt.\nBitte beachten Sie, dass sich das Lizenzinventar des Kunden seitdem geändert haben kann und das aktuell dargestellte Lizenzinventar nicht mit dem Ergebnis des Audits in Verbindung steht.",
                             currentAudit.Date, currentSystemInventory.Date), "Audit vorhanden", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -387,7 +391,7 @@ namespace BP_LicenseAudit.Controller
                     if (si.Customernumber == currentCustomer.Cnumber)
                     {
                         currentSystemInventory = si;
-                        Console.WriteLine("Systeminventory for customer {0} found", currentCustomer.Name);
+                        Log.WriteLog(string.Format("Systeminventory for customer {0} found", currentCustomer.Name));
                         view.EnableAudit();
                     }
                 }
@@ -406,7 +410,7 @@ namespace BP_LicenseAudit.Controller
             {
                 //extract Date from cmbInventory
                 string input = (string)inventory;
-                Console.WriteLine("Inventory changed successfully: New Inventory: {0}", input);
+                Log.WriteLog(string.Format("Inventory changed successfully: New Inventory: {0}", input));
                 string[] splitted_input = input.Split();
                 input = splitted_input[1] + " " + splitted_input[2];
                 DateTime inventoryDate = DateTime.Parse(input);
@@ -416,7 +420,7 @@ namespace BP_LicenseAudit.Controller
                     if (DateTime.Compare(si.Date, inventoryDate)==0)
                     {
                         currentSystemInventory = si;
-                        Console.WriteLine("Belonging SystemInventory found: {0}", currentSystemInventory.SystemInventoryNumber);
+                        Log.WriteLog(string.Format("Belonging SystemInventory found: {0}", currentSystemInventory.SystemInventoryNumber));
                     }
                 }
                 //get auidt belonging system inventory if it exists
@@ -426,7 +430,7 @@ namespace BP_LicenseAudit.Controller
                     if (a.CustomerNumber == currentCustomer.Cnumber && a.SystemInventoryNumber == currentSystemInventory.SystemInventoryNumber)
                     {
                         currentAudit = a;
-                        Console.WriteLine("Belonging Audit found: {0}", currentAudit.AuditNumber);
+                        Log.WriteLog(string.Format("Belonging Audit found: {0}", currentAudit.AuditNumber));
                     }
                 }
                 UpdateView(false);

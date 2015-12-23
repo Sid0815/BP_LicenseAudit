@@ -71,7 +71,7 @@ namespace BP_LicenseAudit.Controller
             }
             else
             {
-                Console.WriteLine("Error while adding User");
+                Log.WriteLog("Error while adding User");
             }
 
 
@@ -96,7 +96,7 @@ namespace BP_LicenseAudit.Controller
             }
             else
             {
-                Console.WriteLine("Error while adding User");
+                Log.WriteLog("Error while adding User");
             }
 
         }

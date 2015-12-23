@@ -75,6 +75,7 @@
             this.btnLicense = new System.Windows.Forms.Button();
             this.btnNetwork = new System.Windows.Forms.Button();
             this.btnNetworkRemove = new System.Windows.Forms.Button();
+            this.progressBarNetwork = new System.Windows.Forms.ProgressBar();
             this.tabNetwork.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -534,6 +535,15 @@
             this.clmCount.ReadOnly = true;
             this.clmCount.Width = 50;
             //
+            //ProgressBar1
+            //
+            this.progressBarNetwork.Location = new System.Drawing.Point(214, 469);
+            this.progressBarNetwork.Name = "progressBar1";
+            this.progressBarNetwork.Size = new System.Drawing.Size(269, 23);
+            this.progressBarNetwork.TabIndex = 35;
+            this.progressBarNetwork.Step = 1;
+            this.progressBarNetwork.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            //
             //inherited Elements
             //
             // 
@@ -583,6 +593,7 @@
             this.Controls.Add(this.lblCStreet);
             this.Controls.Add(this.lblCName);
             this.Controls.Add(this.dgvLicense);
+            this.Controls.Add(this.progressBarNetwork);
             this.Name = "FormChange";
             this.Text = "Daten ändern";
             this.Load += new System.EventHandler(this.FormChange_Load);
@@ -672,5 +683,6 @@
         private System.Windows.Forms.DataGridView dgvLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmLicense;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmCount;
+        private System.Windows.Forms.ProgressBar progressBarNetwork;
     }
 }

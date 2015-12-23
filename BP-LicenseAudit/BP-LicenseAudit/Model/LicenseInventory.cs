@@ -50,7 +50,7 @@ namespace BP_LicenseAudit.Model
         public void AddLicenseToInventory(int licenseNumber, int count)
         {
             Tuple<int, int> currentlicense = new Tuple<int, int>(licenseNumber, count);
-            Console.WriteLine("Added License to inventory: {0}", currentlicense);
+            Log.WriteLog(string.Format("Added License to inventory: {0}", currentlicense));
             inventory.Add(currentlicense);
         }
 

@@ -59,6 +59,7 @@
     <Compile Include="Controller\ControllerNetwork.cs" />
     <Compile Include="Controller\ControllerSystemInventory.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Model\Audit.cs" />
     <Compile Include="Model\Customer.cs" />
     <Compile Include="Model\Inventory.cs" />

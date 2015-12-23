@@ -16,15 +16,10 @@ namespace BP_LicenseAudit
             //Initialize Main Form Forms
             FormMain FMain = new FormMain();
             FMain.Visible = false;
-
             //Initialize Controller
             ControllerMain CMain = new ControllerMain(FMain);
             //pass controller to Form
             FMain.Currentcontroller = CMain;
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new FormMain());
-
             FMain.ShowDialog();
         }
 

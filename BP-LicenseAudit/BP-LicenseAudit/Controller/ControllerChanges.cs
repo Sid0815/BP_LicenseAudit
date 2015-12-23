@@ -47,7 +47,7 @@ namespace BP_LicenseAudit.Controller
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error parsing int");
+                Log.WriteLog("Error parsing int");
             }
             foreach (License l in list_allAvailableLicenses)
             {
@@ -174,7 +174,7 @@ namespace BP_LicenseAudit.Controller
                         }
                     default:
                         {
-                            Console.WriteLine("Error, wrong Inputtype");
+                            Log.WriteLog("Error, wrong Inputtype");
                             break;
                         }
 
@@ -265,9 +265,17 @@ namespace BP_LicenseAudit.Controller
                                         end = helper;
                                         MessageBox.Show("Addressen gedreht.", "Inputfehler korregiert", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     }
+                                    if ((int)(ControllerNetwork.convertIPtoUInt32(end) - ControllerNetwork.convertIPtoUInt32(start)) > 10000)
+                                    {
+                                        DialogResult dr_inner = MessageBox.Show("Achtung: Die Berechnung dieses Netzwerks kann unter Umständen länger dauern. Wollen Sie fortfahren?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                        if (dr_inner == DialogResult.No)
+                                        {
+                                            return;
+                                        }
+                                    }
                                     this.selectedNetwork.Name = String.Format("{0} - {1}", start.ToString(), end.ToString());
                                     this.selectedNetwork.InputType = view.GetNetworkInputtype();
-                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesSE(start, end, null);
+                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesSE(start, end, view.GetProgressBar());
                                     view.ClearStartEndInput();
                                     break;
                                 }
@@ -307,12 +315,21 @@ namespace BP_LicenseAudit.Controller
                                     b_cidraddress[3] = Convert.ToByte(str_cidraddress[3]);
                                     cidr = Convert.ToByte(str_cidraddress[4]);
                                     if (cidr > 32) throw new Exception("Cidr overflow");
+                                    if (cidr < 19)
+                                    {
+                                        DialogResult dr_inner = MessageBox.Show("Achtung: Die Berechnung dieses Netzwerks kann unter Umständen länger dauern. Wollen Sie fortfahren?", "Warnung", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                        if (dr_inner == DialogResult.No)
+                                        {
+                                            return;
+                                        }
+                                    }
                                     //Creating and adding network
                                     IPAddress network = new IPAddress(b_cidraddress);
                                     this.selectedNetwork.Name = String.Format("{0} / {1}", network.ToString(), cidr.ToString());
-                                    Console.WriteLine("NetworktabTest:" + view.GetNetworkInputtype());
+                                    Log.WriteLog("NetworktabTest:" + view.GetNetworkInputtype());
                                     this.selectedNetwork.InputType = view.GetNetworkInputtype();
-                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesCidr(network, cidr, null);
+
+                                    this.selectedNetwork.IpAddresses = ControllerNetwork.calcAddressesCidr(network, cidr, view.GetProgressBar());
                                     view.ClearCidrInput();
                                     break;
                                 }
@@ -326,21 +343,21 @@ namespace BP_LicenseAudit.Controller
                     }
                     catch (FormatException e)
                     {
-                        Console.WriteLine("Error while parsing IPAddress String to Byte: " + e.Message);
+                        Log.WriteLog("Error while parsing IPAddress String to Byte: " + e.Message);
                         MessageBox.Show("Fehler bei der Eingabe der Adressen", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     catch (OutOfMemoryException e)
                     {
                         MessageBox.Show("Maximal zulässige Anzahl an Adressen überschritten. Das Netzwerk wurde nicht hinzugefügt. Bitte Netzwerk korregieren.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.WriteLine("Speicherüberlauf: " + e.Message);
+                        Log.WriteLog("Speicherüberlauf: " + e.Message);
                         GC.Collect();
                         return;
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show("Allgemeiner Fehler.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.WriteLine("Allgemeiner Fehler: " + e.Message);
+                        Log.WriteLog("Allgemeiner Fehler: " + e.Message);
                         return;
                     }
                 }
@@ -439,7 +456,7 @@ namespace BP_LicenseAudit.Controller
             //License Types (only updated if a the number of diplayed types and the number of types is different)
             if (!(list_allAvailableLicenses.Count == view.CountLicenseTypes()))
             {
-                Console.WriteLine("ViewUpdate Licensetypes");
+                Log.WriteLog("ViewUpdate Licensetypes");
                 view.ClearLicenseTypes();
                 foreach (License l in list_allAvailableLicenses)
                 {
@@ -494,14 +511,14 @@ namespace BP_LicenseAudit.Controller
             base.SelectedCustomerChanged(customer);
             currentLicenseInventory = null;
             currentNetworkInventory = null;
-            Console.WriteLine("Customer changed successfully: New Customer: {0}", currentCustomer.Name);
+            Log.WriteLog(string.Format("Customer changed successfully: New Customer: {0}", currentCustomer.Name));
             //Get Licenseinventory of the customer
             foreach (LicenseInventory li in list_licenseInventories)
             {
                 if (li.Customernumber == currentCustomer.Cnumber)
                 {
                     currentLicenseInventory = li;
-                    Console.WriteLine("Licenseinventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("Licenseinventory for customer {0} found", currentCustomer.Name));
                 }
             }
             if (currentLicenseInventory == null)
@@ -514,7 +531,7 @@ namespace BP_LicenseAudit.Controller
                 if (ni.Customernumber == currentCustomer.Cnumber)
                 {
                     currentNetworkInventory = ni;
-                    Console.WriteLine("Networkinventory for customer {0} found", currentCustomer.Name);
+                    Log.WriteLog(string.Format("Networkinventory for customer {0} found", currentCustomer.Name));
                 }
             }
             if (currentNetworkInventory == null)
