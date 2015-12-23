@@ -360,26 +360,40 @@ namespace BP_LicenseAudit.Controller
             }
             else
             {
-                Customer c = (Customer)customer;
-                int x = list_customers.IndexOf(c);
-                currentCustomer = (Customer)list_customers[x];
-                if ((!currentCustomer.Name.Equals(name)) || (!currentCustomer.Street.Equals(street)) || (!currentCustomer.Streetnumber.Equals(streetnr)) || (!currentCustomer.City.Equals(city)) || (!currentCustomer.Zip.Equals(zip)))
+                bool zip_ok = true;
+                //check if zip contains only digits
+                foreach (Char ch in zip)
                 {
-                    DialogResult dr = MessageBox.Show(String.Format("Soll der Kunde {0}, {1}, {2}, {3}, {4} in {5}, {6}, {7}, {8}, {9} geändert werden?",
-                        currentCustomer.Name, currentCustomer.Street, currentCustomer.Streetnumber, currentCustomer.City, currentCustomer.Zip,
-                        name, street, streetnr, city, zip), "Kunde aktualisieren", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (dr == DialogResult.Yes)
+                    if (!Char.IsDigit(ch))
                     {
-                        currentCustomer.Name = name;
-                        currentCustomer.Street = street;
-                        currentCustomer.Streetnumber = streetnr;
-                        currentCustomer.City = city;
-                        currentCustomer.Zip = zip;
-                        UpdateView(true);
-                        UpdateCustomerView();
-                        db.UpdateCustomer(currentCustomer);
+                        MessageBox.Show("Fehler bei der Eingabe der Postleitzahl", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        zip_ok = false;
                     }
                 }
+                if (zip_ok)
+                {
+                    Customer c = (Customer)customer;
+                    int x = list_customers.IndexOf(c);
+                    currentCustomer = (Customer)list_customers[x];
+                    if ((!currentCustomer.Name.Equals(name)) || (!currentCustomer.Street.Equals(street)) || (!currentCustomer.Streetnumber.Equals(streetnr)) || (!currentCustomer.City.Equals(city)) || (!currentCustomer.Zip.Equals(zip)))
+                    {
+                        DialogResult dr = MessageBox.Show(String.Format("Soll der Kunde {0}, {1}, {2}, {3}, {4} in {5}, {6}, {7}, {8}, {9} geändert werden?",
+                            currentCustomer.Name, currentCustomer.Street, currentCustomer.Streetnumber, currentCustomer.City, currentCustomer.Zip,
+                            name, street, streetnr, city, zip), "Kunde aktualisieren", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dr == DialogResult.Yes)
+                        {
+                            currentCustomer.Name = name;
+                            currentCustomer.Street = street;
+                            currentCustomer.Streetnumber = streetnr;
+                            currentCustomer.City = city;
+                            currentCustomer.Zip = zip;
+                            UpdateView(true);
+                            UpdateCustomerView();
+                            db.UpdateCustomer(currentCustomer);
+                        }
+                    }
+                }
+
             }
         }
 

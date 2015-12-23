@@ -78,7 +78,7 @@ namespace BP_LicenseAudit.Controller
             cLicense = new ControllerLicense(this, fLicense, list_customers, list_allAvailableLicenses, list_licenseInventories);
             cNetwork = new ControllerNetwork(this, fNetwork, list_customers, list_networks, list_networkInventories);
             cSystemInventory = new ControllerSystemInventory(this, fSystemInventory, list_customers, list_networks,
-                                                             list_networkInventories, list_systems, list_systemInventories);
+                                                             list_networkInventories, list_systems, list_systemInventories, list_allAvailableLicenses);
 
             //Connect Controller to View
             fAudit.Currentcontroller = cAudit;

@@ -104,7 +104,7 @@
             "(leer)"});
             this.lstActions.Location = new System.Drawing.Point(780, 23);
             this.lstActions.Name = "lstActions";
-            this.lstActions.Size = new System.Drawing.Size(180, 446);
+            this.lstActions.Size = new System.Drawing.Size(190, 446);
             this.lstActions.TabIndex = 6;
             this.lstActions.SelectionMode = System.Windows.Forms.SelectionMode.None;
             // 
@@ -142,7 +142,7 @@
             // 
             this.btnInventory.Location = new System.Drawing.Point(780, 480);
             this.btnInventory.Name = "btnInventory";
-            this.btnInventory.Size = new System.Drawing.Size(180, 35);
+            this.btnInventory.Size = new System.Drawing.Size(190, 35);
             this.btnInventory.TabIndex = 11;
             this.btnInventory.Text = "Inventarisierung durchführen";
             this.btnInventory.UseVisualStyleBackColor = true;
@@ -152,7 +152,7 @@
             // 
             this.btnAudit.Location = new System.Drawing.Point(780, 530);
             this.btnAudit.Name = "btnAudit";
-            this.btnAudit.Size = new System.Drawing.Size(180, 35);
+            this.btnAudit.Size = new System.Drawing.Size(190, 35);
             this.btnAudit.TabIndex = 12;
             this.btnAudit.Text = "Audit durchführen";
             this.btnAudit.UseVisualStyleBackColor = true;
@@ -160,7 +160,7 @@
             // 
             // btnChange
             // 
-            this.btnChange.Location = new System.Drawing.Point(980, 23);
+            this.btnChange.Location = new System.Drawing.Point(990, 23);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(180, 35);
             this.btnChange.TabIndex = 13;
@@ -204,7 +204,7 @@
             //
             //btnEnde
             //
-            this.btnEnd.Location = new System.Drawing.Point(980, 60);
+            this.btnEnd.Location = new System.Drawing.Point(990, 60);
             this.btnEnd.Size = new System.Drawing.Size(180, 35);
             //
             //lblCustomer

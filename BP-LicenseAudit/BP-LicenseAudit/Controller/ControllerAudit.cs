@@ -91,7 +91,7 @@ namespace BP_LicenseAudit.Controller
                     }
                     if (licensenumber == -1)
                     {
-                        //licensetype unknown, learn it
+                        //licensetype unknown, learn it (shouldn't happen because license should be learned during inventoryprocess)
                         License newlicense = new License(list_allAvailableLicenses.Count, types[i]);
                         list_allAvailableLicenses.Add(newlicense);
                         db.SaveLicense(newlicense);

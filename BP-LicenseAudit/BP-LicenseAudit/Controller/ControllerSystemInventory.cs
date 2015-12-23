@@ -22,13 +22,14 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_systems;
         private ArrayList list_systemInventories;
         private ArrayList selectedNetworks;
+        private ArrayList list_allAvailableLicenses;
         private bool chkall;
         private string username;
         private string password;
 
         //constructor
         public ControllerSystemInventory(ControllerParent calling, FormSystemInventory view, ArrayList list_customers,
-                                         ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_systems, ArrayList list_systemInventories) : base(calling, list_customers)
+                                         ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_systems, ArrayList list_systemInventories, ArrayList list_licenses) : base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
@@ -36,6 +37,7 @@ namespace BP_LicenseAudit.Controller
             this.list_networkinventories = list_networkinventories;
             this.list_systems = list_systems;
             this.list_systemInventories = list_systemInventories;
+            this.list_allAvailableLicenses = list_licenses;
             selectedNetworks = new ArrayList();
             chkall = false;
         }
@@ -51,6 +53,11 @@ namespace BP_LicenseAudit.Controller
                 foreach (Network n in selectedNetworks)
                 {
                     this.selectedNetworks.Add(n);
+                }
+                if (this.selectedNetworks.Count < 1)
+                {
+                    MessageBox.Show("Kein Netzwerk ausgewählt. Bitte Netzwerke auswählen und Inventarisierung erneut starten.", "Keine Netzwerk ausgewählt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
                 //Get Admin credntials
                 username = null;
@@ -127,6 +134,15 @@ namespace BP_LicenseAudit.Controller
         //Scan all Clients in current System Inevntory for Details
         private void scanDetails()
         {
+            //Prepare known license types
+            Dictionary<string, int> licenses = new Dictionary<string, int>();
+            foreach (License l in list_allAvailableLicenses)
+            {
+                if (!licenses.ContainsKey(l.Name))
+                {
+                    licenses.Add(l.Name, l.LicenseNumber);
+                }
+            }
             Console.WriteLine("Scanning Details");
             //Get IP of local Host because the wmi conection differs
             IPAddress[] localhost = Dns.GetHostAddresses("");
@@ -177,7 +193,16 @@ namespace BP_LicenseAudit.Controller
                         Console.WriteLine("SerialNumber : {0}", m["SerialNumber"]);
                         c.Serial = (string)m["SerialNumber"];
                     }
-
+                    //Check if it is an unknow license type
+                    if (!licenses.ContainsKey(c.Type))
+                    {
+                        //licensetype unknown, learn it
+                        License newlicense = new License(list_allAvailableLicenses.Count, c.Type);
+                        list_allAvailableLicenses.Add(newlicense);
+                        db.SaveLicense(newlicense);
+                        licenses.Add(newlicense.Name, newlicense.LicenseNumber);
+                        Console.WriteLine("Neue Lizenz gelernt: " + newlicense.Name);
+                    }
                 }
                 catch (System.Runtime.InteropServices.COMException e)
                 {

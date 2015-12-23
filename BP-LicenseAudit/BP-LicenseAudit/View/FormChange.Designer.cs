@@ -499,6 +499,7 @@
             this.numCount.Name = "numCount";
             this.numCount.Size = new System.Drawing.Size(310, 20);
             this.numCount.TabIndex = 31;
+            this.numCount.Maximum = 1000000;
             // 
             // dgvLicense
             // 

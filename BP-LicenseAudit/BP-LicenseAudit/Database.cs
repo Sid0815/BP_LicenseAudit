@@ -157,7 +157,7 @@ namespace BP_LicenseAudit
                 connection.Open();
                 command = new SQLiteCommand(connection);
                 command.CommandText = "INSERT INTO license (licenseNumber, name) VALUES(@licenseNumber, @name);";
-                command.Parameters.AddWithValue("@customerNumber", l.LicenseNumber);
+                command.Parameters.AddWithValue("@licenseNumber", l.LicenseNumber);
                 command.Parameters.AddWithValue("@name", l.Name);
                 command.ExecuteNonQuery();
             }
