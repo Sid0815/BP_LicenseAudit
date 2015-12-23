@@ -36,6 +36,7 @@
             this.lblDetail = new System.Windows.Forms.Label();
             this.chkAll = new System.Windows.Forms.CheckBox();
             this.btnInventory = new System.Windows.Forms.Button();
+            this.progressBarSI = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // lblNetwork
@@ -123,6 +124,15 @@
             this.btnInventory.UseVisualStyleBackColor = true;
             this.btnInventory.Click += new System.EventHandler(btnInventory_Click);
             //
+            //progressBarSI
+            //
+            this.progressBarSI.Location = new System.Drawing.Point(192, 261);
+            this.progressBarSI.Name = "progressBar1";
+            this.progressBarSI.Size = new System.Drawing.Size(434, 23);
+            this.progressBarSI.TabIndex = 14;
+            this.progressBarSI.Step = 1;
+            this.progressBarSI.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            //
             //inherited Elements
             //
             // 
@@ -157,6 +167,7 @@
             this.Controls.Add(this.lblClients);
             this.Controls.Add(this.lstNetworks);
             this.Controls.Add(this.lblNetwork);
+            this.Controls.Add(this.progressBarSI);
             this.Name = "FormSystemInventory";
             this.Text = "Inventarisierung durchführen";
             this.Load += new System.EventHandler(this.FormInventary_Load);
@@ -174,5 +185,6 @@
         private System.Windows.Forms.Label lblDetail;
         private System.Windows.Forms.CheckBox chkAll;
         private System.Windows.Forms.Button btnInventory;
+        private System.Windows.Forms.ProgressBar progressBarSI;
     }
 }

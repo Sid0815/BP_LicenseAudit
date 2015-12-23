@@ -68,8 +68,8 @@ namespace BP_LicenseAudit.Controller
                     MessageBox.Show("Keine Zugangsdaten übermittelt. Bitte Inventarisierung erneut starten.", "Keine Zugangsdaten", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                scanNetwork();
-                scanDetails();
+                scanNetwork(view.GetProgressBar());
+                scanDetails(view.GetProgressBar());
                 UpdateClients(selectedNetworks);
                 //Client Systems are passed by reference, no need to update list_systems
                 callingController.UpdateInformation();
@@ -82,7 +82,7 @@ namespace BP_LicenseAudit.Controller
         }
 
         //scan Network for Clients
-        private void scanNetwork()
+        private void scanNetwork(ProgressBar progress)
         {
             //Create a new system Inventory
             currentSystemInventory = CreateSystemInventroy(currentCustomer.Cnumber);
@@ -99,6 +99,17 @@ namespace BP_LicenseAudit.Controller
                 currentSystem = (ClientSystem)list_systems[list_systems.Count - 1];
                 latestsystemnumber = currentSystem.ClientSystemNumber;
             }
+            //Get number adresses
+            int i = 0;
+            foreach (Network n in selectedNetworks)
+            {
+                foreach (IPAddress ip in n.IpAddresses) i++;
+            }
+            if (progress != null)
+            {
+                progress.Value = 0;
+                progress.Maximum = i;
+            }
             //scan Networks
             Dictionary<String, IPAddress> unique = new Dictionary<string, IPAddress>();
             foreach (Network n in selectedNetworks)
@@ -108,6 +119,7 @@ namespace BP_LicenseAudit.Controller
                 {
                     try
                     {
+                        if (progress != null) progress.PerformStep();
                         unique.Add(ip.ToString(), ip);
                         Ping pingSender = new Ping();
                         PingReply reply = pingSender.Send(ip, 100);
@@ -132,7 +144,7 @@ namespace BP_LicenseAudit.Controller
         }
 
         //Scan all Clients in current System Inevntory for Details
-        private void scanDetails()
+        private void scanDetails(ProgressBar progress)
         {
             //Prepare known license types
             Dictionary<string, int> licenses = new Dictionary<string, int>();
@@ -155,6 +167,12 @@ namespace BP_LicenseAudit.Controller
                     Log.WriteLog(string.Format("Local Adresses: {0}", ip.ToString()));
                 }
             }
+            if (progress != null)
+            {
+                progress.Value = 0;
+                progress.Maximum = currentSystemInventory.List_Systems.Count;
+            }
+
             foreach (ClientSystem c in currentSystemInventory.List_Systems)
             {
                 //Connect via WMI
@@ -223,6 +241,7 @@ namespace BP_LicenseAudit.Controller
                 {
                     db.UpdateClientSystem(c);
                 }
+                if (progress != null) progress.PerformStep();
             }
         }
 
@@ -386,27 +405,31 @@ namespace BP_LicenseAudit.Controller
         //manage the checkbox to select or diselect all networks
         public void chkAll_Changed()
         {
-            //Log.WriteLog("chkAll_Changed called");
-            if (view.chkAll_State())
+            if (currentNetworkInventory != null && currentNetworkInventory.List_networks.Count > 0)
             {
-                //set chkall to true to disable lstNetworksSelected (avoid loop)
-                chkall = true;
-                //Select all networks
-                foreach (Network n in currentNetworkInventory.List_networks)
+                //Log.WriteLog("chkAll_Changed called");
+                if (view.chkAll_State())
                 {
-                    view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n), true);
+                    //set chkall to true to disable lstNetworksSelected (avoid loop)
+                    chkall = true;
+                    //Select all networks
+                    foreach (Network n in currentNetworkInventory.List_networks)
+                    {
+                        view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n), true);
+                    }
+                    //set chkall to false to enable lstNetworksSelected
+                    chkall = false;
                 }
-                //set chkall to false to enable lstNetworksSelected
-                chkall = false;
-            }
-            else
-            {
-                //Unselect all networks
-                foreach (Network n in currentNetworkInventory.List_networks)
+                else
                 {
-                    view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n), false);
+                    //Unselect all networks
+                    foreach (Network n in currentNetworkInventory.List_networks)
+                    {
+                        view.lstNetworks_selectItem(currentNetworkInventory.List_networks.IndexOf(n), false);
+                    }
                 }
             }
+
         }
 
         //Open new Form to get credentials for WMI Authorization

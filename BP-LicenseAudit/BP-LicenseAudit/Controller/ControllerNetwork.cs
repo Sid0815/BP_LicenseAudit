@@ -39,7 +39,7 @@ namespace BP_LicenseAudit.Controller
             UInt32 h = 0;
             if (progress != null)
             {
-                progress.Refresh();
+                progress.Value = 0;
                 progress.Maximum = (int)(convertIPtoUInt32(end) - convertIPtoUInt32(start));
                 Log.WriteLog("Progressbar Maximum: " + progress.Maximum);
             }

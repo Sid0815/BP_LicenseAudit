@@ -43,6 +43,7 @@ namespace BP_LicenseAudit
             FileStream fs = new FileStream(path, FileMode.Append);
             StreamWriter sw = new StreamWriter(fs);
             sw.WriteLine(towrite);
+            Console.WriteLine(towrite);
             sw.Close();
         }
     }

@@ -11,12 +11,17 @@ namespace BP_LicenseAudit
 {
     public class Database
     {
-        private string dbpath = "..\\..\\BPLicenseAudit.sqlite";
+        private string dir = "DB";
+        private string dbpath = "DB\\BPLicenseAudit.sqlite";
         private SQLiteConnection connection;
         private SQLiteCommand command;
 
         public Database()
         {
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
             if (!File.Exists(dbpath))
             {
                 SQLiteConnection.CreateFile(dbpath);

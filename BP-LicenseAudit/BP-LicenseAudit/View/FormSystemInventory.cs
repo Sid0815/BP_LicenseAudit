@@ -119,5 +119,10 @@ namespace BP_LicenseAudit.View
             lstDetails.Items.Add("Betriebssystem:");
             lstDetails.Items.Add(os);
         }
+
+        public System.Windows.Forms.ProgressBar GetProgressBar()
+        {
+            return this.progressBarSI;
+        }
     }
 }
