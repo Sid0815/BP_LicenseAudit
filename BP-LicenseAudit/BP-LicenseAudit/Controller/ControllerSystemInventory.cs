@@ -70,7 +70,7 @@ namespace BP_LicenseAudit.Controller
                 }
                 scanNetwork(view.GetProgressBar());
                 scanDetails(view.GetProgressBar());
-                UpdateClients(selectedNetworks);
+                updateClients(selectedNetworks);
                 //Client Systems are passed by reference, no need to update list_systems
                 callingController.UpdateInformation();
                 MessageBox.Show("Inventarisierung beendet.", "Inventarisierung beendet.", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -130,7 +130,8 @@ namespace BP_LicenseAudit.Controller
                             list_systems.Add(currentSystem);
                             db.SaveClientSystem(currentSystem, currentSystemInventory);
                             currentSystemInventory.AddSystemToInventory(currentSystem);
-                            Log.WriteLog(string.Format("System {0} added to Systeminventory", currentSystem.ClientIP.ToString()));
+                            Log.WriteLog(string.Format("System {0} added to Systeminventory",
+                                currentSystem.ClientIP.ToString()));
                         }
                     }
                     //If dictionary contains key already
@@ -225,13 +226,11 @@ namespace BP_LicenseAudit.Controller
                 {
                     //Der RPC-Server ist nicht verfügbar. (Ausnahme von HRESULT: 0x800706BA)
                     Log.WriteLog(string.Format("COM-Fehler bei der WMI Abfrage: {0}", e.Message));
-                    //TODO: Add to ClientSystem Com Exception
                 }
                 catch (ManagementException e)
                 {
                     //Fehler beim der WMI Abfrage: Zugriff verweigert. 
                     Log.WriteLog(string.Format("Zugriffs-Fehler bei der WMI Abfrage: {0}", e.Message));
-                    //TODO: Add to ClientSystem Management Exception
                 }
                 catch (Exception e)
                 {
@@ -257,14 +256,14 @@ namespace BP_LicenseAudit.Controller
         {//Updates all neccesary properties of the controller (could be caled by a controller who self was caled by this)
         }
 
-        public void lstNetworksSelected(ListBox.SelectedObjectCollection selectedNetworks)
+        public void LstNetworksSelected(ListBox.SelectedObjectCollection selectedNetworks)
         {
             //Get the Checkbox State
             bool state = view.chkAll_State();
             //if the networks get selected by the checkbox dont do anaything
             if (chkall)
             {
-                UpdateClients(selectedNetworks);
+                updateClients(selectedNetworks);
                 //Log.WriteLog("Networks Selected ignored");
                 return;
             }
@@ -280,12 +279,12 @@ namespace BP_LicenseAudit.Controller
                 //Log.WriteLog("Not all networks selected manually");
                 view.SetChkAll(false);
             }
-            UpdateClients(selectedNetworks);
+            updateClients(selectedNetworks);
 
         }
 
         //Updates the Clientlist of the view
-        private void UpdateClients(ListBox.SelectedObjectCollection selectedNetworks)
+        private void updateClients(ListBox.SelectedObjectCollection selectedNetworks)
         {
             //Add for each selected network all matching ClientSystems from current SystemInventory
             view.ClearClientSystems();

@@ -28,7 +28,6 @@ namespace BP_LicenseAudit.View
             currentcontroller.AddNetworkToInventory();
         }
 
-
         public int GetInputtype()
         {
             //Start- Endaddress

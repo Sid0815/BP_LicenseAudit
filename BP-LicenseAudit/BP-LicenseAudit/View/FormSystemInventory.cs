@@ -33,11 +33,6 @@ namespace BP_LicenseAudit.View
             currentcontroller.Inventory(lstNetworks.SelectedItems);
         }
 
-        private void btnEnd_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         protected override void cmbCustomer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbCustomer.SelectedItem != null) currentcontroller.SelectedCustomerChanged(cmbCustomer.SelectedItem);
@@ -55,7 +50,7 @@ namespace BP_LicenseAudit.View
 
         private void lstNetworks_SelectedIndexChanged(Object sender, EventArgs e)
         {
-            currentcontroller.lstNetworksSelected(lstNetworks.SelectedItems);
+            currentcontroller.LstNetworksSelected(lstNetworks.SelectedItems);
         }
 
         //selects item if state is true or unselects item if state is false

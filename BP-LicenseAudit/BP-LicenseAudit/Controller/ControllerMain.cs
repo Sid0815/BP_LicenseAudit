@@ -95,16 +95,6 @@ namespace BP_LicenseAudit.Controller
 
 
         //functions
-        public void CollectInformation()
-        {
-
-        }
-
-        public void ConnectToDatabase()
-        {
-
-        }
-
         public void OpenForm(string view)
         {
             switch (view)

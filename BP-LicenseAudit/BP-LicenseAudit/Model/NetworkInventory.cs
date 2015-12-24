@@ -9,7 +9,6 @@ namespace BP_LicenseAudit.Model
         private ArrayList list_networks;
 
         //properties
-
         public int NetworkInventoryNumber
         {
             get

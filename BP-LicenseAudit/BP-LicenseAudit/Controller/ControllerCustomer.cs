@@ -10,7 +10,6 @@ namespace BP_LicenseAudit.Controller
     {
         private FormCustomer view;
 
-
         //Constructor
         public ControllerCustomer(ControllerParent calling, FormCustomer view, ArrayList list_customers) : base(calling, list_customers)
         {
@@ -26,22 +25,6 @@ namespace BP_LicenseAudit.Controller
             db.SaveCustomer(c);
         }
 
-        public void UpdateCustomer()
-        {
-
-        }
-
-        public void RemoveCustomer()
-        {
-
-        }
-
-        public object SearchCustomer()
-        {
-            Customer foundCustomer = new Customer(-1, "a", "a", "a", "a", "a");
-            return foundCustomer;
-        }
-
         public override void UpdateView(bool customerChanged)
         {
             //Update number of customers
@@ -51,7 +34,6 @@ namespace BP_LicenseAudit.Controller
         public override void UpdateInformation()
         {//Updates all neccesary properties of the controller (could be caled by a controller who self was called by this)
         }
-
 
         public void SaveNext()
         {
@@ -143,7 +125,5 @@ namespace BP_LicenseAudit.Controller
             }
 
         }
-
-
     }
 }

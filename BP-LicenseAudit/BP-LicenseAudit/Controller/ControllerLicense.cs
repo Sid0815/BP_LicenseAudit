@@ -21,7 +21,6 @@ namespace BP_LicenseAudit.Controller
             this.view = view;
             this.list_allAvailableLicenses = list_licenses;
             this.list_licenseInventories = list_licenseInventories;
-
         }
 
         //functions
@@ -155,6 +154,5 @@ namespace BP_LicenseAudit.Controller
             db.SaveLicenseInventory(currentLicenseInventory);
             return currentLicenseInventory;
         }
-
     }
 }

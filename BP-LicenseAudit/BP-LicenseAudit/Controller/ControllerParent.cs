@@ -27,16 +27,6 @@ namespace BP_LicenseAudit.Controller
             UpdateView(false);
         }
 
-        public void GetCustomerFromMainForm()
-        {
-            //passes the selected customer from main form
-        }
-
-        public void GetAllCustomersFromDB()
-        {
-            //Query all customers from database
-        }
-
         //Update the view of the calling Controller
         public abstract void UpdateView(bool customerUpdated);
 

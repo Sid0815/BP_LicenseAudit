@@ -42,11 +42,6 @@ namespace BP_LicenseAudit.Model
         }
 
         //functions
-        public void SearchInventory()
-        {
-
-        }
-
         public void AddLicenseToInventory(int licenseNumber, int count)
         {
             Tuple<int, int> currentlicense = new Tuple<int, int>(licenseNumber, count);
@@ -66,16 +61,5 @@ namespace BP_LicenseAudit.Model
             }
             inventory.Remove(help);
         }
-
-        public void GetLicenseInventoryFromDB()
-        {
-
-        }
-
-        public void SaveLicenseInventoryToDB()
-        {
-        
-        }
-
     }
 }

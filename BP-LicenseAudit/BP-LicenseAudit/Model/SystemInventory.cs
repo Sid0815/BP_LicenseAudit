@@ -55,20 +55,9 @@ namespace BP_LicenseAudit.Model
         }
 
         //functions
-        public void SearchClientSystem()
-        {
-
-        }
-
-        public void CountSameTypes()
-        {
-
-        }
-
         public void AddSystemToInventory(ClientSystem sys)
         {
             list_systems.Add(sys);
         }
-
     }
 }

@@ -26,22 +26,17 @@ namespace BP_LicenseAudit.Controller
         }
 
         //functions
-
-
         public static ArrayList calcAddressesSE(IPAddress start, IPAddress end, ProgressBar progress)
         {
             ArrayList addresses = new ArrayList();
             addresses.Add(start);
-            if (start.Equals(end))
-            {
-                return addresses;
-            }
+            if (start.Equals(end))return addresses;
             UInt32 h = 0;
             if (progress != null)
             {
                 progress.Value = 0;
                 progress.Maximum = (int)(convertIPtoUInt32(end) - convertIPtoUInt32(start));
-                Log.WriteLog("Progressbar Maximum: " + progress.Maximum);
+                Log.WriteLog("Progressbar Maximum (clacAddressesSE): " + progress.Maximum);
             }
             while (!(start.Equals(end)))
             {
@@ -246,16 +241,6 @@ namespace BP_LicenseAudit.Controller
             UpdateView(false);
         }
 
-        public void GetNotworkInventoryFromDB()
-        {
-            //set currentNI wirh customers NI from DB
-        }
-
-        public void SaveNetworkInventoryToDB()
-        {
-            //save currentNI to DB
-        }
-
         public override void UpdateView(bool customerUpdated)
         {
             //Customer
@@ -320,8 +305,6 @@ namespace BP_LicenseAudit.Controller
             }
             UpdateView(false);
         }
-
-
     }
 }
 

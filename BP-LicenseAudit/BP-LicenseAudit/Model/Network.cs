@@ -13,19 +13,19 @@ namespace BP_LicenseAudit.Model
         private string name;
         private ArrayList ipAddresses = new ArrayList();
         //properties
-        
+
         public int NetworkNumber
         {
             get
             {
                 return networkNumber;
             }
-            set
+            private set
             {
                 networkNumber = value;
             }
         }
-        
+
         public ArrayList IpAddresses
         {
             get
@@ -53,7 +53,7 @@ namespace BP_LicenseAudit.Model
                 else throw new Exception("Networkinputtype missleading");
             }
         }
-        
+
         public string Name
         {
             get
@@ -74,7 +74,5 @@ namespace BP_LicenseAudit.Model
             this.inputType = inputType;
             this.ipAddresses = ipAddresses;
         }
-
-
     }
 }

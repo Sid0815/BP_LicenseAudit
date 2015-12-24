@@ -19,19 +19,9 @@ namespace BP_LicenseAudit.View
             Close();
         }
 
-        public void SetAllCustomersToCmbCustomer()
-        {
-
-        }
-
         public void SetCustomer(Customer customer)
         {
             cmbCustomer.SelectedItem = customer;
-        }
-
-        public void GetCustomer()
-        {
-
         }
 
         private void FormParent_Load(object sender, EventArgs e)
