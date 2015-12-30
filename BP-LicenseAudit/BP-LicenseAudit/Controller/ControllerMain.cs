@@ -73,7 +73,7 @@ namespace BP_LicenseAudit.Controller
 
             //Creating Controllers and connect data
             cAudit = new ControllerAudit(this, fAudit, list_customers, list_licenseInventories, list_systemInventories, list_Audits, list_allAvailableLicenses);
-            cChanges = new ControllerChanges(this, fChanges, list_customers, list_networks, list_networkInventories, list_licenseInventories, list_allAvailableLicenses);
+            cChanges = new ControllerChanges(this, fChanges, list_customers, list_networks, list_networkInventories, list_licenseInventories, list_allAvailableLicenses, list_systems);
             cCustomer = new ControllerCustomer(this, fCustomer, list_customers);
             cLicense = new ControllerLicense(this, fLicense, list_customers, list_allAvailableLicenses, list_licenseInventories);
             cNetwork = new ControllerNetwork(this, fNetwork, list_customers, list_networks, list_networkInventories);

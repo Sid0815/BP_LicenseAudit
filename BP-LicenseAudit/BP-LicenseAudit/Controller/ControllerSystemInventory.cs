@@ -316,9 +316,7 @@ namespace BP_LicenseAudit.Controller
                     view.AddCustomer(c);
                 }
             }
-
             view.SetChkAll(false);
-
             //Networks
             view.ClearNetworks();
             if (currentNetworkInventory != null && currentNetworkInventory.List_networks.Count > 0)
@@ -328,7 +326,6 @@ namespace BP_LicenseAudit.Controller
                     view.AddNetwork(n);
                 }
             }
-
             //System
             view.ClearClientDetails();
             view.ClearClientSystems();

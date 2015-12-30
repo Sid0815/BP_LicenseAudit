@@ -22,9 +22,10 @@ namespace BP_LicenseAudit.Controller
         private ArrayList list_networkInventories;
         private ArrayList list_licenseInventories;
         private ArrayList list_allAvailableLicenses;
+        private ArrayList list_systems;
 
         //constrctor
-        public ControllerChanges(ControllerParent calling, FormChange view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_licenseInventories, ArrayList list_allAvailableLicenses) : base(calling, list_customers)
+        public ControllerChanges(ControllerParent calling, FormChange view, ArrayList list_customers, ArrayList list_networks, ArrayList list_networkinventories, ArrayList list_licenseInventories, ArrayList list_allAvailableLicenses, ArrayList list_systems) : base(calling, list_customers)
         {
             //connect controller to its view
             this.view = view;
@@ -32,6 +33,7 @@ namespace BP_LicenseAudit.Controller
             this.list_networkInventories = list_networkinventories;
             this.list_licenseInventories = list_licenseInventories;
             this.list_allAvailableLicenses = list_allAvailableLicenses;
+            this.list_systems = list_systems;
         }
 
         //functions
@@ -434,7 +436,14 @@ namespace BP_LicenseAudit.Controller
                             i = currentNetworkInventory.List_networks.Count;
                         }
                     }
-                    //TODO: UPDATE NI
+                    //update Clientsystem
+                    foreach(ClientSystem c in list_systems)
+                    {
+                        if(c.Networknumber== this.selectedNetwork.NetworkNumber)
+                        {
+                            c.Networknumber = -1;
+                        }
+                    }
                     db.RemoveNetwork(this.selectedNetwork);
                     callingController.UpdateInformation();
                     UpdateView(false);
