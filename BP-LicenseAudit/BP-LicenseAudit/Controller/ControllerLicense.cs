@@ -69,10 +69,10 @@ namespace BP_LicenseAudit.Controller
                 }
                 //Add license to inventory (new license or updated status after removing old one)
                 currentLicenseInventory.AddLicenseToInventory(l.LicenseNumber, (int)count);
+                db.UpdateLicenseInventory(currentLicenseInventory, l, (int)count);
             }
             UpdateView(false);
             callingController.UpdateInformation();
-            db.UpdateLicenseInventory(currentLicenseInventory, l, (int)count);
         }
 
         public override void UpdateView(bool customerUpdated)

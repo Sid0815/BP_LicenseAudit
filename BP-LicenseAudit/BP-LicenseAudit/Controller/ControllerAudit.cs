@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Xml;
 using System.Text;
+using System.IO;
 
 namespace BP_LicenseAudit.Controller
 {
@@ -141,7 +142,12 @@ namespace BP_LicenseAudit.Controller
 
         public void PrintResults()
         {
-            string filename = String.Format("..\\..\\audit{0}.xml",DateTime.Now.ToString("yyyyMMddHHmmss"));
+            string dir = "Result";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string filename = String.Format("{0}\\audit{1}.xml", dir, DateTime.Now.ToString("yyyyMMddHHmmss"));
             Log.WriteLog(filename);
             if (currentAudit != null)
             {
