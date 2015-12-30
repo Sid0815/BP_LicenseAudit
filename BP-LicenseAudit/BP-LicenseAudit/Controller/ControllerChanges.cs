@@ -199,7 +199,6 @@ namespace BP_LicenseAudit.Controller
                         this.selectedNetwork = n;
                     }
                 }
-
                 string newname = null;
                 //Question if the network should be changed as selected
                 switch (view.GetNetworkInputtype())
@@ -414,11 +413,15 @@ namespace BP_LicenseAudit.Controller
             }
         }
 
-        public void RemoveNetwork(Object selectednetwork)
+        public void RemoveNetwork(Object selectedNetwork)
         {
-            this.selectedNetwork = (Network)selectedNetwork;
-            if (this.selectedNetwork != null)
+            if (selectedNetwork == null)
             {
+                MessageBox.Show("Kein Netzwerk ausgewählt. Bitte zuerst ein Netzwerk auswählen.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                this.selectedNetwork = (Network)selectedNetwork;
                 DialogResult dr = MessageBox.Show(String.Format("Soll das Netzwerk {0} unwiderruflich gelöscht werden?", this.selectedNetwork.Name), "Netzwerk löschen", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dr == DialogResult.Yes)
                 {

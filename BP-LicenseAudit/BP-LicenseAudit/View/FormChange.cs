@@ -112,6 +112,7 @@ namespace BP_LicenseAudit.View
         public void AddNetwork(Network network)
         {
             lstNetwork.Items.Add(network);
+            lstNetwork.SelectedItems.Clear();
         }
 
         public void ClearNetworks()
@@ -251,11 +252,13 @@ namespace BP_LicenseAudit.View
         private void btnNetwork_Click(object sender, EventArgs e)
         {
             currentcontroller.UpdateNetworkInventory(lstNetwork.SelectedItem);
+            lstNetwork.SelectedItems.Clear();
         }
 
         private void btnNetworkRemove_Click(object sender, EventArgs e)
         {
             currentcontroller.RemoveNetwork(lstNetwork.SelectedItem);
+            lstNetwork.SelectedItems.Clear();
         }
 
         public System.Windows.Forms.ProgressBar GetProgressBar()
