@@ -160,7 +160,7 @@
             this.Controls.Add(this.lblLicense);
             this.Controls.Add(this.lblLicenses);
             this.Name = "FormLicense";
-            this.Text = "FormLicense";
+            this.Text = "Lizenz hinzufügen";
             this.Load += new System.EventHandler(this.FormLicense_Load);
             this.Controls.SetChildIndex(this.lblLicenses, 0);
             this.Controls.SetChildIndex(this.lblLicense, 0);

@@ -71,6 +71,24 @@ namespace BP_LicenseAudit
                 //Create Table Results if it does not exist(n:m audit:license)
                 command.CommandText = "CREATE TABLE IF NOT EXISTS results ( auditNumber INTEGER NOT NULL, licenseNumber INTEGER NOT NULL, result INTEGER NOT NULL, PRIMARY KEY (auditNumber, licenseNumber), FOREIGN KEY(auditNumber) REFERENCES audit(auditNumber), FOREIGN KEY(licenseNumber) REFERENCES license(licenseNumber)); ";
                 command.ExecuteNonQuery();
+                //insert Basic licenses in case db was created
+                command.CommandText = "SELECT COUNT(*) FROM license;";
+                int i = Convert.ToInt32(command.ExecuteScalar());
+                if (i < 1)
+                {
+                    command.CommandText = "INSERT INTO license (licenseNumber, name) VALUES(@licenseNumber, @name);";
+                    command.Parameters.AddWithValue("@licenseNumber", 0);
+                    command.Parameters.AddWithValue("@name", "Microsoft Windows 8.1 Pro");
+                    command.ExecuteNonQuery();
+                    command.CommandText = "INSERT INTO license (licenseNumber, name) VALUES(@licenseNumber, @name);";
+                    command.Parameters.AddWithValue("@licenseNumber", 1);
+                    command.Parameters.AddWithValue("@name", "Microsoft Windows 7 Professional ");
+                    command.ExecuteNonQuery();
+                    command.CommandText = "INSERT INTO license (licenseNumber, name) VALUES(@licenseNumber, @name);";
+                    command.Parameters.AddWithValue("@licenseNumber", 2);
+                    command.Parameters.AddWithValue("@name", "Microsoft Windows Server 2008 R2 Standard ");
+                    command.ExecuteNonQuery();
+                }               
                 //Log.WriteLog("Tables checked or created");
             }
             catch (Exception e)
