@@ -520,6 +520,7 @@
             this.dgvLicense.TabIndex = 24;
             this.dgvLicense.SelectionChanged += new System.EventHandler(this.dgvLicense_SelectionChanged);
             this.dgvLicense.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvLicense.MultiSelect = false;
             // 
             // clmLicense
             // 
